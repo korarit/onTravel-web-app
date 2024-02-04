@@ -18,8 +18,10 @@
     }
 </style>
 <script setup>
+//สำหรับ turnstile การเช็ค bot
 const turnsite = ref(null);
 
+//สำหรับเก็บค่าเงื่อนไขของ password
 const check_password = ref({
     more_8: false,
     number: false,
@@ -28,6 +30,7 @@ const check_password = ref({
     special: false
 })
 
+//สำหรับเก็บค่าที่เลือกในการสนใจ
 const interest = ref({
     adventure: false,
     nature: false,
@@ -36,14 +39,28 @@ const interest = ref({
     eating: false,
     scenic: false
 })
+
+//เก็บค่า token ที่ได้จาก turnstile
 const token_turnstile = ref(null);
+
+//สำหรับเงื่อนไขการแสดง modal
 const otpModalShow = ref(false);
 
+//เก็บค่าของรูปที่จะ crop
 const image_crop = ref(null);
+
+//เงื่อนไขการแสดงร modal ของการ crop รูป
 const ImageCropShow = ref(false);
 
+//เก็บค่าของรูปที่จะ crop
 const profile_img = ref(null);
 
+/*
+    ฟังก์สำหรับแสดง Fill Error ของ input
+    id_element = id ของ element ที่ต้องการแสดง error
+    text = ข้อความที่ต้องการแสดง
+    error = สถานะของ error ถ้าเป็น true จะแสดง error ถ้าเป็น false จะซ่อน error
+*/
 function inputError(id_element, text, error) {
     //eror is true
     if (error) {
@@ -63,53 +80,71 @@ function inputError(id_element, text, error) {
 }
 
 function inputNotEmply() {
-    var username = document.getElementById("username");
-    var name = document.getElementById("name");
-    var lastname = document.getElementById("lastname");
-    var email = document.getElementById("email");
-    var phone = document.getElementById("phone");
-    var password = document.getElementById("password");
-    var confirm_pass = document.getElementById("password-match");
-    var term_check = document.getElementById("terms");
+    var username = document.getElementById("username"); //Element input username
+    var name = document.getElementById("name"); //Element input name
+    var lastname = document.getElementById("lastname"); //Element input lastname
+    var email = document.getElementById("email"); //Element input email
+    var phone = document.getElementById("phone"); //Element input phone
+    var password = document.getElementById("password"); //Element input password
+    var confirm_pass = document.getElementById("password-match"); //Element input confirm password
+    var term_check = document.getElementById("terms"); //Element input checkbox
+
+    /* 
+
+    ถ้าช่องไหนว่างจะ windown scroll move 
+    ไปยังอันนั้นๆโดยจะไปที่ละอันตามลำดับการเรียน
+
+    */ 
+
+    //check input username is empty
     if (username.value === "") {
         inputError("username", "Please enter your username", true);
         document.getElementById('main').scrollTo({ top: username.offsetTop, behavior: 'smooth' });
         return false;
     }
+    //check input name is empty
     else if (name.value === "") {
         inputError("name", "Please enter your name", true);
         document.getElementById('main').scrollTo({ top: name.offsetTop, behavior: 'smooth' });
         return false;
     }
+    //check input lastname is empty
     else if (lastname.value === "") {
         inputError("lastname", "Please enter your lastname", true);
         document.getElementById('main').scrollTo({ top: lastname.offsetTop, behavior: 'smooth' });
         return false;
     }
+    //check input email is empty
     else if (email.value === "") {
         inputError("email", "Please enter your email", true);
         document.getElementById('main').scrollTo({ top: email.offsetTop, behavior: 'smooth' });
         return false;
     }
+    //check input phone is empty
     else if (phone.value === "") {
         inputError("phone", "Please enter your phone", true);
         document.getElementById('main').scrollTo({ top: phone.offsetTop, behavior: 'smooth' });
         return false;
     }
+    //check input password is empty
     else if (password.value === "") {
         inputError("password", "Please enter your password", true);
         document.getElementById('main').scrollTo({ top: password.offsetTop, behavior: 'smooth' });
         return false;
     }
+    //check input confirm password is empty
     else if (confirm_pass.value === "") {
         inputError("password-match", "Please enter your confirm password", true);
         document.getElementById('main').scrollTo({ top: confirm_pass.offsetTop, behavior: 'smooth' });
         return false;
     }
+    //check term_check is not checked
     else if (term_check.checked === false) {
         document.getElementById('main').scrollTo({ top: term_check.offsetTop, behavior: 'smooth' });
         return false;
     }
+
+    //check turnsile is verify
     else if (token_turnstile.value === null) {
         var turnstile_box = document.getElementById("turnstile-box");
         document.getElementById('main').scrollTo({ top: turnstile_box.offsetTop, behavior: 'smooth' });
@@ -120,21 +155,25 @@ function inputNotEmply() {
     }
 }
 
+//ฟังก์สำหรับเช็คความแข็งแรงของ password
 function filterPasswordInput(inputElement) {
     filteredPassword(inputElement, check_password.value);
     inputError(inputElement.target.id, '', false);
 }
 
+//ฟังก์สำหรับว่าไม่มีการเว้นวรรค ใน input
 function InputNoSpace(event) {
     filteredNoSpace(event);
     inputError(event.target.id, '', false);
 }
 
+//ในช่อง Phone input มีแค่การกรอกเลข
 function filteredPhoneInput(event) {
     filteredPhoneNumber(event);
     inputError(event.target.id, '', false);
 }
 
+//ฟังก์สำหรับเช็คว่า password กับ confirm password ตรงกันหรือไม่
 function passwordMacth(event) {
 
     filteredNoSpace(event, check_password.value);
@@ -142,6 +181,7 @@ function passwordMacth(event) {
     var password = document.getElementById("password").value;
     var inputValue = event.target.value;
 
+    //ถ้า password ไม่ตรงกับ confirm password จะแสดง error
     if (inputValue !== password && inputValue !== "") {
         event.target.classList.add("border-red-600");
         document.getElementById('password-match').classList.remove("border-gray-950");
@@ -158,6 +198,7 @@ function passwordMacth(event) {
     }
 }
 
+//ฟังก์สำหรับส่งค่าไปยัง modal crop image
 function profile_upload(event) {
     var file = event.target.files[0];
     if (file) {

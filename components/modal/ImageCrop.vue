@@ -11,7 +11,7 @@ const props = defineProps({
 
 const cropper = ref(null);
 
-
+//ดึง result จากการ crop รูปภาพ แล้วส่งไปยังหน้าที่เรียกใช้
 function crop_image(){
     const { coordinates, canvas, } = cropper.value.getResult();
     // You able to do different manipulations at a canvas
