@@ -1,0 +1,29 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    background-color: #000000a9;
+    z-index: 9999;
+    overflow: hidden;
+    width: 100dvw;
+    height: 100dvh;
+}
+
+.modal-enter-active {
+    transition: all 0.3s ease-out;
+}
+  
+  .modal-leave-active {
+    transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+  
+.modal-enter-from,
+.modal-leave-to {
+    transform: translateY(20px);
+    opacity: 0;
+}
+  
