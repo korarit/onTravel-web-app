@@ -279,12 +279,13 @@ async function CheckData() {
         }
 
         if (
-            dataNotEmply === true && password_match.value === true &&
-            password_strength.value === true && check_inputContent[0] &&
+            dataNotEmply === true && password_match === true &&
+            password_strength === true && check_inputContent[0] &&
             check_inputContent[1] && check_inputContent[2]
         ) {
             otpModalShow.value = true;
         } else {
+
             console.log('ไม่ผ่าน');
         }
     }

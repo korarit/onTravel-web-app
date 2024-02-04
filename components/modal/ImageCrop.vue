@@ -13,11 +13,12 @@ const cropper = ref(null);
 
 //ดึง result จากการ crop รูปภาพ แล้วส่งไปยังหน้าที่เรียกใช้
 function crop_image(){
+    //ดึงข้อมูลจากการ crop รูปภาพ
     const { coordinates, canvas, } = cropper.value.getResult();
-    // You able to do different manipulations at a canvas
-    // but there we just get a cropped image, that can be used 
-    // as src for <img/> to preview result
+
+    //ส่งรูปภาพที่ crop ได้ไปยังหน้าที่เรียกใช้
     props.ImageChange(canvas.toDataURL());
+    //ปิด Modal
     props.ModalClose();
 }
 </script>
@@ -47,14 +48,18 @@ function crop_image(){
     <ClientOnly>
         <div class="modal-overlay items-center">
             <div class="bg-[#fdfdfd] rounded-lg h-fit px-12 pb-2 w-fit">
+                <!-- title -->
                 <div class="modal-head h-fit w-[100%] flex items-center mt-4 mb-4">
                     <p class="w-[95%] flex items-center justify-center text-[28px] h-fit leading-6">Upload Profile Image</p>
                     <button @click="ModalClose()" class="flex items-center justify-center w-[5%] h-[36px]">
                         <font-awesome-icon :icon="['fas', 'xmark']" class="text-[48px] font-bold cursor-pointer" />
                     </button>
                 </div>
+                <!-- image crop -->
                 <div class="cropper-wrapper">
                     <div :style="{backgroundImage: 'url(' + image + ')'}" class="image-background"></div>
+
+                    <!-- use vue advanced cropper library (is not support NUXTJS by Defult)-->
                     <component :is="Cropper"
                         background-class="cropper-background"
                         
@@ -76,6 +81,8 @@ function crop_image(){
                         ref="cropper"
                     />
                 </div>
+
+                <!-- ปุ่มยันยันการใช้ตำแหน่งและขนาดที่ crop ของรูป-->
                 <div class="flex flex-col my-8">
                     <button 
                         class="w-[90%] mx-auto h-[48px] flex items-center justify-center text-[18px] font-bold text-[#fdfdfd] bg-[#FF9800] border rounded-md cursor-pointer"

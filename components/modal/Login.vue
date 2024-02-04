@@ -7,6 +7,7 @@ const props = defineProps({
 const keyword_seacrh = ref("")
 const showTrasition = ref(false)
 
+//ตรวจสอบว่า อักษรที่กรอกลงในช่อง password ต้องเป็นตัวอักษรภาษาอังกฤษ ตัวเลข หรือสัญลักษณ์ที่กำหนดไว้เท่านั้น
 function filterPasswordInput(inputElement) {
     var inputValue = inputElement.target.value;
     var pattern = /^[A-Za-z0-9!@#$%^&*+?]+$/;

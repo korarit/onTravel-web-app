@@ -70,21 +70,27 @@ async function GoSearch() {
 
                 <!-- รายการสถานที่แนะนำ -->
                 <div class="max-w-[100%] grid grid-cols-3 gap-x-[5%] gap-y-8">
+
                     <div class="w-[100%]">
                         <ItemTravelGuide :dataItem="TravelDataTest" />
                     </div>
+
                     <div class="w-[100%]">
                         <ItemTravelGuide :dataItem="TravelDataTest" />
                     </div>
+
                     <div class="w-[100%]">
                         <ItemTravelGuide :dataItem="TravelDataTest" />
                     </div>
+
                     <div class="w-[100%]">
                         <ItemTravelGuide :dataItem="TravelDataTest" />
                     </div>
+                    
                     <div class="w-[100%]">
                         <ItemTravelGuide :dataItem="TravelDataTest" />
                     </div>
+                    
                     <div class="w-[100%]">
                         <ItemTravelGuide :dataItem="TravelDataTest" />
                     </div>
@@ -95,6 +101,7 @@ async function GoSearch() {
                 <div class="w-[100%] bg-[#F9A825] h-[2px] "></div>
             </div>
 
+            <!-- รายการปฎิทินการท่องเที่ยว ททท -->
             <div class="max-w-[100dvw] px-12 2xl:px-24">
                 <p class="text-[28px] font-bold mr-auto mb-6">ปฎิทินการท่องเที่ยว ททท</p>
 
