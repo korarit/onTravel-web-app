@@ -27,7 +27,7 @@ export default defineNuxtConfig({
     ]
   },
   turnstile: {
-    siteKey: process.env.TURNSTILE_KEY,
+    siteKey: process.env.TURNSTILE_KEY as string,
   },
   runtimeConfig:{
     public:{

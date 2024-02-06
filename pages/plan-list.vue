@@ -5,6 +5,7 @@ body {
 }
 </style>
 <script setup lang="ts">
+
 definePageMeta({
   layout: 'defaultmain',
 });
@@ -115,56 +116,43 @@ const LoginModalShow =  inject('LoginModalShow')
 
                     <!-- สร้างรายการแผนการ -->
                     <div class="max-w-[100%] h-fit grid grid-cols-3 gap-x-[5%] gap-y-8">
+
                         <div class="w-[100%]">
                             <ItemPlanCard :dataItem="TravelDataTest" />
                         </div>
+
                         <div class="w-[100%]">
                             <ItemPlanCard :dataItem="TravelDataTest" />
                         </div>
+
                         <div class="w-[100%]">
                             <ItemPlanCard :dataItem="TravelDataTest" />
                         </div>
+
                         <div class="w-[100%]">
                             <ItemPlanCard :dataItem="TravelDataTest" />
                         </div>
+
                         <div class="w-[100%]">
                             <ItemPlanCard :dataItem="TravelDataTest" />
                         </div>
+
                         <div class="w-[100%]">
                             <ItemPlanCard :dataItem="TravelDataTest" />
                         </div>
+
+                    </div>
+
+                    <div class="max-w-[100dvw] my-8 pt-2 pb-4 2xl:px-24">
+                        <div class="w-[100%] bg-[#F9A825] h-[2px] "></div>
+                    </div>
+
+                    <div class="w-fit h-fit mx-auto mb-12">
+                        <ImageGallaryPlan />
                     </div>
 
                 </template>
-            </div>
 
-            <div class="max-w-[100dvw] my-8 pt-2 pb-4 2xl:px-24">
-                <div class="w-[100%] bg-[#F9A825] h-[2px] "></div>
-            </div>
-
-            <div class="w-fit mx-auto mb-12">
-                <div class="relative w-[900px] h-[560px]">
-                    <div 
-                        class="transition duration-100 ease-linear hover:-translate-y-[80px] absolute drop-shadow-md left-0 top-0 w-[700px] h-[400px] rounded-xl flex items-center justify-center bg-cover bg-center z-10"
-                        :style="`background-image: url(${TravelDataTest.image})`"
-                    ></div>
-                    <div 
-                        class="transition duration-100 ease-linear hover:-translate-y-[80px] absolute drop-shadow-md left-[50px] top-[40px] w-[700px] h-[400px] rounded-xl flex items-center justify-center bg-cover bg-center  z-20 " 
-                        :style="`background-image: url('https://static.thairath.co.th/media/B6FtNKtgSqRqbnNsUjIbmiEcqGTAplE6rsu5LmPq0IP7vZS8ASy5qvnYYde7wSEWD1QkN.jpg')`"
-                    ></div>
-                    <div 
-                        class="transition duration-100 ease-linear hover:-translate-y-[80px] absolute drop-shadow-md left-[100px] top-[80px] w-[700px] h-[400px] rounded-xl flex items-center justify-center bg-cover bg-center z-30" 
-                        :style="`background-image: url('https://dimg04.c-ctrip.com/images/0M75l120008ytj8h9DB92.png_.webp')`"
-                    ></div>
-                    <div 
-                        class="transition duration-100 ease-linear hover:-translate-y-[80px] absolute drop-shadow-md left-[150px] top-[120px] w-[700px] h-[400px] rounded-xl flex items-center justify-center bg-cover bg-center z-40 "
-                        :style="`background-image: url('https://www.tuneprotect.co.th/storage/article/6/travel-thailand-look-like-other-countries.jpg')`"
-                    ></div>
-                    <div 
-                        class="absolute drop-shadow-md left-[200px] top-[160px] w-[700px] h-[400px] rounded-xl flex items-center justify-center bg-cover bg-center z-50 "
-                        :style="`background-image: url('https://s359.kapook.com/pagebuilder/86032ecb-fb3b-4eac-be40-af7b4f925e03.jpg')`"
-                    ></div>
-                </div>
             </div>
         <!-- </NuxtLayout> -->
         <ClientOnly>
