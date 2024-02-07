@@ -55,6 +55,10 @@ const ImageCropShow = ref(false);
 //เก็บค่าของรูปที่จะ crop
 const profile_img = ref(null);
 
+//เก็บ status loading
+const loadingRegister = ref(false);
+const loadingStatus = ref('');
+
 /*
     ฟังก์สำหรับแสดง Fill Error ของ input
     id_element = id ของ element ที่ต้องการแสดง error
@@ -154,7 +158,6 @@ function inputNotEmply() {
         return true;
     }
 }
-
 //ฟังก์สำหรับเช็คความแข็งแรงของ password
 function filterPasswordInput(inputElement) {
     filteredPassword(inputElement, check_password.value);
@@ -242,8 +245,33 @@ async function CheckData() {
 
     if (dataNotEmply && token_turnstile.value !== null) {
 
+        if (check_password.value.more_8 === false || check_password.value.number === false || check_password.value.lowercase === false || check_password.value.uppercase === false || check_password.value.special === false) {
+            inputError("password", "Password is not strong", true);
+            document.getElementById('main').scrollTo({ top: password.offsetTop, behavior: 'smooth' });
+
+            return
+        }
+        else if (password.value !== confirm_pass.value) {
+            this.inputError("password-match", "Password not match", true);
+            document.getElementById('main').scrollTo({ top: confirm_pass.offsetTop, behavior: 'smooth' });
+
+            return
+        } else {
+            password_match = true;
+            password_strength = true;
+        }
+
+
+        //loading
+        loadingRegister.value = true;
+        loadingStatus.value = 'AI กำลังตรวจสอบว่า ไม่มีคำหยาบคาย';
+
         // ส่งไปหา backend เพื่อเช็คว่ามีคำหยาบหรือไม่
         const check_inputContent = await TextContentSafety([username.value, name.value, lastname.value], this.token_turnstile);
+
+        //loading end
+        loadingRegister.value = false;
+        loadingStatus.value = '';
 
         if (check_inputContent[0] === false) {
             inputError("username", "ไม่อนุญาติให้ใช้ คำหยาบ", true);
@@ -264,19 +292,7 @@ async function CheckData() {
                 turnsite.value?.reset();
             }
         }
-        if (check_password.value.more_8 === false || check_password.value.number === false || check_password.value.lowercase === false || check_password.value.uppercase === false || check_password.value.special === false) {
-            inputError("password", "Password is not strong", true);
-            document.getElementById('main').scrollTo({ top: password.offsetTop, behavior: 'smooth' });
-            password_strength = false;
-        }
-        else if (password.value !== confirm_pass.value) {
-            this.inputError("password-match", "Password not match", true);
-            document.getElementById('main').scrollTo({ top: confirm_pass.offsetTop, behavior: 'smooth' });
-            password_match = false;
-        } else {
-            password_match = true;
-            password_strength = true;
-        }
+
 
         if (
             dataNotEmply === true && password_match === true &&
@@ -285,7 +301,6 @@ async function CheckData() {
         ) {
             otpModalShow.value = true;
         } else {
-
             console.log('ไม่ผ่าน');
         }
     }
@@ -414,6 +429,7 @@ async function CheckData() {
                     <p id="password-match-error" class="text-red-600 text-lg font-medium ml-2 hidden"></p>
                     </div>
                 </div>
+
                 <div class="mb-6 md:flex select-none">
                     <div class="w-[31%] min-[1700px]:w-[26%]"></div>
                     <div class="w-full md:w-3/4 font-medium">
@@ -454,6 +470,7 @@ async function CheckData() {
                         </div>
                     </div>
                 </div>
+
                 <label for="" class="text-2xl font-extrabold  md:w-1/4 md:pr-4">INTERESTS</label>
                 <div class="mb-6 mt-6 md:items-center justify-items-between  grid grid-cols-3 gap-8 text-center">
                     <button 
@@ -499,28 +516,38 @@ async function CheckData() {
                             class="text-[#01579B]"><a href="#">service terms </a></span>See our <br><span
                             class="text-[#01579B]"><a href="">privacy policy </a></span>for more infomation</label>
                 </div>
+
                 <div class="mb-8 flex items-center justify-center" id="turnstile-box">
                     <NuxtTurnstile ref="turnsite" v-model="token_turnstile" lang="en" />
                 </div>
+
                 <div class="mb-12 mt-6 md:items-center justify-center justify-items-stretch grid grid-cols-1 gap-6">
                     <button 
                         class="bg-[#01579B] hover:bg-[#036DC2]  py-3 border border-solid border-cyan-500 rounded-xl text-white text-xl"
                         @click="CheckData()"
                     >
-                        Create&nbsp;Account
+                        <div v-if="loadingRegister === false">สมัครสร้างบัญชี</div>
+                        <div v-else>
+                            <svg class="animate-spin h-6 w-6 mr-3" viewBox="0 0 24 24"></svg>
+                            <p>{{ loadingStatus }}</p>
+                        </div>
                     </button>
                     <button class="bg-[#d63e33] hover:bg-[#EF4236]  py-3 border border-solid border-red-700 rounded-xl text-white text-xl">
-                        Cancel&nbsp;Register
+                        ยกเลิกการสมัคร
                     </button>
 
                 </div>
+
             </div>
         </NuxtLayout>
+
         <div v-show="otpModalShow">
             <ModalOTP :otpClose="() => otpModalShow = false" :show="otpModalShow" />
         </div>
+
         <div v-show="ImageCropShow">
             <ModalImageCrop :ModalClose="() => ImageCropShow = false" :image="image_crop" :ImageChange="ImageChange" />
         </div>
+
     </ClientOnly>
 </template>

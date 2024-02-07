@@ -27,6 +27,25 @@ const TravelDataTest = {
 
 const LoginModalShow =  inject('LoginModalShow')
 
+function LoginModal() {
+    LoginModalShow
+}
+
+const list_image_url = ref<String[]>([
+    'https://dimg04.c-ctrip.com/images/0M75l120008ytj8h9DB92.png_.webp',
+    'https://dimg04.c-ctrip.com/images/0M75l120008ytj8h9DB92.png_.webp',
+    'https://dimg04.c-ctrip.com/images/0M75l120008ytj8h9DB92.png_.webp',
+    'https://dimg04.c-ctrip.com/images/0M75l120008ytj8h9DB92.png_.webp',
+    'https://dimg04.c-ctrip.com/images/0M75l120008ytj8h9DB92.png_.webp',
+]);
+
+const distance_left = ref<Number>( Number((12 / (list_image_url.value.length - 1)).toFixed(2)) );
+const distance_top = ref<Number>( Number((6 / (list_image_url.value.length - 1)).toFixed(2)) );
+
+const box_width = ref<Number>( 45 + (Number(distance_left.value) * (list_image_url.value.length - 1)) );
+const box_height = ref<Number>( 26 + (Number(distance_top.value) * (list_image_url.value.length - 1)) );
+const class_gallary_box = ref<String>(`relative w-[${box_width.value}dvw] h-[${box_height.value}dvw]`);
+
 </script>
 <template>
         <!-- <NuxtLayout name="defaultmain"> -->
@@ -53,7 +72,7 @@ const LoginModalShow =  inject('LoginModalShow')
 
                             <button 
                             class="mx-auto w-[240px] h-[48px] bg-[#F9A825] rounded-md flex items-center justify-center border-2 border-black"
-                            @click="LoginModalShow"
+                            @click="() => LoginModal()"
                             >
                                 <font-awesome-icon :icon="['fas', 'user']" class="mr-4 text-[30px] leading-8 text-white" />
                                 <p class="text-[22px] font-medium leading-[24px] text-white">เข้าสู่ระบบ</p>
@@ -147,7 +166,7 @@ const LoginModalShow =  inject('LoginModalShow')
                         <div class="w-[100%] bg-[#F9A825] h-[2px] "></div>
                     </div>
 
-                    <div class="w-fit h-fit mx-auto mb-12">
+                    <div class="w-fit h-fit mx-auto mb-[50px]">
                         <ImageGallaryPlan />
                     </div>
 
@@ -156,8 +175,8 @@ const LoginModalShow =  inject('LoginModalShow')
             </div>
         <!-- </NuxtLayout> -->
         <ClientOnly>
-        <div v-show="showPlanCreate">
-                <ModalPlanCreate :modalCloseShow="() => showPlanCreate = false" :show="showPlanCreate" />
-        </div>
+            <div v-show="showPlanCreate">
+                    <ModalPlanCreate :modalCloseShow="() => showPlanCreate = false" :show="showPlanCreate" />
+            </div>
         </ClientOnly>   
 </template>

@@ -14,7 +14,6 @@ const distance_top = ref<Number>( Number((6 / (list_image_url.value.length - 1))
 
 const box_width = ref<Number>( 45 + (Number(distance_left.value) * (list_image_url.value.length - 1)) );
 const box_height = ref<Number>( 26 + (Number(distance_top.value) * (list_image_url.value.length - 1)) );
-const class_box = ref<String>(`relative w-[${box_width.value}dvw] h-[${box_height.value}dvw]`);
 
 //console.log(distance_left.value , distance_top.value)
 
@@ -22,7 +21,7 @@ const class_box = ref<String>(`relative w-[${box_width.value}dvw] h-[${box_heigh
 
 <template>
     <ClientOnly>
-    <div :class="class_box">
+    <div class="relative" :style="`height: ${box_height}dvw;width: ${box_width}dvw;`">
         <div v-for="(data, index) in list_image_url" 
             :key="index" 
             :class="`transition duration-100 ease-linear 
