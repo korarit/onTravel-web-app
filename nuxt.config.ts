@@ -14,6 +14,8 @@ export default defineNuxtConfig({
   modules: [
     'vue3-carousel-nuxt',
     '@nuxtjs/turnstile',
+    'nuxt3-leaflet',
+    '@nuxt/image',
     ['@nuxtjs/google-fonts',{
       families:{
         Kanit: [100,200,300,400,500,600,700,800,900]
@@ -31,6 +33,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig:{
     public:{
+      WEB_URL: process.env.WEB_URL as string,
       BACKEND_URL: process.env.BACKEND_URL as string,
     }
   }
