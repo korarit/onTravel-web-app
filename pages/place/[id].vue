@@ -36,8 +36,8 @@
 
 
   <div class="px-12 2xl:px-24 max-w-[100dvw] min-h-[62dvh] flex gap-5 mb-7">
-    <div class="flex flex-col space-y-4 min-h-[600px] max-h-fit w-[67%]">
-      <div class="border-black bg-[#FDFDFD] border-2 rounded-xl  h-[70%] p-6 flex flex-col">
+    <div class="flex flex-col space-y-4 min-h-full max-h-[100%] w-[67%]">
+      <div class="border-black bg-[#FDFDFD] border-2 rounded-xl  h-[100%] p-6 flex flex-col">
 
         <div class="flex justify-between mb-2">
           <div class="flex flex-col">
@@ -57,28 +57,6 @@
         </div>
       </div>
 
-      <div class="border-black bg-[#FDFDFD] border-2 rounded-xl flex items-center justify-between px-8 h-[27%] mt-auto">
-        <div class="carousel-item flex flex-col" v-if="data.service.clean">
-          <font-awesome-icon :icon="['fas', 'shield']" class="text-[60px]" />
-          <p class="mt-2 text-[2dvh] text-center font-semibold">ความปลอดภัย</p>  
-        </div>
-
-        <div class="carousel-item flex flex-col" v-if="data.service.food">
-          <font-awesome-icon :icon="['fas', 'bowl-food']" class="text-[60px]" />
-          <p class="mt-2 text-[2dvh] text-center font-semibold">อาหาร</p>  
-        </div>
-
-        <div class="carousel-item flex flex-col" v-if="data.service.checkin">
-          <font-awesome-icon :icon="['fas', 'book']" class="text-[60px]" />
-          <p class="mt-2 text-[2dvh] text-center font-semibold">เช็คอิน 24 ชั่วโมง</p>  
-        </div>
-
-        <div class="carousel-item flex flex-col" v-if="data.service.transport">
-          <font-awesome-icon :icon="['fas', 'car']" class="text-[60px] text-center" />
-          <p class="mt-2 text-[2dvh] text-center font-semibold">บริการรับส่ง</p>  
-        </div>
-
-      </div>
     </div>
     
     <div class="flex flex-col min-h-full w-[33%]">
@@ -106,23 +84,10 @@
     </div>
   </div>
 
-  <div class="px-12 2xl:px-24 max-w-[100dvw] h-fit my-8" v-if="data.facilities.length !== 0">
-    <div class="border-black bg-[#FDFDFD] border-2 rounded-xl w-full h-fit p-6">
-      <p class="text-[3dvh] font-semibold">สิ่งอำนวยความสะดวก</p>
-      <div class="grid grid-cols-4 mt-3 gap-y-2">
-        <div class="flex items-center justify-center" :key="facilities" v-for="facilities in data.facilities">
-          <font-awesome-icon :icon="['fas', 'check']" class="text-[36px]" />
-          <p class="ml-4 font-semibold text-xl">{{ facilities }}</p>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
   <div class="px-12 2xl:px-24 max-w-[100dvw] h-fit my-8" v-if="data.contact.length !== 0">
     <div class="border-black bg-[#FDFDFD] border-2 rounded-xl w-full h-fit p-6">
       <p class="text-[3dvh] font-semibold">ช่องทางการติดต่อ</p>
-      <div class="grid grid-cols-4 mt-3 gap-y-2">
+      <div class="grid grid-cols-6 mt-3 gap-y-2">
         <NuxtLink :to="contact.url"  :key="contact" v-for="contact in data.contact" class="flex items-center justify-center">
           <font-awesome-icon :icon="['fab', contact.icon]" class="text-[36px]" />
           <p class="ml-4 font-semibold">{{ contact.name }}</p>
@@ -132,9 +97,9 @@
     </div>
   </div>
 
-  <div class="px-12 2xl:px-24 max-w-[100dvw] h-fit my-8" v-if="data.room !== 0">
-    <div class=" grid grid-cols-2 gap-8">
-      <HotelRoom v-for="room in data.room" :key="room" :data="room" />
+  <div class="px-12 2xl:px-24 max-w-[100dvw] h-auto my-8" v-if="data.room !== 0">
+    <div class=" grid grid-cols-1 gap-y-8 h-auto">
+      <Review v-for="review in data.review" :key="review" :data="review"  />
     </div>
   </div>
 
@@ -165,11 +130,13 @@ const data = ref({
   contact: [
     {icon: 'facebook',name: 'Facebook', url: 'https://www.facebook.com/'},
   ],
-  room: [
-    {name: 'ห้อง 001', bed_type: '1 เตียงเดี่ยว', view_type: 'ภูเขา', room_area: '4x10 เมตร', price: 3000, image: ['https://www.grandecentrepointpattaya.com/upload/rooms-and-suites/2-rooms-and-suites.jpg?v=66']},
-    {name: 'ห้อง 002', bed_type: '1 เตียงเดี่ยว', view_type: 'ภูเขา', room_area: '4x10 เมตร', price: 3000, image: ['https://www.grandecentrepointpattaya.com/upload/rooms-and-suites/1-rooms-and-suites.jpg?v=66']},
-    {name: 'ห้อง 003', bed_type: '5 ฟุต', view_type: 'ภูเขา', room_area: '4x10 เมตร', price: 4000, image: ['https://baanphuwaan.org/wp-content/uploads/2022/08/BW-0078.jpg']},
-    {name: 'ห้อง 004', bed_type: '5 ฟุต', view_type: 'ภูเขา', room_area: '4x10 เมตร', price: 4000, image: ['https://riverineplace.com/wp-content/uploads/2023/12/types-hotel-rooms.jpg']}
+  review: [
+    {
+      id: 1, 
+      description: 'Lorem ipsum dolor sit amet consectetur Lorem ipsum, dolor sit amet consectetur adipisicing elit. Id dolore aperiam sint excepturi voluptates fugit quod illum quisquam, impedit error delectus accusamus modi ab. Pariatur nihil ea doloremque officiis veritatis! adipisicing elit. Sed veritatis illo nemo ducimus animi necessitatibus. Velit provident autem a distinctio eaque quia porro reiciendis tempora, sunt, magnam modi perspiciatis quas.',
+      point : 4.5,
+      image: ['https://baanphuwaan.org/wp-content/uploads/2022/08/BW-0078.jpg','https://www.style-stay.com/wp-content/uploads/2021/09/225125680-800x534.jpg','https://www.grandecentrepointpattaya.com/upload/rooms-and-suites/2-rooms-and-suites.jpg?v=66']
+    }
   ],
   image:[
     'https://www.grandecentrepointpattaya.com/upload/rooms-and-suites/2-rooms-and-suites.jpg?v=66',

@@ -1,5 +1,4 @@
 <script setup>
-import {ShareNetwork} from 'vue-social-sharing'
 
 const props = defineProps({
     modalClose: Function,
@@ -25,6 +24,14 @@ const config = useRuntimeConfig()
 const route = useRoute()
 console.log(config.public.WEB_URL)
 const url = ref(config.public.WEB_URL+route.path)
+
+function Copy(){
+    const copyElement = document.getElementById('copyInput')
+    copyElement.select();
+    copyElement.setSelectionRange(0, 99999);
+
+    navigator.clipboard.writeText(config.public.WEB_URL+route.path)
+}
 
 </script>
 <style scoped>
@@ -102,8 +109,10 @@ const url = ref(config.public.WEB_URL+route.path)
 
                 <div class="w-full h-[70px] border border-black rounded-2xl px-[12px] py-[6px] flex items-center justify-between">
 
-                    <input class="text-[22px] rounded-lg py-[1px] w-[70%] select-none" value="https://ontravel.go/hotel/1" />
-                    <button class="w-[27%] border-2 border-black bg-[#F9A825] select-none hover:bg-[#d49542] h-full rounded-2xl text-white font-medium text-[28px]">
+                    <input id="copyInput" readonly class="text-[22px] rounded-lg py-[1px] w-[70%] select-none" :value="`${url}`" />
+                    <button
+                        @click="Copy"
+                        class="w-[27%] border-2 border-black bg-[#F9A825] select-none hover:bg-[#d49542] active:bg-[#d49542] h-full rounded-2xl text-white font-medium text-[28px]">
                         คัดลอก
                     </button>
                 </div>

@@ -37,3 +37,8 @@ defineProps<{
         </div>
     </ClientOnly>
 </template>
+<style scoped>
+* {
+  font-family: "Kanit", cursive;
+}
+</style>

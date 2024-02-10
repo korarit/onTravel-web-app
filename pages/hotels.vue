@@ -77,7 +77,7 @@ body{
                     <!-- กรณี ไม่พบผลลัพท์ใกล้เคียง -->
                     <template v-if="search_status === false">
                         <div class="w-[100%] h-[150px] flex items-center justify-center">
-                            <p class="text-[32px] font-bold">พบผลลัพท์ที่ใกล้เคียงกับ คำค้นหา</p>
+                            <p class="text-[32px] font-bold">ไม่พบผลลัพท์ที่ใกล้เคียงกับ คำค้นหา</p>
                         </div>
                     </template>
 

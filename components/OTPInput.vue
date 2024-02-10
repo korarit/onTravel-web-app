@@ -66,3 +66,8 @@ const handlePaste = (e:any) => {
       />
   </div>
 </template>
+<style scoped>
+* {
+  font-family: "Kanit", cursive;
+}
+</style>

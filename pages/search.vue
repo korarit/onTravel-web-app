@@ -43,7 +43,7 @@ body{
                 <!-- หัวข้อ + ช่องค้นหา -->
                 <div class="w-[100%] flex items-center mb-6">
                     <p class="text-[28px] font-bold mr-auto">
-                        ผลการค้นหา {{ (keyword === undefined || keyword === '' || keyword === null) ? '' : ` : ${keyword}`}}
+                        ผลการค้นหา : {{ (keyword === undefined || keyword === '' || keyword === null) ? '' : ` : ${keyword}`}}
                     </p>
                     <div class="w-[30%] h-[44px] bg-[#FBC02D] rounded-3xl flex">
 
@@ -85,7 +85,7 @@ body{
                     <!-- กรณี ไม่พบผลลัพท์ใกล้เคียง -->
                     <template v-if="search_status === false">
                         <div class="w-[100%] h-[150px] flex items-center justify-center">
-                            <p class="text-[32px] font-bold">พบผลลัพท์ที่ใกล้เคียงกับ คำค้นหา</p>
+                            <p class="text-[32px] font-bold">ไม่พบผลลัพท์ที่ใกล้เคียงกับ คำค้นหา</p>
                         </div>
                     </template>
 

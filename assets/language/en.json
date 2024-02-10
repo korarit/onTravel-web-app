@@ -1,0 +1,202 @@
+{
+    "menubar": {
+        "main": "Home",
+        "hotel": "Hotel",
+        "plan": "Plan",
+        "province": "Province",
+        "register": "Register",
+        "user": "Personal"
+    },
+    "login":{
+        "title": "Login Form",
+        "input_username": "Phone number / Email / Username",
+        "input_password": "Password",
+        "button_login": "Login",
+        "button_register": "Register",
+        "button_forgot": "Forgot password?",
+        "keep_login": "Keep login",
+        "or": "OR",
+
+        "button_facebook": "Login with Facebook",
+        "button_google": "Login with Google",
+        "button_line": "Login with LINE"
+    },
+    "footer":{
+        "link_title": "Link",
+        "contact_title": "Contact",
+        "about": "The website recommends places to eat, stay, and travel in style, offering information on tourist attractions and accommodations in Thailand. You can actually travel along.",
+        "link":{
+            "home": "Home",
+            "hotel": "Hotel",
+            "plan": "Plan",
+            "province": "Province places",
+            "register": "Register",
+            "user": "Personal"
+        },
+        "contact": {
+            "phone1": "Phone: 000 xxx xxxx KiKai",
+            "phone": "Phone: 000 xxx xxxx NongNoi",
+            "email": "Email: contact@ontravel.go"
+        }
+    },
+    "search": "Search",
+    "page":{
+        "home": {
+            "travel_recommend": "Travel Recommend",
+            "calendar": "Calendar of TAT"
+        },
+
+        "hotels":{
+            "title":"Hotel Recommend",
+            "search_result": "result of search",
+            "not_result_search": "No result of search"
+        },
+
+        "hotel":{
+            "share": "Share",
+            "title_review_point": "Review Point",
+            "title_review_count": "Review Count",
+            "title_view": "View Count",
+
+            "title_place": "Location of place",
+            "button_gps": "Navigate",
+
+            "title_service_safe": "Safety",
+            "title_service_food": "Food",
+            "title_service_checkin": "Check-in 24Hrs",
+            "title_service_transport": "Transportation",
+
+            "title_service": "Service",
+            "title_contact": "Contact",
+
+            "title_more_image": "Click to see more images",
+
+            "title_review": "Review"
+        },
+
+        "search":{
+            "search_result": "result of search",
+            "not_keyword_search": "Please enter a keyword to search",
+            "not_result_search": "No result of search"
+        },
+
+        "plan_list":{
+            "title":"List of Travel Plan",
+            "create": "Create Plan",
+            "please_login": "Please login to create a plan",
+            "login": "Login",
+            "no_plan": "You are not planning."
+        },
+
+        "province_select":{
+            "select_province":"Province You are select is",
+            "north": "North",
+            "central": "Central",
+            "northeast": "Northeast",
+            "south": "South",
+            "calendar": "Calendar of TAT"
+        },
+
+        "user":{
+            "title": "Profile",
+            "upload_image": "UPLOAD",
+
+            "button_edit": "Edit",
+
+            "button_remove": "Remove You Account",
+            "button_facebook": "Connect with Facebook",
+            "button_google": "Connect with Google",
+            "button_line": "Connect with LINE",
+
+
+            "title_username": "Username",
+            "input_username": "Enter your Username",
+
+            "title_name": "Name",
+            "input_name": "Enter your Name",
+
+            "title_lastname": "Lastname",
+            "input_lastname": "Enter your Lastname",
+
+            "title_email": "Email",
+            "input_email": "Enter your Email",
+
+            "title_password": "Password",
+            "input_password": "Enter your Password",
+
+            "password_condition": {
+                "more_than_8": "At least 8 characters",
+                "digit": "Contains a digit",
+                "lowercase": "Contains a lowercase a-z letter",
+                "uppercase": "Contains a uppercase A-Z letter",
+                "special": "Contains a special character !@#$%^&*+?"
+            },
+
+            "title_phone": "Phone number",
+            "input_phone": "+66",
+
+            "title_province": "Province",
+            "input_province": "Select Province",
+
+            "title_interests": "Interests",
+            "interests":{
+                "adventure": "Adventure lover",
+                "nature": "Nature",
+                "sea": "Sea",
+                "history": "History",
+                "eat": "Eating lover",
+                "scenic": "Scenic lover"
+            }
+
+        },
+        "register":{
+            "upload_image": "UPLOAD",
+            "new_user": "New Account",
+            "button_register": "Register",
+            "button_cancel": "Cancel Register",
+            "term": "I agree to be bound by the project service terms See our privacy policy for more infomation",
+
+            "title_username": "Username",
+            "input_username": "Enter your Username",
+
+            "title_name": "Name",
+            "input_name": "Enter your Name",
+
+            "title_lastname": "Lastname",
+            "input_lastname": "Enter your Lastname",
+
+            "title_province": "Province",
+            "input_province": "Select Province",
+
+            "title_email": "Email",
+            "input_email": "Enter your Email",
+
+            "title_phone": "Phone number",
+            "input_phone": "+66",
+
+            "title_password": "Password",
+            "input_password": "Enter your Password",
+
+            "title_confirm_password": "Confirm Password",
+            "input_confirm_password": "Enter your Confirm Password",
+
+            "password_condition": {
+                "more_than_8": "At least 8 characters",
+                "digit": "Contains a digit",
+                "lowercase": "Contains a lowercase a-z letter",
+                "uppercase": "Contains a uppercase A-Z letter",
+                "special": "Contains a special character !@#$%^&*+?"
+            },
+
+            "title_interests": "Interests",
+            "interests":{
+                "adventure": "Adventure lover",
+                "nature": "Nature",
+                "sea": "Sea",
+                "history": "History",
+                "eat": "Eating lover",
+                "scenic": "Scenic lover"
+            }
+        }
+    }
+}
