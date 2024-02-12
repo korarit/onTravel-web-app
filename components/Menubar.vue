@@ -1,7 +1,9 @@
 <script setup lang="ts">
-    defineProps<{
-        selectPage: String
-    }>();
+defineProps<{
+    selectPage: String
+}>();
+
+const language = ref<any>(inject('language') as any)
 </script>
 <style>
 .menu{
@@ -18,19 +20,19 @@
                 <div class="w-[100%] h-[50px] flex items-center">
 
                     <NuxtLink to="/" v-bind:class="(selectPage === 'หน้าหลัก') ? 'menu-active rounded-tl-xl' : 'menu rounded-tl-xl'">
-                        <p class="text-[1.2rem] font-semibold text-slate-100">หน้าหลัก</p>
+                        <p class="text-[1.2rem] font-semibold text-slate-100">{{ language.menubar.main }}</p>
                     </NuxtLink>
                     <NuxtLink to="/hotels" v-bind:class="(selectPage === 'ที่พักแนะนำ') ? 'menu-active' : 'menu'">
-                        <p class="text-[1.2rem] font-semibold text-slate-100">ที่พักแนะนำ</p>
+                        <p class="text-[1.2rem] font-semibold text-slate-100">{{ language.menubar.hotel }}</p>
                     </NuxtLink>
                     <NuxtLink to="/plan-list" v-bind:class="(selectPage === 'แผนการท่องเที่ยว') ? 'menu-active' : 'menu'">
-                        <p class="text-[1.2rem] font-semibold text-slate-100">แผนการท่องเที่ยว</p>
+                        <p class="text-[1.2rem] font-semibold text-slate-100">{{ language.menubar.plan }}</p>
                     </NuxtLink>
                     <NuxtLink to="/provice-select" v-bind:class="(selectPage === 'สถานที่ในจังหวัด') ? 'menu-active' : 'menu'">
-                        <p class="text-[1.2rem] font-semibold text-slate-100">สถานที่ในจังหวัด</p>
+                        <p class="text-[1.2rem] font-semibold text-slate-100">{{ language.menubar.province }}</p>
                     </NuxtLink>
                     <NuxtLink to="/auth/register" class="px-6 h-[50px] flex items-center hover:bg-[#9E9E9E] hover:text-white rounded-tr-xl">
-                        <p class="text-[1.2rem] font-semibold text-slate-100">สมัครสมาชิก</p>
+                        <p class="text-[1.2rem] font-semibold text-slate-100">{{ language.menubar.register }}</p>
                     </NuxtLink>
                 </div>
             </div>

@@ -96,11 +96,9 @@
           <p class="text-[3dvh] font-semibold justify-start">
             สถานที่ตั้ง
           </p>
-          <button
-            class="w-[10dvw] p-2 bg-black text-white rounded-lg text-[2.5dvh]"
-          >
+          <NuxtLink :to="`https://www.google.com/maps/@${data.location.lat},${data.location.lon}`" target="_blank" class="w-[10dvw] p-2 bg-black text-white rounded-lg text-[2.5dvh] text-center">
             นำทาง
-          </button>
+          </NuxtLink>
         </div>
       </div>
     </div>

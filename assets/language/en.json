@@ -1,8 +1,8 @@
 {
     "menubar": {
         "main": "Home",
-        "hotel": "Hotel",
-        "plan": "Plan",
+        "hotel": "Hotel Recommend",
+        "plan": "Travel Plan",
         "province": "Province",
         "register": "Register",
         "user": "Personal"
@@ -33,6 +33,7 @@
             "register": "Register",
             "user": "Personal"
         },
+        "contact_subtitle":"contact us",
         "contact": {
             "phone1": "Phone: 000 xxx xxxx KiKai",
             "phone": "Phone: 000 xxx xxxx NongNoi",
@@ -70,6 +71,20 @@
             "title_contact": "Contact",
 
             "title_more_image": "Click to see more images",
+
+            "title_review": "Review"
+        },
+
+        "place":{
+            "share": "Share",
+            "title_review_point": "Review Point",
+            "title_review_count": "Review Count",
+            "title_view": "View Count",
+
+            "title_place": "Location of place",
+            "button_gps": "Navigate",
+
+            "title_contact": "Contact",
 
             "title_review": "Review"
         },

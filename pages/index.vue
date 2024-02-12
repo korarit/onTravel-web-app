@@ -6,7 +6,7 @@ body {
 </style>
 <script setup>
 definePageMeta({
-  layout: false,
+  layout: 'defaultmain',
 })
 
 const Data = {
@@ -31,10 +31,15 @@ async function GoSearch() {
     }
 }
 
+////////////////////// แปลภาษา ///////////////////////
+const language = ref(inject('language'))
+watch(language, (value) => {
+    console.log(value.page);
+})
 </script>
 <template>
     <div>
-        <NuxtLayout name="defaultmain">
+        <!-- <NuxtLayout name="defaultmain"> -->
             <div class="mb-8 px-12 2xl:px-24">
                 <TravelGuide />
             </div>
@@ -45,25 +50,10 @@ async function GoSearch() {
 
                 <!-- หัวข้อ + ช่องค้นหา -->
                 <div class="w-[100%] flex items-center mb-6">
-                    <p class="text-[28px] font-bold mr-auto">สถานที่ท่องเที่ยวแนะนำ</p>
+                    <p class="text-[28px] font-bold mr-auto">{{ language.page.home.travel_recommend }}</p>
 
-                    <div class="w-[30%] h-[44px] bg-[#FBC02D] rounded-3xl flex">
-
-                        <div class="w-[10%] flex items-center">
-                            <font-awesome-icon 
-                                class="text-black h-[20px] mx-auto my-auto text-[1.4rem]"
-                                :icon="['fas', 'search']" 
-                            />
-                        </div>
-
-                        <input
-                            class="w-[70%] h-[44px] placeholder-black text-black text-[1.2rem] bg-transparent font-medium focus:outline-none"
-                            type="text" placeholder="ค้นหา" v-model="keyword_seacrh" @keyup.enter="GoSearch()" 
-                        />
-
-                        <button @click="GoSearch()" class="w-[20%] h-[44px] bg-black rounded-3xl flex justify-center items-center">
-                            <p class="text-[1.2rem] font-semibold text-white">ค้นหา</p>
-                        </button>
+                    <div class="w-[30%] h-[44px] ">
+                        <SearchBox />
                     </div>
 
                 </div>
@@ -103,7 +93,7 @@ async function GoSearch() {
 
             <!-- รายการปฎิทินการท่องเที่ยว ททท -->
             <div class="max-w-[100dvw] px-12 2xl:px-24">
-                <p class="text-[28px] font-bold mr-auto mb-6">ปฎิทินการท่องเที่ยว ททท</p>
+                <p class="text-[28px] font-bold mr-auto mb-6">{{ language.page.home.calendar }}</p>
 
                 <div class="w-[100%] flex space-x-[5%]">
                     <div class="w-[30%]">
@@ -128,6 +118,6 @@ async function GoSearch() {
                     <button class="w-[20%] h-[50px] rounded-3xl bg-black text-white text-[24px] ml-auto">ติดต่อเรา</button>
                 </div>
             </div>
-        </NuxtLayout>
+        <!-- </NuxtLayout> -->
     </div>
 </template>

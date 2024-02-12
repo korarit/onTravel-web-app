@@ -1,4 +1,8 @@
 <script setup>
+definePageMeta({
+  layout: 'defaultmain',
+})
+
 
 const TravelDataTest = {
     image: "https://static.thairath.co.th/media/dFQROr7oWzulq5FZUIVNrgcAuSEVpmdZwKSC23KlKAEMNBbMBJ7GEvpfzId6osBXpwm.jpg",
@@ -30,7 +34,6 @@ body{
 </style>
 <template>
     <ClientOnly>
-        <NuxtLayout name="defaultmain">
             <div class="mb-8 px-12 2xl:px-24">
             <TravelGuide />
             </div>
@@ -173,6 +176,5 @@ body{
             <div class="max-w-[100dvw] px-12 2xl:px-24 my-12">
                 <img src="https://dimg04.c-ctrip.com/images/0M75l120008ytj8h9DB92.png_.webp" class="rounded-xl w-[60%] mx-auto shadow-md shadow-black/20" />
             </div>
-        </NuxtLayout>
     </ClientOnly>
 </template>

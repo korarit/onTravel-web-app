@@ -2,9 +2,20 @@
 @import url("~/assets/css/navbar.css");
 </style>
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
     LoginModal: Function
+    setLanguage: Function
 }>();
+
+function ChangeLanguage(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    const value = target.value;
+    props.setLanguage(value)
+
+    localStorage.setItem('language', value)
+
+    console.log(value);
+}
 
 </script>
 <template>
@@ -17,10 +28,10 @@ defineProps<{
                     <div class="w-[40px] h-full bg-[#cfcfcf] rounded-l-xl border-r border-black flex items-center justify-center">
                         <img src="/icon/translate_icon.svg" class="w-[26px] h-[26px] mx-auto" alt="search_icon">
                     </div>
-                    <select class="w-[160px] h-full bg-transparent focus:outline-none text-center text-[18px] select-transalte shadow-inner">
+                    <select @change="ChangeLanguage" class="w-[160px] h-full bg-transparent focus:outline-none text-center text-[18px] select-transalte shadow-inner">
                         <option value="th">ภาษาไทย</option>
                         <option value="en">English</option>
-                        <option value="ch">中国人</option>
+                        <option value="zh">中国人</option>
                     </select>
                 </div>
 

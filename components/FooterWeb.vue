@@ -1,3 +1,6 @@
+<script setup lang="ts">
+const language = ref<any>(inject('language'))
+</script>
 <template>
     <ClientOnly>
         <div class="w-[100%] bg-[#F9A825] py-12 px-12 2xl:px-24 flex flex-wrap justify-between">
@@ -7,35 +10,35 @@
                 <div class="w-[100%] h-[60px] bg-slate-300 rounded-xl mb-6">
 
                 </div>
-                <p class="text-[18px] font-medium text-[#F5F5F5] text-justify leading-9">เว็บไซต์แนะนำ ที่กิน ที่พัก ที่เที่ยวแบบคนมีสไตล์นำเสนอข้อมูลสถานที่ท่องเที่ยวที่พักในประเทศไทย แบบสามารถเที่ยวตามได้จริง</p>
+                <p class="text-[18px] font-medium text-[#F5F5F5] text-justify leading-9">{{ language.footer.about }}</p>
             </div>
             <!-- Link in web -->
             <div class="w-[28%]">
                 <div class="w-[100%] h-[60px] mb-6 flex">
-                    <p class="text-[24px] font-extrabold self-end leading-6">LINKS</p>
+                    <p class="text-[24px] font-extrabold self-end leading-6">{{ language.footer.link_title }}</p>
                 </div>
                 <div class="flex space-x-4">
                     <div class="w-[50%]">
-                        <p class="text-[18px] font-medium text-[#F5F5F5] text-justify leading-9">- หน้าหลัก</p>
-                        <p class="text-[18px] font-medium text-[#F5F5F5] text-justify leading-9">- ที่พัก</p>
-                        <p class="text-[18px] font-medium text-[#F5F5F5] text-justify leading-9">- แผนการท่องเที่ยว</p>
-                        <p class="text-[18px] font-medium text-[#F5F5F5] text-justify leading-9">- สถานที่ในจังหวัด</p>
+                        <p class="text-[18px] font-medium text-[#F5F5F5] text-justify leading-9">- {{ language.footer.link.home }}</p>
+                        <p class="text-[18px] font-medium text-[#F5F5F5] text-justify leading-9">- {{ language.footer.link.hotel }}</p>
+                        <p class="text-[18px] font-medium text-[#F5F5F5] text-justify leading-9">- {{ language.footer.link.plan }}</p>
+                        <p class="text-[18px] font-medium text-[#F5F5F5] text-justify leading-9">- {{ language.footer.link.province }}</p>
                     </div>
                     <div class="w-[50%]">
-                        <p class="text-[18px] font-medium text-[#F5F5F5] text-justify leading-9">- สมัครสมาชิก</p>
-                        <p class="text-[18px] font-medium text-[#F5F5F5] text-justify leading-9">- จัดการบัญชีผู้ใช้</p>
+                        <p class="text-[18px] font-medium text-[#F5F5F5] text-justify leading-9">- {{ language.footer.link.register }}</p>
+                        <p class="text-[18px] font-medium text-[#F5F5F5] text-justify leading-9">- {{ language.footer.link.user }}</p>
                     </div>
                 </div>
             </div>
             <!-- contact -->
             <div class="w-fit">
                 <div class="w-[100%] h-[60px] mb-6 flex">
-                    <p class="text-[24px] font-extrabold self-end leading-6">CONTACT</p>
+                    <p class="text-[24px] font-extrabold self-end leading-6">{{ language.footer.contact_title }}</p>
                 </div>
-                <p class="text-[18px] font-medium text-[#F5F5F5] leading-9">ติดต่อเรา</p>
-                <p class="text-[18px] font-medium text-[#F5F5F5] leading-9">โทร : 000 xxx xxxx คุณกุ๊กไก่</p>
-                <p class="text-[18px] font-medium text-[#F5F5F5] leading-9">โทร : 000 xxx xxxx คุณนอนน้อย</p>
-                <p class="text-[18px] font-medium text-[#F5F5F5] leading-9">อีเมล์ : contact@ontravel.go</p>
+                <p class="text-[18px] font-medium text-[#F5F5F5] leading-9">{{ language.footer.contact_subtitle }}</p>
+                <p class="text-[18px] font-medium text-[#F5F5F5] leading-9">{{ language.footer.contact.phone1 }}</p>
+                <p class="text-[18px] font-medium text-[#F5F5F5] leading-9">{{ language.footer.contact.phone }}</p>
+                <p class="text-[18px] font-medium text-[#F5F5F5] leading-9">{{ language.footer.contact.email }}</p>
                 
                 <!-- social contact icon-->
                 <div class="mt-6 flex">

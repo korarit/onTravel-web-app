@@ -1,10 +1,21 @@
 <script setup lang="ts">
 const loginShow = ref<boolean>(false)
 
-function LoginModalShow() {
-    loginShow.value = true
+// function LoginModalShow() {
+//     loginShow.value = true
+// }
+
+const language = ref<object>(await GetLanguge('th'));
+const lang_code = ref<string>('th')
+
+async function setLanguage(code:string) {
+    language.value = await GetLanguge(code)
+
+    lang_code.value = code
+    console.log(language.value);
 }
-provide('LoginModalShow', LoginModalShow)
+
+provide('language', language)
 </script>
 <style>
 body {
@@ -14,7 +25,7 @@ body {
 </style>
 <template>
         <div id="main" class="overflow-x-hidden overflow-y-auto h-[100dvh]">
-            <Navbar :LoginModal="() => loginShow = true" />
+            <Navbar :LoginModal="() => loginShow = true" :setLanguage="setLanguage" />
             <slot />
             <div class="max-w-[100dvw]">
                 <FooterWeb />
