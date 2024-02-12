@@ -18,24 +18,12 @@ const TravelDataTest = {
     image: "https://static.thairath.co.th/media/dFQROr7oWzulq5FZUIVNrgcAuSEVpmdZwKSC23KlKAEMNBbMBJ7GEvpfzId6osBXpwm.jpg",
     title: "12 ที่เที่ยวสมุทรสงคราม ปักหมุดตลาดต้อง ไป แวะไหว้พระวัดดัง"
 }
-const keyword_seacrh = ref("")
-
-async function GoSearch() {
-    if (keyword_seacrh.value != "") {
-        await navigateTo({
-            path: '/search',
-            query: {
-                keyword: keyword_seacrh.value
-            }
-        })
-    }
-}
 
 ////////////////////// แปลภาษา ///////////////////////
 const language = ref(inject('language'))
-watch(language, (value) => {
-    console.log(value.page);
-})
+// watch(language, (value) => {
+//     console.log(value.page);
+// })
 </script>
 <template>
     <div>

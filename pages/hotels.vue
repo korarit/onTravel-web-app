@@ -1,10 +1,10 @@
-<script setup>
+<script setup lang="ts">
 definePageMeta({
   layout: 'defaultmain',
 })
 
 
-const TravelDataTest = {
+const TravelDataTest:any = {
     image: "https://static.thairath.co.th/media/dFQROr7oWzulq5FZUIVNrgcAuSEVpmdZwKSC23KlKAEMNBbMBJ7GEvpfzId6osBXpwm.jpg",
     title: "12 ที่เที่ยวสมุทรสงคราม ปักหมุดตลาดต้อง ไป แวะไหว้พระวัดดัง",
     point: 4.5,
@@ -13,9 +13,9 @@ const TravelDataTest = {
 
 const route = useRoute()
 const router = useRouter()
-const keyword = ref(route.query.keyword)
-const newkeyword = ref("")
-const search_status = ref(true)
+const keyword = ref<string>(route.query.keyword as string)
+const newkeyword = ref<string>("")
+const search_status = ref<boolean>(true)
 function search() {
     if (newkeyword.value != "") {
         keyword.value = newkeyword.value
@@ -23,9 +23,9 @@ function search() {
         router.push({ query: { keyword: newkeyword.value } })
     }
 }
-</script>
-<script lang="ts">
 
+////////////////////// แปลภาษา ///////////////////////
+const language = ref<any>(inject('language'))
 </script>
 <style>
 body{
@@ -45,7 +45,7 @@ body{
                 <!-- หัวข้อ + ช่องค้นหา -->
                 <div class="w-[100%] flex items-center mb-6">
                     <p class="text-[28px] font-bold mr-auto">
-                        {{ (keyword === undefined || keyword === '' || keyword === null) ? 'ที่พักแนะนำ' : `ผลลัพธ์การค้นหา : ${keyword}`}}
+                        {{ (keyword === undefined || keyword === '' || keyword === null) ? `${language.page.hotels.title}` : `${language.page.hotels.search_result} : ${keyword}`}}
                     </p>
                     <div class="w-[30%] h-[44px] bg-[#FBC02D] rounded-3xl flex">
 
@@ -59,7 +59,7 @@ body{
                         <input
                         class="w-[70%] h-[44px] placeholder-black text-black text-[1.2rem] bg-transparent font-medium focus:outline-none"
                         type="text"
-                        placeholder="ค้นหา"
+                        :placeholder="language.search"
                         v-model="newkeyword"
                         @keyup.enter="search()"
                         />
@@ -68,7 +68,7 @@ body{
                             class="w-[20%] h-[44px] bg-black rounded-3xl flex justify-center items-center"
                             @click="search"
                         >
-                            <p class="text-[1.2rem] font-bold text-white">ค้นหา</p>
+                            <p class="text-[1.2rem] font-bold text-white">{{language.search}}</p>
                         </button>
                     </div>
 
@@ -80,7 +80,7 @@ body{
                     <!-- กรณี ไม่พบผลลัพท์ใกล้เคียง -->
                     <template v-if="search_status === false">
                         <div class="w-[100%] h-[150px] flex items-center justify-center">
-                            <p class="text-[32px] font-bold">ไม่พบผลลัพท์ที่ใกล้เคียงกับ คำค้นหา</p>
+                            <p class="text-[32px] font-bold">{{language.page.hotels.not_result_search}}</p>
                         </div>
                     </template>
 

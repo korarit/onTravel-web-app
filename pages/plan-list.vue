@@ -11,7 +11,7 @@ definePageMeta({
 });
 
 const loginStatus = ref<Boolean>(true)
-const plan_list = ref<string[]>([''])
+const plan_list = ref<string[]>([])
 
 const showPlanCreate = ref<boolean>(false)
 
@@ -39,12 +39,8 @@ const list_image_url = ref<String[]>([
     'https://dimg04.c-ctrip.com/images/0M75l120008ytj8h9DB92.png_.webp',
 ]);
 
-const distance_left = ref<Number>( Number((12 / (list_image_url.value.length - 1)).toFixed(2)) );
-const distance_top = ref<Number>( Number((6 / (list_image_url.value.length - 1)).toFixed(2)) );
-
-const box_width = ref<Number>( 45 + (Number(distance_left.value) * (list_image_url.value.length - 1)) );
-const box_height = ref<Number>( 26 + (Number(distance_top.value) * (list_image_url.value.length - 1)) );
-const class_gallary_box = ref<String>(`relative w-[${box_width.value}dvw] h-[${box_height.value}dvw]`);
+////////////////////// แปลภาษา ///////////////////////
+const language = ref<any>(inject('language'))
 
 </script>
 <template>
@@ -56,26 +52,27 @@ const class_gallary_box = ref<String>(`relative w-[${box_width.value}dvw] h-[${b
                 <Menubar selectPage="แผนการท่องเที่ยว" />
             </div>
             <div class="max-w-[100dvw] px-12 2xl:px-24">
+
                 <!-- กรณีไม่ได้ login-->
                 <template v-if="loginStatus == false && plan_list.length == 0">
 
                     <!-- หัวข้อ + ปุ่ม -->
                     <div class="w-[100%] flex items-center mb-6">
-                        <p class="text-[28px] font-bold mr-auto">รายการแผนการท่องเที่ยว</p>
+                        <p class="text-[28px] font-bold mr-auto">{{ language.page.plan_list.title }}</p>
 
                     </div>
 
                     <!-- สร้างแผนการเพิ่ม -->
                     <div class="max-w-[100%] h-[30dvh] flex items-center justify-center">
                         <div class="flex flex-col w-fit h-fit">
-                            <p class="mb-4 text-[36px] font-medium leading-[50px]">กรุณาเข้าสู่ระบบเพื่อวางแผนการท่องเที่ยว</p>
+                            <p class="mb-4 text-[36px] font-medium leading-[50px]">{{ language.page.plan_list.please_login }}</p>
 
                             <button 
                             class="mx-auto w-[240px] h-[48px] bg-[#F9A825] rounded-md flex items-center justify-center border-2 border-black"
                             @click="() => LoginModal()"
                             >
                                 <font-awesome-icon :icon="['fas', 'user']" class="mr-4 text-[30px] leading-8 text-white" />
-                                <p class="text-[22px] font-medium leading-[24px] text-white">เข้าสู่ระบบ</p>
+                                <p class="text-[22px] font-medium leading-[24px] text-white">เข้าสู่ระบบ {{ language.page.plan_list.login }}</p>
                             </button>
                         </div>
                     </div>
@@ -86,14 +83,14 @@ const class_gallary_box = ref<String>(`relative w-[${box_width.value}dvw] h-[${b
 
                     <!-- หัวข้อ + ปุ่ม -->
                     <div class="w-[100%] flex items-center mb-6">
-                        <p class="text-[28px] font-bold mr-auto">รายการแผนการท่องเที่ยว</p>
+                        <p class="text-[28px] font-bold mr-auto"> {{ language.page.plan_list.title }}</p>
 
                         <button 
                             class="w-[280px] h-[48px] bg-[#FFFFFF] rounded-md border-2 border-black flex items-center justify-center "
                             @click="() => showPlanCreate = true"
                         >
                             <font-awesome-icon :icon="['fas', 'calendar-plus']" class="text-[30px] leading-8 mr-3" />
-                            <p class="text-[22px] font-medium leading-[26px]">สร้างแผนการเพิ่ม</p>
+                            <p class="text-[22px] font-medium leading-[26px]">{{ language.page.plan_list.create }}</p>
                         </button>
 
                     </div>
@@ -101,14 +98,14 @@ const class_gallary_box = ref<String>(`relative w-[${box_width.value}dvw] h-[${b
                     <!-- สร้างแผนการเพิ่ม -->
                     <div class="max-w-[100%] h-[30dvh] flex items-center justify-center">
                         <div class="flex flex-col w-fit h-fit">
-                            <p class="mb-4 text-[36px] font-medium leading-[50px]">ท่านยังเคยไม่มีแผนการท่องเที่ยว</p>
+                            <p class="mb-4 text-[36px] font-medium leading-[50px]">{{ language.page.plan_list.no_plan }}</p>
 
                             <button 
                                 class="mx-auto w-[240px] h-[44px] bg-[#F9A825] rounded-md border-2 border-black flex items-center justify-center"
                                 @click="() => showPlanCreate = true"
                             >
                                 <font-awesome-icon :icon="['fas', 'calendar-plus']" class="mr-4 text-[30px] leading-8 text-white" />
-                            <p class="text-[22px] font-medium leading-[26px] text-white">สร้างแผนการเพิ่ม</p>
+                            <p class="text-[22px] font-medium leading-[26px] text-white">{{ language.page.plan_list.create }}</p>
 
                         </button>
                         </div>
@@ -121,14 +118,14 @@ const class_gallary_box = ref<String>(`relative w-[${box_width.value}dvw] h-[${b
 
                     <!-- หัวข้อ + ปุ่ม -->
                     <div class="w-[100%] flex items-center mb-6">
-                        <p class="text-[28px] font-bold mr-auto">รายการแผนการท่องเที่ยว</p>
+                        <p class="text-[28px] font-bold mr-auto"> {{ language.page.plan_list.title }}</p>
 
                         <button 
                             class="w-[280px] h-[48px] bg-[#FFFFFF] rounded-md border-2 border-black flex items-center justify-center"
                             @click="() => showPlanCreate = true"
                         >
                             <font-awesome-icon :icon="['fas', 'calendar-plus']" class="text-[30px] leading-8 mr-3" />
-                            <p class="text-[22px] font-medium leading-[26px]">สร้างแผนการเพิ่ม</p>
+                            <p class="text-[22px] font-medium leading-[26px]">{{ language.page.plan_list.create }}</p>
                         </button>
 
                     </div>

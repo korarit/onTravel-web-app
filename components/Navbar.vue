@@ -31,7 +31,6 @@ function ChangeLanguage(event: Event) {
                     <select @change="ChangeLanguage" class="w-[160px] h-full bg-transparent focus:outline-none text-center text-[18px] select-transalte shadow-inner">
                         <option value="th">ภาษาไทย</option>
                         <option value="en">English</option>
-                        <option value="zh">中国人</option>
                     </select>
                 </div>
 

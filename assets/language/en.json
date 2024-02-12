@@ -104,7 +104,7 @@
         },
 
         "province_select":{
-            "select_province":"Province You are select is",
+            "select_province":"Province select is",
             "north": "North",
             "central": "Central",
             "northeast": "Northeast",

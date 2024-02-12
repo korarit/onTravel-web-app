@@ -48,9 +48,9 @@
         },
 
         "hotels":{
-            "title":"Hotel Recommend",
-            "search_result": "result of search",
-            "not_result_search": "No result of search"
+            "title":"ที่พักแนะนำ",
+            "search_result": "ผลลัพธ์การค้นหา",
+            "not_result_search": "ไม่พบผลลัพท์ที่ใกล้เคียงกับ คำค้นหา"
         },
 
         "hotel":{
@@ -96,20 +96,20 @@
         },
 
         "plan_list":{
-            "title":"List of Travel Plan",
-            "create": "Create Plan",
-            "please_login": "Please login to create a plan",
-            "login": "Login",
-            "no_plan": "You are not planning."
+            "title":"รายการแผนการท่องเที่ยว",
+            "create": "สร้างแผนการเพิ่ม",
+            "please_login": "กรุณาเข้าสู่ระบบเพื่อวางแผนการท่องเที่ยว",
+            "login": "เข้าสู่ระบบ",
+            "no_plan": "ท่านไม่มีแผนการท่องเที่ยว"
         },
 
         "province_select":{
-            "select_province":"Province You are select is",
-            "north": "North",
-            "central": "Central",
-            "northeast": "Northeast",
-            "south": "South",
-            "calendar": "Calendar of TAT"
+            "select_province":"ท่านเลือกจังหวัด",
+            "north": "เหนือ",
+            "central": "กลาง",
+            "northeast": "ตะวันออกเฉียงเหนือ",
+            "south": "ใต้",
+            "calendar": "ปฎิทินการท่องเที่ยว ททท"
         },
 
         "user":{

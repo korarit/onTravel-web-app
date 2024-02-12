@@ -9,8 +9,6 @@ export default async function (language: string){
         return th
     }else if(language === 'en'){
         return en
-    }else if(language === 'zh'){
-        return zh
     }else{
         return th
     }

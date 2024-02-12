@@ -15,6 +15,7 @@ async function setLanguage(code:string) {
     console.log(language.value);
 }
 
+provide('language_code', lang_code)
 provide('language', language)
 </script>
 <style>
