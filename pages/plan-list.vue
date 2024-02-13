@@ -10,7 +10,7 @@ definePageMeta({
   layout: 'defaultmain',
 });
 
-const loginStatus = ref<Boolean>(true)
+const loginStatus = ref<Boolean>(false)
 const plan_list = ref<string[]>([])
 
 const showPlanCreate = ref<boolean>(false)
@@ -25,11 +25,9 @@ const TravelDataTest = {
     title: "12 ที่เที่ยวสมุทรสงคราม ปักหมุดตลาดต้อง ไป แวะไหว้พระวัดดัง"
 }
 
-const LoginModalShow =  inject('LoginModalShow')
+const UseLoginModal:any =  inject('LoginModalShow')
+console.log(UseLoginModal)
 
-function LoginModal() {
-    LoginModalShow
-}
 
 const list_image_url = ref<String[]>([
     'https://dimg04.c-ctrip.com/images/0M75l120008ytj8h9DB92.png_.webp',
@@ -62,14 +60,14 @@ const language = ref<any>(inject('language'))
 
                     </div>
 
-                    <!-- สร้างแผนการเพิ่ม -->
-                    <div class="max-w-[100%] h-[30dvh] flex items-center justify-center">
+                    <!-- เข้าสู่ระบบ -->
+                    <div class="max-w-[100%] h-[40dvh] flex items-center justify-center">
                         <div class="flex flex-col w-fit h-fit">
                             <p class="mb-4 text-[36px] font-medium leading-[50px]">{{ language.page.plan_list.please_login }}</p>
 
                             <button 
                             class="mx-auto w-[240px] h-[48px] bg-[#F9A825] rounded-md flex items-center justify-center border-2 border-black"
-                            @click="() => LoginModal()"
+                            @click="UseLoginModal"
                             >
                                 <font-awesome-icon :icon="['fas', 'user']" class="mr-4 text-[30px] leading-8 text-white" />
                                 <p class="text-[22px] font-medium leading-[24px] text-white">เข้าสู่ระบบ {{ language.page.plan_list.login }}</p>

@@ -1,9 +1,10 @@
 <script setup lang="ts">
 const loginShow = ref<boolean>(false)
 
-// function LoginModalShow() {
-//     loginShow.value = true
-// }
+ function LoginModalShow() {
+     loginShow.value = true
+}
+provide('LoginModalShow', LoginModalShow)
 
 const language = ref<object>(await GetLanguge('th'));
 const lang_code = ref<string>('th')

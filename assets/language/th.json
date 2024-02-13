@@ -90,9 +90,9 @@
         },
 
         "search":{
-            "search_result": "result of search",
-            "not_keyword_search": "Please enter a keyword to search",
-            "not_result_search": "No result of search"
+            "search_result": "ผลการค้นหา",
+            "not_keyword_search": "กรุณากรอกคำค้นหา",
+            "not_result_search": "ไม่พบผลลัพท์ที่ใกล้เคียงกับ คำค้นหา"
         },
 
         "plan_list":{

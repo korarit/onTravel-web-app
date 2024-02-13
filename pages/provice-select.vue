@@ -27,10 +27,13 @@ function selectZone(nameZone) {
         zoneselect.value = nameZone
     }
 }
-const lang_code = await inject('language_code')
-watch(lang_code, (value) => {
-    console.log('zerotest',value)
-})
+
+////////////////////// แปลภาษา ///////////////////////
+const language = ref(await inject('language'));
+const lang_code = await inject('language_code');
+// watch(lang_code, (value) => {
+//     console.log('zerotest',value)
+// })
 async function changeProvince(idProvince) {
     if (idProvince === "") {
         province.value = ""
@@ -38,9 +41,6 @@ async function changeProvince(idProvince) {
     }
     province.value = ProvinceName[idProvince][lang_code.value]
 }
-
-////////////////////// แปลภาษา ///////////////////////
-const language = ref(inject('language'))
 
 </script>
 <template>
