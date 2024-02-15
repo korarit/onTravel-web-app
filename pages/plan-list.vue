@@ -70,7 +70,7 @@ const language = ref<any>(inject('language'))
                             @click="UseLoginModal"
                             >
                                 <font-awesome-icon :icon="['fas', 'user']" class="mr-4 text-[30px] leading-8 text-white" />
-                                <p class="text-[22px] font-medium leading-[24px] text-white">เข้าสู่ระบบ {{ language.page.plan_list.login }}</p>
+                                <p class="text-[22px] font-medium leading-[24px] text-white">{{ language.page.plan_list.login }}</p>
                             </button>
                         </div>
                     </div>

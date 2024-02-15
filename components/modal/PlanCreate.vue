@@ -7,6 +7,9 @@ const props:any = defineProps({
     show: Boolean
 });
 
+////////////////// แปลภาษา //////////////////////
+const language = ref<any>(inject('language'))
+
 const showTrasition = ref(false)
 
 // ตรวจสอบค่า props.show ถ้าเป็น true ให้แสดงการเปลี่ยนค่า showTrasition ให้เป็น true เพื่อให้แสดงการเปิด Modal อย่างสวยงาม
@@ -55,26 +58,26 @@ function cover_upload(e:any){
                 </div>
                 <div class="modal-body w-[100%] flex flex-col px-6 pb-6">
                     <!-- title-->
-                    <p class="text-[30px] text-center leading-[34px] font-extrabold mb-5">สร้างแผนการท่องเที่ยว</p>
+                    <p class="text-[30px] text-center leading-[34px] font-extrabold mb-5">{{ language.modal.plan_create.title }}</p>
 
                     <!-- fill กรอก ชื่อแผนการท่องเที่ยว -->
                     <div class="relative w-full"> 
                         <input
                             class="pl-4 w-full h-[44px] text-[18px] placeholder:text-[#9E9E9E] bg-[#e9e9e9] shadow-inner shadow-[#0000005a] rounded-md mb-4 focus:outline-none"
                             type="text"
-                            placeholder="ชื่อแผนการท่องเที่ยว"
+                            :placeholder="language.modal.plan_create.input_title"
                         >
                     </div>
                     <div class="flex justify-between w-full mb-4">
 
                         <!-- fill กรอก วันที่เริ่มต้น -->
                         <div class="w-[43%]">
-                            <p class="text-[18px] font-medium leading-5">วันที่เริ่มต้น</p>
+                            <p class="text-[18px] font-medium leading-5">{{ language.modal.plan_create.start_date }}</p>
                             <div class="relative w-full"> 
                                 <input 
                                     type="date"
                                     class="pl-12 pr-4 py-2 border w-full rounded-md text-[18px] bg-[#e9e9e9] shadow-inner shadow-[#0000005a] focus:outline-none" 
-                                    placeholder="วันที่เริ่มต้น" 
+                                    :placeholder="language.modal.plan_create.start_date" 
                                 /> 
                                 <div class="absolute inset-y-0 left-0 pl-4  flex items-center  pointer-events-none"> 
                                     <font-awesome-icon :icon="['fas', 'hourglass-start']" class="text-[24px]" />
@@ -84,12 +87,12 @@ function cover_upload(e:any){
 
                         <!-- fill กรอก วันที่สิ้นสุด -->
                         <div class="w-[43%]">
-                            <p class="text-[18px] font-medium leading-5">วันที่สิ้นสุด</p>
+                            <p class="text-[18px] font-medium leading-5">{{ language.modal.plan_create.end_date }}</p>
                             <div class="relative w-full"> 
                                 <input 
                                     type="date"
                                     class="pl-12 pr-4 py-2 border w-full rounded-md text-[18px] bg-[#e9e9e9] shadow-inner shadow-[#0000005a] focus:outline-none" 
-                                    placeholder="วันที่สิ้นสุด" 
+                                    :placeholder="language.modal.plan_create.end_date" 
                                 /> 
                                 <div class="absolute inset-y-0 left-0 pl-4  flex items-center  pointer-events-none"> 
                                     <font-awesome-icon :icon="['fas', 'hourglass-end']" class="text-[24px]" />
@@ -109,10 +112,10 @@ function cover_upload(e:any){
                     </div>
 
                     <!-- สำหรับ upload รูปภาพ -->
-                    <p class="text-[18px] font-medium leading-5 mb-2">รูป ปกแผนการท่องเที่ยว</p>
+                    <p class="text-[18px] font-medium leading-5 mb-2">{{ language.modal.plan_create.image }}</p>
                     <div class="flex items-center space-x-4 mb-5">
                         <label class=" bg-[#e9e9e9] rounded-md px-[60px] border border-black py-2 cursor-pointer" for="ImageCover">
-                            <p class="text-[20px] font-medium">อัพโหลด</p>
+                            <p class="text-[20px] font-medium">{{ language.modal.plan_create.button_upload }}</p>
                         </label>
                         <p class="text-[18px] font-medium">{{ file_name }}</p>
                         <input type='file' id="ImageCover" hidden @change="cover_upload">
@@ -122,7 +125,7 @@ function cover_upload(e:any){
                     <button
                         class="w-full h-[50px] rounded-md bg-[#FFA624] hover:bg-[#d68923] shadow-sm shadow-[#232323]  text-[24px] font-bold text-white focus:outline-none"
                     >
-                        สร้างแผนการท่องเที่ยว
+                        {{ language.modal.plan_create.button_create }}
                     </button>
                 </div>
             </div>

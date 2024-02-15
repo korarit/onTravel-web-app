@@ -18,6 +18,14 @@
     }
 </style>
 <script setup>
+definePageMeta({
+  layout: 'defaultmain',
+});
+////////////////////// แปลภาษา ///////////////////////
+const language = ref(await inject('language'));
+const lang_code = await inject('language_code');
+
+
 //สำหรับ turnstile การเช็ค bot
 const turnsite = ref(null);
 
@@ -116,12 +124,6 @@ function inputNotEmply() {
     else if (lastname.value === "") {
         inputError("lastname", "Please enter your lastname", true);
         document.getElementById('main').scrollTo({ top: lastname.offsetTop, behavior: 'smooth' });
-        return false;
-    }
-    //check input email is empty
-    else if (email.value === "") {
-        inputError("email", "Please enter your email", true);
-        document.getElementById('main').scrollTo({ top: email.offsetTop, behavior: 'smooth' });
         return false;
     }
     //check input phone is empty
@@ -311,8 +313,9 @@ async function CheckData() {
 </script>
 <template>
     <ClientOnly>
-        <NuxtLayout name="defaultmain">
+        <!-- <NuxtLayout name="defaultmain"> -->
             <div class="mx-auto lg:px-40 w-[70%] 2xl:w-[60%]">
+
                 <div class="rounded-full h-[256px] w-[256px] mx-auto my-12 bg-cover bg-center flex items-end overflow-hidden" :style="{ backgroundImage: `url(${profile_img === null ? 'https://cdn-icons-png.flaticon.com/512/149/149071.png' : profile_img})` }">
                     <label 
                         class="w-[100%] h-[30%] flex justify-center pt-[7%] space-x-2 cursor-pointer" 
@@ -320,70 +323,88 @@ async function CheckData() {
                         for="getFile"
                     >
                         <font-awesome-icon :icon="['fas', 'camera']" class="text-[30px] text-white" />
-                            <p class="text-[20px] font-bold text-white select-none">UPLOAD</p>
+                            <p class="text-[20px] font-bold text-white select-none">{{ language.page.register.upload_image }}</p>
                     </label>
                     <input type='file' id="getFile" hidden @change="profile_upload">
                 </div>
-                <label for="new" class="text-[32px] font-semibold text-[#01579B]">New Account</label>
+
+                <label for="new" class="text-[32px] font-semibold text-[#01579B]">{{ language.page.register.new_user }}</label>
+
                 <div class="mb-6 mt-6 md:flex md:items-center">
-                    <label for="username" class="text-xl font-extrabold  mb-2 md:mb-0 w-[31%] min-[1700px]:w-[26%]"><b class="text-2xl text-red-600 leading-4">*</b>Username</label>
+                    <label for="username" class="text-xl font-extrabold  mb-2 md:mb-0 w-[31%] min-[1700px]:w-[26%]">
+                        <span class="text-2xl text-red-600 leading-4">*</span>
+                        {{ language.page.register.title_username }}
+                    </label>
                     <div class="w-full md:w-3/4">
                         <input 
                             type="text" id="username" name="name"
                             class="w-full p-3 border border-gray-950 rounded-md shadow-inner text-lg font-medium"
-                            placeholder="Enter your Username"
+                            :placeholder="language.page.register.input_username"
                             autocomplete="off"
                             @input="InputNoSpace"
                         />
                         <p id="username-error" class="text-red-600 text-lg font-medium ml-2 hidden"></p>
                     </div>
                 </div>
+
                 <div class="mb-6 md:flex md:items-center ">
-                    <label for="name" class=" text-xl font-extrabold  mb-2 md:mb-0 w-[31%] min-[1700px]:w-[26%]"><b class="text-2xl text-red-600 leading-4">*</b>Name</label>
+                    <label for="name" class=" text-xl font-extrabold  mb-2 md:mb-0 w-[31%] min-[1700px]:w-[26%]">
+                        <span class="text-2xl text-red-600 leading-4">*</span>
+                        {{ language.page.register.title_name }}
+                    </label>
                     <div class="w-full md:w-3/4">
                         <input 
                             type="text" id="name" name="name" 
                             class="w-full p-3 border border-gray-950 rounded-md text-lg font-medium "
-                            placeholder="Enter your Name"
+                            :placeholder="language.page.register.input_name"
                             autocomplete="new-name"
                             @input="InputNoSpace"
                         />
                         <p id="name-error" class="text-red-600 text-lg font-medium ml-2 hidden"></p>
                     </div>
                 </div>
+
                 <div class="mb-6 md:flex md:items-center">
-                    <label for="lastname" class="text-xl  font-extrabold mb-2 md:mb-0 w-[31%] min-[1700px]:w-[26%]"><b class="text-2xl text-red-600 leading-4">*</b>Last name</label>
+                    <label for="lastname" class="text-xl  font-extrabold mb-2 md:mb-0 w-[31%] min-[1700px]:w-[26%]">
+                        <span class="text-2xl text-red-600 leading-4">*</span>
+                        {{ language.page.register.title_lastname }}
+                    </label>
                     <div class="w-full md:w-3/4">
                         <input 
                             type="text" id="lastname" name="lastname"
                             class="w-full p-3 border border-gray-950 rounded-md text-lg font-medium" 
-                            placeholder="Enter your Lastname"
+                            :placeholder="language.page.register.input_lastname"
                             autocomplete="new-lastname"
                             @input="InputNoSpace"
                         >
                         <p id="lastname-error" class="text-red-600 text-lg font-medium ml-2 hidden"></p>
                     </div>
                 </div>
+
                 <div class="mb-6 md:flex md:items-center">
-                    <label for="province" class="mb-2 md:mb-0 w-[31%] min-[1700px]:w-[26%] text-xl font-extrabold">&nbsp;&nbsp;Province</label>
+                    <label for="province" class="mb-2 md:mb-0 w-[31%] min-[1700px]:w-[26%] text-xl font-extrabold">
+                        &nbsp;&nbsp;{{ language.page.register.title_province }}
+                    </label>
 
                     <div class="w-full md:w-3/4 rounded-md bg-white">
                         <select 
                             name="province" id="province" 
                             class="w-full p-3 border border-gray-950 rounded-md text-xl font-medium  placeholder-[#3939397e] select-template bg-white"
                         >
-                            <option value="" selected class="text-black">Select Province</option>
+                            <option value="" selected class="text-black">{{ language.page.register.input_province }}</option>
                             <option value="1" class="text-black">พะเยา</option>
                         </select>
                     </div>
                 </div>
                 <div class="mb-6 md:flex md:items-center">
-                    <label for="email" class="text-xl font-extrabold  mb-2 md:mb-0 w-[31%] min-[1700px]:w-[26%]"><b class="text-2xl text-red-600 leading-4">*</b>Email</label>
+                    <label for="email" class="text-xl font-extrabold  mb-2 md:mb-0 w-[31%] min-[1700px]:w-[26%]">
+                        &nbsp;&nbsp;{{ language.page.register.title_email }}
+                    </label>
                     <div class="w-full md:w-3/4">
                         <input 
                             type="email" id="email" name="email"
                             class="w-full p-3 border border-gray-950 rounded-md text-lg font-medium" 
-                            placeholder="You@Example.com"
+                            :placeholder="language.page.register.input_email"
                             autocomplete="new-email"
                             @input="InputNoSpace"
                         />
@@ -391,7 +412,10 @@ async function CheckData() {
                     </div>
                 </div>
                 <div class="mb-6 md:flex md:items-center">
-                    <label for="phone" class="text-xl font-extrabold mb-2 md:mb-0 w-[31%] min-[1700px]:w-[26%]"><b class="text-2xl text-red-600 leading-4">*</b>Phone</label>
+                    <label for="phone" class="text-xl font-extrabold mb-2 md:mb-0 w-[31%] min-[1700px]:w-[26%]">
+                        <span class="text-2xl text-red-600 leading-4">*</span>
+                        {{ language.page.register.title_phone }}
+                    </label>
                     <div class="w-full md:w-3/4">
                         <input 
                             type="tel" id="phone" maxlength="10" autocomplete="off" 
@@ -404,12 +428,15 @@ async function CheckData() {
                     
                 </div>
                 <div class="mb-6 md:flex md:items-center">
-                    <label for="password" class="text-xl font-extrabold  mb-2 md:mb-0 w-[31%] min-[1700px]:w-[26%]"><b class="text-2xl text-red-600 leading-4">*</b>Password</label>
+                    <label for="password" class="text-xl font-extrabold  mb-2 md:mb-0 w-[31%] min-[1700px]:w-[26%]">
+                        <span class="text-2xl text-red-600 leading-4">*</span>
+                        {{ language.page.register.title_password }}
+                    </label>
                     <div class="w-full md:w-3/4">
                         <input 
                             type="password" id="password" name="password"
                             class="w-full p-3 border border-gray-950 rounded-md text-lg font-medium" 
-                            placeholder="Password"
+                            :placeholder="language.page.register.input_password"
                             pattern="[A-Za-z0-9!@#$%^&*+?]+"
                             @input="filterPasswordInput"
                         />
@@ -417,12 +444,15 @@ async function CheckData() {
                     </div>
                 </div>
                 <div class="mb-2 md:flex md:items-center">
-                    <label for="password-match" class="text-xl font-extrabold  mb-2 md:mb-0 w-[31%] min-[1700px]:w-[26%] "><b class="text-2xl text-red-600 leading-4">*</b>Confirm Password</label>
+                    <label for="password-match" class="text-xl font-extrabold  mb-2 md:mb-0 w-[31%] min-[1700px]:w-[26%] ">
+                        <span class="text-2xl text-red-600 leading-4">*</span>
+                        {{ language.page.register.title_confirm_password }}
+                    </label>
                     <div class="w-full md:w-3/4">
                     <input 
                         type="password" id="password-match" name="confirm_pass"
                         class="w-full p-3 border border-gray-950 rounded-md text-lg font-medium"
-                        placeholder="Confirm Password"
+                        :placeholder="language.page.register.input_confirm_password"
                         pattern="[A-Za-z0-9!@#$%^&*+?]+"
                         @input="passwordMacth"
                     />
@@ -438,35 +468,35 @@ async function CheckData() {
                                 <font-awesome-icon v-if="check_password.more_8 === false" :icon="['fas', 'xmark']" class="text-[32px]" />
                                 <font-awesome-icon v-else :icon="['fas', 'check']" class="text-[32px]" />
                             </div>
-                            <p class="text-[22px] leading-5">At least 8 characters</p>
+                            <p class="text-[22px] leading-5">{{ language.page.register.password_condition.more_than_8 }}</p>
                         </div>
                         <div :class="`flex items-center space-x-2 ${check_password.number === false ? 'text-red-600' : 'text-green-600'}`">
                             <div>
                                 <font-awesome-icon v-if="check_password.number === false" :icon="['fas', 'xmark']" class="text-[32px]" />
                                 <font-awesome-icon v-else :icon="['fas', 'check']" class="text-[32px]" />
                             </div>
-                            <p class="text-[22px] leading-5">Contains a digit</p>
+                            <p class="text-[22px] leading-5">{{ language.page.register.password_condition.digit }}</p>
                         </div>
                         <div :class="`flex items-center space-x-2 ${check_password.lowercase === false ? 'text-red-600' : 'text-green-600'}`">
                             <div>
                                 <font-awesome-icon v-if="check_password.lowercase === false" :icon="['fas', 'xmark']" class="text-[32px]" />
                                 <font-awesome-icon v-else :icon="['fas', 'check']" class="text-[32px]" />
                             </div>
-                            <p class="text-[22px] leading-5">Contains a lowercase a - z letter</p>
+                            <p class="text-[22px] leading-5">{{ language.page.register.password_condition.lowercase }}</p>
                         </div>
                         <div :class="`flex items-center space-x-2 ${check_password.uppercase === false ? 'text-red-600' : 'text-green-600'}`">
                             <div>
                                 <font-awesome-icon v-if="check_password.uppercase === false" :icon="['fas', 'xmark']" class="text-[32px]" />
                                 <font-awesome-icon v-else :icon="['fas', 'check']" class="text-[32px]" />
                             </div>
-                            <p class="text-[22px] leading-5">Contains a uppercase A - Z letter</p>
+                            <p class="text-[22px] leading-5">{{ language.page.register.password_condition.uppercase }}</p>
                         </div>
                         <div :class="`flex items-center space-x-2 ${check_password.special === false ? 'text-red-600' : 'text-green-600'}`">
                             <div>
                                 <font-awesome-icon v-if="check_password.special === false" :icon="['fas', 'xmark']" class="text-[32px]" />
                                 <font-awesome-icon v-else :icon="['fas', 'check']" class="text-[32px]" />
                             </div>
-                            <p class="text-[22px] leading-6">Contains a special character !@#$%^&*+?</p>
+                            <p class="text-[22px] leading-6">{{ language.page.register.password_condition.special }}</p>
                         </div>
                     </div>
                 </div>
@@ -474,47 +504,45 @@ async function CheckData() {
                 <label for="" class="text-2xl font-extrabold  md:w-1/4 md:pr-4">INTERESTS</label>
                 <div class="mb-6 mt-6 md:items-center justify-items-between  grid grid-cols-3 gap-8 text-center">
                     <button 
-                        :class="`${interest.adventure ? 'bg-[#36ad2d]' : 'bg-[#C0410C]'} py-3 border border-solid border-black rounded-3xl text-white text-xl select-none`"
+                        :class="`${interest.adventure ? 'bg-[#36ad2d]' : 'bg-[#616161]'} py-3 border border-solid border-black rounded-3xl text-white text-xl select-none`"
                         @click="interest.adventure = !interest.adventure"
                     >
-                        Adventure lover
+                        {{ language.page.register.interests.adventure }}
                     </button>
                     <button 
-                        :class="`${interest.nature ? 'bg-[#36ad2d]' : 'bg-[#C0410C]'} py-3 border border-solid border-black rounded-3xl text-white text-xl select-none`"
+                        :class="`${interest.nature ? 'bg-[#36ad2d]' : 'bg-[#616161]'} py-3 border border-solid border-black rounded-3xl text-white text-xl select-none`"
                         @click="interest.nature = !interest.nature"
                     >
-                        Nature
+                        {{ language.page.register.interests.nature }}
                     </button>
                     <button 
-                        :class="`${interest.sea ? 'bg-[#36ad2d]' : 'bg-[#C0410C]'}  py-3 border border-solid border-black rounded-3xl text-white text-xl select-none`"
+                        :class="`${interest.sea ? 'bg-[#36ad2d]' : 'bg-[#616161]'}  py-3 border border-solid border-black rounded-3xl text-white text-xl select-none`"
                         @click="interest.sea = !interest.sea"
                     >
-                        Sea
+                        {{ language.page.register.interests.sea }}
                     </button>
                     <button 
-                        :class="`${interest.history ? 'bg-[#36ad2d]' : 'bg-[#C0410C]'} py-3 border border-solid border-black rounded-3xl text-white text-xl select-none`"
+                        :class="`${interest.history ? 'bg-[#36ad2d]' : 'bg-[#616161]'} py-3 border border-solid border-black rounded-3xl text-white text-xl select-none`"
                         @click="interest.history = !interest.history"
                     >
-                        History
+                        {{ language.page.register.interests.history }}
                     </button>
                     <button 
-                        :class="`${interest.eating ? 'bg-[#36ad2d]' : 'bg-[#C0410C]'} py-3 border border-solid border-black rounded-3xl text-white text-xl select-none`"
+                        :class="`${interest.eating ? 'bg-[#36ad2d]' : 'bg-[#616161]'} py-3 border border-solid border-black rounded-3xl text-white text-xl select-none`"
                         @click="interest.eating = !interest.eating"
                     >
-                        Eating lover
+                        {{ language.page.register.interests.eat }}
                     </button>
                     <button 
-                        :class="`${interest.scenic ? 'bg-[#36ad2d]' : 'bg-[#C0410C]'}  py-3 border border-solid border-black rounded-3xl text-white text-xl select-none`"
+                        :class="`${interest.scenic ? 'bg-[#36ad2d]' : 'bg-[#616161]'}  py-3 border border-solid border-black rounded-3xl text-white text-xl select-none`"
                         @click="interest.scenic = !interest.scenic"
                     >
-                        Scenic lover
+                        {{ language.page.register.interests.farm }}
                     </button>
                 </div>
                 <div class="my-8 md:flex md:items-center justify-center">
                     <input type="checkbox" id="terms" name="terms" value="terms" class="mr-5 w-6 h-6 accent-[##01579B]">
-                    <label for="terms" class="text-center text-xl">I agree to be bound by the project <span
-                            class="text-[#01579B]"><a href="#">service terms </a></span>See our <br><span
-                            class="text-[#01579B]"><a href="">privacy policy </a></span>for more infomation</label>
+                    <label for="terms" class="text-center text-xl">{{ language.page.register.term }}</label>
                 </div>
 
                 <div class="mb-8 flex items-center justify-center" id="turnstile-box">
@@ -526,20 +554,20 @@ async function CheckData() {
                         class="bg-[#01579B] hover:bg-[#036DC2]  py-3 border border-solid border-cyan-500 rounded-xl text-white text-xl"
                         @click="CheckData()"
                     >
-                        <div v-if="loadingRegister === false">สมัครสร้างบัญชี</div>
+                        <div v-if="loadingRegister === false">{{ language.page.register.button_register }}</div>
                         <div v-else>
                             <svg class="animate-spin h-6 w-6 mr-3" viewBox="0 0 24 24"></svg>
                             <p>{{ loadingStatus }}</p>
                         </div>
                     </button>
                     <button class="bg-[#d63e33] hover:bg-[#EF4236]  py-3 border border-solid border-red-700 rounded-xl text-white text-xl">
-                        ยกเลิกการสมัคร
+                        {{ language.page.register.button_cancel }}
                     </button>
 
                 </div>
 
             </div>
-        </NuxtLayout>
+        <!-- </NuxtLayout> -->
 
         <div v-show="otpModalShow">
             <ModalOTP :otpClose="() => otpModalShow = false" :show="otpModalShow" />

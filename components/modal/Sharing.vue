@@ -4,6 +4,8 @@ const props = defineProps({
     modalClose: Function,
     show: Boolean
 })
+////////////////// แปลภาษา //////////////////////
+const language = ref(inject('language'))
 
 const showTrasition = ref(false)
 watch(() => props.show, (value) => {
@@ -45,7 +47,7 @@ function Copy(){
             <div v-show="showTrasition" class="bg-[#fdfdfd] rounded-xl h-fit px-10 pb-10 w-[80dvw] lg:w-[60dvw] 2xl:w-[800px]">
                 <!-- title -->
                 <div class="modal-head h-fit w-full flex items-center mt-10">
-                    <p class="w-[95%] flex items-center justify-center text-[30px] font-semibold h-fit leading-[2.6dvw]">แชร์ไปยังที่อื่น ๆ</p>
+                    <p class="w-[95%] flex items-center justify-center text-[30px] font-semibold h-fit leading-[2.6dvw]">แชร์ไปยังที่อื่น ๆ{{ language.modal.sharing.title }}</p>
                     <button @click="ModalClose()" class="flex items-center justify-center w-[5%] h-[2dvw]">
                         <font-awesome-icon :icon="['fas', 'xmark']" class="text-[48px] font-bold cursor-pointer" />
                     </button>
@@ -113,7 +115,7 @@ function Copy(){
                     <button
                         @click="Copy"
                         class="w-[27%] border-2 border-black bg-[#F9A825] select-none hover:bg-[#d49542] active:bg-[#d49542] h-full rounded-2xl text-white font-medium text-[28px]">
-                        คัดลอก
+                        คัดลอก{{ language.modal.sharing.copy }}
                     </button>
                 </div>
             </div>

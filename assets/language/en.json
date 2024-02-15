@@ -41,6 +41,47 @@
         }
     },
     "search": "Search",
+    "modal":{
+        "image_crop":{
+            "title": "Upload Profile Image",
+            "confirm": "confirm"
+        },
+        "login":{
+            "title": "Login Form",
+            "button_login": "Login",
+            "button_register": "Register",
+            "keep_login":"Keep Login",
+            "forgot": "Forget Password",
+            "or": "OR",
+            "facebook": "Login with Facebook",
+            "google": "Login with Google",
+            "line": "Login with LINE"
+        },
+        "otp":{
+            "title": "Verify your identity via OTP",
+            "send_phone": "OTP code has been sent to your phone number. finished Please enter the OTP code received.",
+
+            "input_otp": "Enter OTP code in",
+            "minute": "minute",
+            "button_confirm": "Confirm OTP",
+            "wait_resend": "Request the OTP code again at",
+            "button_resend": "Request OTP code again"
+        },
+        "plan_create":{
+            "title": "Create Travel Plan",
+            "input_title": "Name of travel plan",
+            "start_date": "Start date",
+            "end_date": "End date",
+            "input_description": "Travel plan details",
+            "image": "Picture of travel plan cover",
+            "button_upload": "UPLOAD",
+            "button_create": "Create Travel Plan"
+        },
+        "sharing":{
+            "title": "Share To Other Platforms",
+            "copy": "Copy"
+        }
+    },
     "page":{
         "home": {
             "travel_recommend": "Travel Recommend",
@@ -210,7 +251,7 @@
                 "sea": "Sea",
                 "history": "History",
                 "eat": "Eating lover",
-                "scenic": "Scenic lover"
+                "farm": "Scenic lover"
             }
         }
     }

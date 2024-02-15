@@ -4,7 +4,10 @@ const props = defineProps({
     show: Boolean
 })
 
-const keyword_seacrh = ref("")
+////////////////// แปลภาษา //////////////////////
+const language = ref(inject('language'))
+
+
 const showTrasition = ref(false)
 
 //ตรวจสอบว่า อักษรที่กรอกลงในช่อง password ต้องเป็นตัวอักษรภาษาอังกฤษ ตัวเลข หรือสัญลักษณ์ที่กำหนดไว้เท่านั้น
@@ -58,7 +61,7 @@ input[type="password"]::-ms-reveal {
                     </button>
                 </div>
                 <div class="modal-body w-[100%] flex flex-col">
-                    <p class="text-[28px] 2xl:text-[30px] text-center leading-[34px] font-extrabold mb-5">Login Form</p>
+                    <p class="text-[28px] 2xl:text-[30px] text-center leading-[34px] font-extrabold mb-5">{{ language.modal.login.title }}</p>
                     <div class="mx-auto relative w-[80%] h-[48px] 2xl:h-[50px]">
                         <input 
                             class="mx-auto w-full h-full pl-[4.1rem] text-[16px] 2xl:text-[18px] font-medium placeholder-[#909090] rounded-md shadow-inner shadow-[#8a8a8a] bg-[#d1d1d1] focus:outline-none" 
@@ -82,10 +85,10 @@ input[type="password"]::-ms-reveal {
                     <div class="mx-auto w-[80%] my-4 flex justify-between items-center">
                         <div class="h-6 w-fit flex items-center">
                             <input type="checkbox" id="terms" name="terms" value="terms" class="w-6 h-6 mr-2 accent-[#313131]">
-                            <p class="text-[16px] 2xl:text-[18px] leading-4 font-medium text-[#0c0c0c] select-none">Keep Login</p>
+                            <p class="text-[16px] 2xl:text-[18px] leading-4 font-medium text-[#0c0c0c] select-none">{{ language.modal.login.keep_login }}</p>
                         </div>
 
-                        <p class="text-[16px] 2xl:text-[18px] leading-4 font-semibold text-[#0277BD] cursor-pointer select-none">Forgot password?</p>
+                        <p class="text-[16px] 2xl:text-[18px] leading-4 font-semibold text-[#0277BD] cursor-pointer select-none">{{ language.modal.login.forgot }}?</p>
                     </div>
 
                     <div class="mx-auto w-[80%] space-y-5">
@@ -93,14 +96,14 @@ input[type="password"]::-ms-reveal {
                         <button
                             class="w-full h-[48px] 2xl:h-[50px] rounded-md bg-[#FFA624] hover:bg-[#d68923] shadow-md shadow-[#d0d0d0]  text-[22px] 2xl:text-[24px] font-bold  text-white focus:outline-none mb-5"
                         >
-                            Log in
+                            {{ language.modal.login.button_login }}
                         </button>
 
-                        <NuxtLink to="/auth/register" class="w-full">
+                        <NuxtLink to="/auth/register" @click="ModalClose" class="w-full">
                         <button
                             class="w-full h-[48px] 2xl:h-[50px] rounded-md bg-[#FF5722] hover:bg-[#F93E03] shadow-inner shadow-[#00000055] text-[22px] 2xl:text-[24px] font-bold text-white focus:outline-none"
                         >
-                            Register
+                            {{ language.modal.login.button_register }}
                         </button>
                         </NuxtLink>
 
@@ -110,7 +113,7 @@ input[type="password"]::-ms-reveal {
                         <div class="w-[25%] h-[1px] bg-[#000000]"></div>
 
                         <div class="w-[30%]">
-                            <p class="text-center text-[20px] font-bold leading-4">OR</p>
+                            <p class="text-center text-[20px] font-bold leading-4">{{ language.modal.login.or }}</p>
                         </div>
 
                         <div class="w-[25%] h-[1px] bg-[#000000]"></div>
@@ -125,7 +128,7 @@ input[type="password"]::-ms-reveal {
                                 <font-awesome-icon :icon="['fab', 'facebook']" class="text-[30px]" />
                             </div>
                             <div class="w-[40%] text-left text-nowrap">
-                                <p>Login with Facebook</p>
+                                <p>{{ language.modal.login.facebook }}</p>
                             </div>
                         </button>
 
@@ -136,7 +139,7 @@ input[type="password"]::-ms-reveal {
                                 <img src="/icon/google-icon.svg" class="w-[28px] h-[30px] mx-auto" alt="google_icon">
                             </div>
                             <div class="w-[40%] text-left text-nowrap">
-                                <p>Login with Google</p>
+                                <p>{{ language.modal.login.google }}</p>
                             </div>
                         </button>
 
@@ -147,7 +150,7 @@ input[type="password"]::-ms-reveal {
                                 <font-awesome-icon :icon="['fab', 'line']" class="text-[28px]" />
                             </div>
                             <div class="w-[40%] text-left text-nowrap">
-                                <p>Login with LINE</p>
+                                <p>{{ language.modal.login.line }}</p>
                             </div>
                         </button>
 

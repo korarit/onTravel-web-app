@@ -41,6 +41,47 @@
         }
     },
     "search": "ค้นหา",
+    "modal":{
+        "image_crop":{
+            "title": "อัพโหลดรูปภาพ โปรไฟล์",
+            "confirm": "ยืนยัน"
+        },
+        "login":{
+            "title": "เข้าสู่ระบบ ",
+            "button_login": "เข้าสู่ระบบ",
+            "button_register": "สมัครสมาชิก",
+            "keep_login":"จำการเข้าสู่ระบบ",
+            "forgot": "ลืมรหัสผ่าน",
+            "or": "หรือ",
+            "facebook": "เข้าสู่ระบบด้วย Facebook",
+            "google": "เข้าสู่ระบบด้วย Google",
+            "line": "เข้าสู่ระบบด้วย LINE"
+        },
+        "otp":{
+            "title": "ยืนยันตัวตนผ่าน OTP",
+            "send_phone": "รหัสผ่าน OTP ได้ส่งไปยังเบอรโทรศัพท์ที่ท่านลงทะเบียน เรียบร้อยแล้ว กรุณากรอกรหัส OTP ที่ได้รับ",
+
+            "input_otp": "กรอกรหัส OTP ใน",
+            "minute": "นาที",
+            "button_confirm": "ยืนยันรหัส OTP",
+            "wait_resend": "ขอรหัสอีกครั้งได้ใน",
+            "button_resend": "ขอรหัส OTP อีกครั้ง"
+        },
+        "plan_create":{
+            "title": "สร้างแผนการท่องเที่ยว",
+            "input_title": "ชื่อแผนการท่องเที่ยว",
+            "start_date": "วันที่เริ่มต้น",
+            "end_date": "วันที่สิ้นสุด",
+            "input_description": "รายละเอียดแผนการท่องเที่ยว",
+            "image": "รูป ปกแผนการท่องเที่ยว",
+            "button_upload": "อัพโหลด",
+            "button_create": "สร้างแผนการท่องเที่ยว"
+        },
+        "sharing":{
+            "title": "แชร์ไปยังที่อื่น ๆ",
+            "copy": "คัดลอก"
+        }
+    },
     "page":{
         "home": {
             "travel_recommend": "สถานที่ท่องเที่ยวแนะนำ",
@@ -165,52 +206,52 @@
 
         },
         "register":{
-            "upload_image": "UPLOAD",
-            "new_user": "New Account",
-            "button_register": "Register",
-            "button_cancel": "Cancel Register",
-            "term": "I agree to be bound by the project service terms See our privacy policy for more infomation",
+            "upload_image": "อัพโหลด",
+            "new_user": "สร้างบัญชีใหม่",
+            "button_register": "สมัครสร้างบัญชี",
+            "button_cancel": "ยกเลิกการสมัคร",
+            "term": "ฉันยอมรับข้อตกลงและเงื่อนไขการใช้งานของเว็บไซต์นี้",
 
             "title_username": "Username",
-            "input_username": "Enter your Username",
+            "input_username": "กรอก Username ของคุณ",
 
-            "title_name": "Name",
-            "input_name": "Enter your Name",
+            "title_name": "ชื่อ",
+            "input_name": "กรอกชื่อของคุณ",
 
-            "title_lastname": "Lastname",
-            "input_lastname": "Enter your Lastname",
+            "title_lastname": "นามสกุล",
+            "input_lastname": "กรอกนามสกุลของคุณ",
 
-            "title_province": "Province",
-            "input_province": "Select Province",
+            "title_province": "จังหวัด",
+            "input_province": "เลือกจังหวัด",
 
-            "title_email": "Email",
-            "input_email": "Enter your Email",
+            "title_email": "อีเมล์",
+            "input_email": "กรอกอีเมล์ของคุณ",
 
-            "title_phone": "Phone number",
+            "title_phone": "เบอร์โทรศัทพ์",
             "input_phone": "+66",
 
-            "title_password": "Password",
-            "input_password": "Enter your Password",
+            "title_password": "รหัสผ่าน",
+            "input_password": "กรอก รหัสผ่าน ของคุณ",
 
-            "title_confirm_password": "Confirm Password",
-            "input_confirm_password": "Enter your Confirm Password",
+            "title_confirm_password": "ยืนยันรหัสผ่าน",
+            "input_confirm_password": "กรอก รหัสผ่าน อีกครั้ง",
 
             "password_condition": {
-                "more_than_8": "At least 8 characters",
-                "digit": "Contains a digit",
-                "lowercase": "Contains a lowercase a-z letter",
-                "uppercase": "Contains a uppercase A-Z letter",
-                "special": "Contains a special character !@#$%^&*+?"
+                "more_than_8": "มีตัวอักษรมากกว่า 8 ตัว",
+                "digit": "มีตัวเลขอย่างน้อย 1 ตัว",
+                "lowercase": "มีอักษรภาษาอังกฤษ A-Z พิมพ์ใหญ่ อย่างน้อย 1 ตัว",
+                "uppercase": "มีอักษรภาษาอังกฤษ a-z พิมพ์เล็ก อย่างน้อย 1 ตัว",
+                "special": "มีอักษรพิเศษ !@#$%^&*+? อย่างน้อย 1 ตัว"
             },
 
-            "title_interests": "Interests",
+            "title_interests": "ความสนใจ",
             "interests":{
-                "adventure": "Adventure lover",
-                "nature": "Nature",
-                "sea": "Sea",
-                "history": "History",
-                "eat": "Eating lover",
-                "scenic": "Scenic lover"
+                "adventure": "พจนภัย",
+                "nature": "ธรรมชาติ ป่าเขา",
+                "sea": "ทะเล ชายหาด",
+                "history": "ประวัติศาสตร์",
+                "eat": "อาหาร กินเที่ยว",
+                "farm": "การเกษตร"
             }
         }
     }
