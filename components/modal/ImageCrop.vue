@@ -10,7 +10,7 @@ const props = defineProps({
 })
 
 ////////////////// แปลภาษา //////////////////////
-const language = ref(inject('language'))
+const language = ref(await inject('language'))
 
 const cropper = ref(null);
 

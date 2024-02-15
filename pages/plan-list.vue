@@ -10,7 +10,7 @@ definePageMeta({
   layout: 'defaultmain',
 });
 
-const loginStatus = ref<Boolean>(false)
+const loginStatus = ref<Boolean>(true)
 const plan_list = ref<string[]>([])
 
 const showPlanCreate = ref<boolean>(false)

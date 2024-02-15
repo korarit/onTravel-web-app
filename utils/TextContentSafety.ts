@@ -22,9 +22,6 @@ export default async function (textContent: string[], turnstileToken: string){
         const {data: check_result, pending: pending_data, error: error_data, refresh} = await useFetch(runtimeConfig.public.BACKEND_URL+'/contentSafety/text',
         {   
             method: 'POST',
-            headers: {
-                'Turnstile-Token': `${turnstileToken}`
-            },
             body: JSON.stringify({input: textContent})
         })
         if(pending_data.value === false){

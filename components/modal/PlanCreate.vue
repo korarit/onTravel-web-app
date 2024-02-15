@@ -8,7 +8,7 @@ const props:any = defineProps({
 });
 
 ////////////////// แปลภาษา //////////////////////
-const language = ref<any>(inject('language'))
+const language = ref<any>(await inject('language'))
 
 const showTrasition = ref(false)
 
