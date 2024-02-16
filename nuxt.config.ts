@@ -22,6 +22,9 @@ export default defineNuxtConfig({
       }
     }]
   ],
+  build: {
+    transpile: ['@fortawesome/vue-fontawesome']
+  },
   imports:{
     dirs: [
       'composables',
