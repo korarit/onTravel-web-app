@@ -10,7 +10,7 @@
     <div class="w-full flex items-center justify-between">
 
       <div class="h-fit w-fit">
-        <p class="text-[2.5dvh] font-semibold justify-start">#Hotel</p>
+        <p class="text-[2.5dvh] font-semibold justify-start">#Place</p>
       </div>
 
       <div class="w-[33%] h-[48px] bg-[#FBC02D] rounded-3xl flex">
@@ -109,7 +109,7 @@
 
 <script setup>
 const data = ref({
-  name : "Hotel",
+  name : "Place 0001",
   descirtion: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur neque, sunt iure minus cum, qui blanditiis fugit inventore nesciunt architecto numquam saepe assumenda nobis atque. Similique doloribus voluptate consequuntur eligendi.",
   point_review: 0.0,
   review_count: 0,

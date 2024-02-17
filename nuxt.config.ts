@@ -16,6 +16,7 @@ export default defineNuxtConfig({
     '@nuxtjs/turnstile',
     'nuxt3-leaflet',
     '@nuxt/image',
+    '@samk-dev/nuxt-vcalendar',
     ['@nuxtjs/google-fonts',{
       families:{
         Kanit: [100,200,300,400,500,600,700,800,900]

@@ -5,6 +5,11 @@ definePageMeta({
   layout: 'defaultmain',
 })
 
+//สำหรับเงื่อนไขการแสดง modal
+const shareModalShow = ref(false);
+
+const DateModalShow = ref(false);
+
 const dataTest = ref([
   {
     id: 1,
@@ -213,30 +218,55 @@ const dataTest3 = ref([
 
 <template>
   <div class="bg-gray-100 h-fit">
-    <PlanSearch />
-    <PlanList :ListPlan="dataTest" />
-    <PlanList :ListPlan="dataTest2" />
-    <PlanList :ListPlan="dataTest3" />
+    <!-- header -->
+    <div class="flex justify-between px-6 2xl:px-6 mt-12 h-auto">
+      <h1 class="text-3xl font-bold">แผนการ</h1>
+      <div class="flex items-center ">
+        <div class="mr-6 flex -space-x-5 h-fit">
+          <div class="h-16 w-16 rounded-full bg-gray-500"></div>
+          <div class="h-16 w-16 rounded-full bg-red-500"></div>
+          <div class="h-16 w-16 rounded-full bg-blue-500"></div>
+        </div>
+        <button @click="() => shareModalShow = true" class="flex items-center justify-center text-white shadow-inner bg-[#0000005c] shadow-black/50 w-[8dvw] h-12 p-2 text-lg font-extrabold rounded-md ">
+          <i class="fa-solid fa-user-plus"></i>
+          Share
+        </button>
+      </div>
+
+    </div>
+
+    <!-- รายการแผน -->
+    <PlanList title="12/12/2024" :ListPlan="dataTest" />
+    <PlanList title="13/12/2024" :ListPlan="dataTest2" />
+    <PlanList title="14/12/2024" :ListPlan="dataTest3" />
 
     <div class=" flex flex-col text-center w-fit mx-auto my-12">
-        <button class="bg-green-500 text-white px-4 py-2 rounded w-[50dvw] mb-6 text-2xl">
+      <button @click="() => DateModalShow = true" class="bg-green-500 text-white px-4 py-2 rounded-md shadow-md shadow-black/30 w-[40dvw] mb-6 text-2xl">
         เพิ่มวันในแผนการ
-        </button>
-        <button class="bg-red-500 text-white px-4 py-2 rounded w-[50dvw] text-2xl">
-          ยกเลิกแผนการทั้งหมด
-        </button>
+      </button>
+      <button class="bg-red-500 text-white px-4 py-2 rounded-md shadow-md shadow-black/30 w-[40dvw] text-2xl">
+        ยกเลิกแผนการทั้งหมด
+      </button>
     </div>
 
     <div class="w-fit h-fit mx-auto mb-12">
-        <ImageGallaryPlan />
+      <ImageGallaryPlan />
     </div>
   </div>
+
+  <ClientOnly>
+    <div v-show="shareModalShow">
+      <ModalPlanShare :modalClose="() => shareModalShow = false" :show="shareModalShow" />
+    </div>
+    <div v-show="DateModalShow">
+      <ModalPlanDatePick :modalClose="() => DateModalShow = false" :show="DateModalShow" />
+    </div>
+  </ClientOnly>
 </template> 
 
 <style>
-
 body {
-    background-color: #f0f0f0;
-    font-family: 'Kanit', sans-serif;
+  background-color: #f0f0f0;
+  font-family: 'Kanit', sans-serif;
 }
 </style>

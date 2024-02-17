@@ -17,6 +17,7 @@ interface PlanCardType {
 }
 
 const props = defineProps<{
+    title: string;
     ListPlan: PlanCardType[]
 }>();
 /////////////////// data ///////////////////
@@ -85,9 +86,9 @@ function RangeMouseMove(event: MouseEvent) {
     <!-- Search bar -->
     <div class="flex items-center my-10">
       <h1
-        class="text-3xl font-medium flex items-center justify-center w-[24dvw] h-[56px] rounded-r-md bg-[#F9A825] text-black shadow-gray-500 shadow-inner focus:outline-none"
+        class="text-2xl font-medium flex items-center justify-center w-[24dvw] h-[56px] rounded-r-md bg-[#F9A825] text-black shadow-gray-500 shadow-inner focus:outline-none"
       >
-        Travel List
+        แผนวันที่ {{ title }}
       </h1>
 
       <div class="ml-8 h-fit w-fit rounded-md bg-[#ADADAD]">

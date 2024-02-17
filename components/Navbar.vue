@@ -20,9 +20,9 @@ function ChangeLanguage(event: Event) {
 </script>
 <template>
     <ClientOnly>
-        <div class="w-[100dvw] h-[70px] bg-[#F9A825] px-12 2xl:px-24 flex items-center drop-shadow-lg">
+        <div class="w-[100dvw] z-[1000] h-[70px] bg-[#F9A825] px-12 2xl:px-24 flex items-center drop-shadow-lg">
             <p>Logo</p>
-            <div class="w-[270px] h-[44px] ml-auto flex items-center">
+            <div class="w-auto h-[44px] ml-auto flex items-center">
 
                 <div class="w-[200px] h-[38px] rounded-xl bg-white mr-4 flex">
                     <div class="w-[40px] h-full bg-[#cfcfcf] rounded-l-xl border-r border-black flex items-center justify-center">
@@ -34,8 +34,9 @@ function ChangeLanguage(event: Event) {
                     </select>
                 </div>
 
-                <button @click="LoginModal()" class="w-[44px] h-[44px] rounded-full bg-white flex items-center justify-center">
+                <button @click="LoginModal()" class="w-auto h-[44px] rounded-lg bg-white border-2 border-black flex items-center px-4">
                     <img src="/icon/user_icon.svg" class="w-[32px] h-[32px]" alt="user_icon">
+                    <p class="ml-2 text-[18px] font-semibold">เข้าสู่ระบบ</p>
                 </button>
             </div>
         </div>

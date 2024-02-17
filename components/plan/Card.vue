@@ -23,8 +23,8 @@ const props = defineProps<{
 
 <template>
   <div 
-  class="flex-none rounded-xl w-[22.2dvw] h-[22.2dvw] inline-block relative bg-center bg-cover bg-no-repeat"
-    :style="`background-image: url('${CardData.image}');`"
+    :class="`flex-none rounded-xl w-[22.2dvw] h-[22.2dvw] 2xl:w-[20dvw] 2xl:h-[20dvw] inline-block relative ${CardData.image === '' ? 'bg-[#D9D9D9] shadow-inner   shadow-black/50' : '' } bg-center bg-cover bg-no-repeat`"
+    :style="`${CardData.image !== '' ? 'background-image: url('+CardData.image+')' : ''}`"
   >
     
     <div class="absolute min-h-[25%] top-16 left-[50%] right-[50%] -translate-x-[50%] w-[90%] flex justify-center bg-[#ffffffbc] text-center align-middle rounded-2xl">
@@ -44,6 +44,11 @@ const props = defineProps<{
             <div class="h-[0.7dvw] w-[0.7dvw] rounded-full bg-[#ffffffc8]"></div>
         </div>
     </div>
+
+    
+    <button v-if="CardData.image === ''" class="absolute bottom-[30px] right-[6%] select-none">
+      <img src="/icon/image-upload.svg" style="height: 48px;">
+    </button>
 
     
   </div>
