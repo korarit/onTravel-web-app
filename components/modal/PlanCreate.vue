@@ -9,6 +9,7 @@ const props:any = defineProps({
 
 ////////////////// แปลภาษา //////////////////////
 const language = ref<any>(await inject('language'))
+const language_code = ref<any>(await inject('language_code'))
 
 const showTrasition = ref(false)
 
@@ -25,6 +26,9 @@ function ModalClose(){
         props.modalCloseShow()
     }, 310);
 }
+
+//สำหรับเก็บวันที่เริ่มต้นและสิ้นสุด
+const range = ref<Date>(new Date())
 
 //สำหรับเก็บชื่อไฟล์รูปภาพปก
 const file_name = ref<String>("")
@@ -68,37 +72,45 @@ function cover_upload(e:any){
                             :placeholder="language.modal.plan_create.input_title"
                         >
                     </div>
-                    <div class="flex justify-between w-full mb-4">
+                    <div class="w-full">
+                        <VDatePicker :locale="language_code" v-model="range" is-range>
+                            <template #default="{ inputValue, inputEvents }">
+                                <div class="flex w-full mb-4">
 
-                        <!-- fill กรอก วันที่เริ่มต้น -->
-                        <div class="w-[43%]">
-                            <p class="text-[18px] font-medium leading-5">{{ language.modal.plan_create.start_date }}</p>
-                            <div class="relative w-full"> 
-                                <input 
-                                    type="date"
-                                    class="pl-12 pr-4 py-2 border w-full rounded-md text-[18px] bg-[#e9e9e9] shadow-inner shadow-[#0000005a] focus:outline-none" 
-                                    :placeholder="language.modal.plan_create.start_date" 
-                                /> 
-                                <div class="absolute inset-y-0 left-0 pl-4  flex items-center  pointer-events-none"> 
-                                    <font-awesome-icon :icon="['fas', 'hourglass-start']" class="text-[24px]" />
-                                </div> 
-                            </div> 
-                        </div>
+                                    <!-- fill กรอก วันที่เริ่มต้น -->
+                                    <div class="w-[43%]">
+                                        <p class="text-[18px] font-medium leading-5">{{ language.modal.plan_create.start_date }}</p>
+                                        <div class="relative w-full"> 
+                                            <input 
+                                                class="pl-[33%] pr-4 py-2 border w-full rounded-md text-[18px] bg-[#e9e9e9] shadow-inner shadow-[#0000005a] focus:outline-none" 
+                                                :placeholder="language.modal.plan_create.start_date"
+                                                :value="inputValue.start"
+                                                v-on="inputEvents.start"
+                                            /> 
+                                            <div class="absolute inset-y-0 left-0 pl-[7%]  flex items-center  pointer-events-none"> 
+                                                <font-awesome-icon :icon="['fas', 'hourglass-start']" class="text-[24px]" />
+                                            </div> 
+                                        </div> 
+                                    </div>
 
-                        <!-- fill กรอก วันที่สิ้นสุด -->
-                        <div class="w-[43%]">
-                            <p class="text-[18px] font-medium leading-5">{{ language.modal.plan_create.end_date }}</p>
-                            <div class="relative w-full"> 
-                                <input 
-                                    type="date"
-                                    class="pl-12 pr-4 py-2 border w-full rounded-md text-[18px] bg-[#e9e9e9] shadow-inner shadow-[#0000005a] focus:outline-none" 
-                                    :placeholder="language.modal.plan_create.end_date" 
-                                /> 
-                                <div class="absolute inset-y-0 left-0 pl-4  flex items-center  pointer-events-none"> 
-                                    <font-awesome-icon :icon="['fas', 'hourglass-end']" class="text-[24px]" />
-                                </div> 
-                            </div> 
-                        </div>
+                                    <!-- fill กรอก วันที่สิ้นสุด -->
+                                    <div class="w-[43%] ml-auto">
+                                        <p class="text-[18px] font-medium leading-5">{{ language.modal.plan_create.end_date }}</p>
+                                        <div class="relative w-full"> 
+                                            <input 
+                                                class="pl-[33%] pr-4 py-2 border w-full rounded-md text-[18px] bg-[#e9e9e9] shadow-inner shadow-[#0000005a] focus:outline-none" 
+                                                :placeholder="language.modal.plan_create.end_date"
+                                                :value="inputValue.end"
+                                                v-on="inputEvents.end"
+                                            /> 
+                                            <div class="absolute inset-y-0 left-0 pl-[7%]  flex items-center  pointer-events-none"> 
+                                                <font-awesome-icon :icon="['fas', 'hourglass-end']" class="text-[24px]" />
+                                            </div> 
+                                        </div> 
+                                    </div>
+                                </div>
+                            </template>
+                        </VDatePicker>
 
                     </div>
                     <!-- fill กรอกลายระเอียด-->

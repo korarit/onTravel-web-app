@@ -79,7 +79,7 @@ function changeShow(index: number){
                 </Carousel>
             </div>
             <div class="w-[52%] min-h-[100%] flex flex-col">
-                <p class="text-[1.7rem] font-semibold">{{ TravelGuideTest[keyData]['title'] }}</p>
+                <p class="text-[1.7rem] font-semibold" v-if="TravelGuideTest[keyData]['title'] != undefined">{{ TravelGuideTest[keyData]['title'] }}</p>
 
                 <div class="w-[100%] h-[6px] relative flex my-6">
                     <div class="absolute w-[30%] h-[6px] bg-[#F9A825] z-10 "></div>

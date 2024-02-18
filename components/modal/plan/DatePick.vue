@@ -6,6 +6,8 @@ const props = defineProps({
 
 ////////////////// แปลภาษา //////////////////////
 const language = ref(await inject('language'))
+const language_code = ref<string>(await inject('language_code') as string)
+const language_date = ref<string>(language_code.value === 'th' ? 'th-TH' : 'en-US')
 
 
 const showTrasition = ref(false)
@@ -72,13 +74,13 @@ const selectDragAttribute = computed(() => ({
 @import url("~/assets/css/modal.css");
 
 .vc-hight-light {
-    --vc-accent-100: #ffd99c;
-    --vc-accent-200: #ffdfac;
-    --vc-accent-600: #f4a018;
+    --vc-accent-100: #f9f9f9;
+    --vc-accent-200: #ffe1b0;
+    --vc-accent-600: #F9A825;
 
 }
 .vc-sky-blue {
-    --vc-accent-600: #20a751;
+    --vc-accent-600: #16a34a;
 
 
 
@@ -99,7 +101,7 @@ const selectDragAttribute = computed(() => ({
         <Transition name="modal">
         <div v-show="showTrasition" class="borderd-2 h-fit w-[70dvw] lg:w-[50dvw] 2xl:w-[700px] bg-[#fdfdfd] rounded-xl shadow-md p-10">
             <div class="flex justify-between items-center">
-                <h1 class="text-2xl font-semibold leading-7">เลือกวันที่เพื่อเพิ่มในแผน</h1>
+                <h1 class="text-2xl font-semibold leading-7">เพิ่มวันที่ในแผน</h1>
 
                 <button class="h-[30px] flex items-center" @click="ModalClose()">
                     <font-awesome-icon :icon="['fas', 'xmark']" class="text-[42px] font-bold h-[36px]" />
@@ -107,13 +109,13 @@ const selectDragAttribute = computed(() => ({
             </div>
 
             <div class="mx-auto w-[100%] h-fit flex bg-[#f7f7f7] my-4 justify-center shadow-inner rounded-md shadow-black/30">
-                <VDatePicker locale="th" color="sky-blue" dot-bg="" v-model="date" :select-attribute="selectDragAttribute" :min-date="new Date(2024, 1 , 1)" :max-date="new Date(2024, 1 , 29)" :attributes="attributes" :allowed-dates="allowedDates" expanded transparent borderless />
+                <VDatePicker :locale="language_code" color="sky-blue" dot-bg="" v-model="date"  :min-date="new Date(2024, 1 , 1)" :max-date="new Date(2024, 1 , 29)" :attributes="attributes" expanded transparent borderless />
             </div>
 
             <button v-if="date !== null" id="button-add-time" @click="ModalClose()" class="w-full h-[50px] text-[20px] font-semibold text-white bg-green-500   rounded-md">
-                เพิ่มวันที่ {{ date !== null ? new Date(date).toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' }) : '' }}
+                เพิ่มวันที่ {{ date !== null ? new Date(date).toLocaleDateString(language_date, { year: 'numeric', month: 'long', day: 'numeric' }) : '' }}
             </button>
-            <button v-else id="button-add-time" @click="ModalClose()" class="w-full h-[50px] text-[20px] font-semibold text-white bg-green-600   rounded-md">
+            <button v-else id="button-add-time" class="w-full h-[50px] text-[20px] font-semibold text-white bg-green-600   rounded-md">
                 เพิ่มวันที่ 
             </button>
 

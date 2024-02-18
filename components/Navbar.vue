@@ -21,7 +21,9 @@ function ChangeLanguage(event: Event) {
 <template>
     <ClientOnly>
         <div class="w-[100dvw] z-[1000] h-[70px] bg-[#F9A825] px-12 2xl:px-24 flex items-center drop-shadow-lg">
-            <p>Logo</p>
+            <div class="h-[80%] flex items-center">
+                <img src="/logo.svg" style="height: 80%;">
+            </div>
             <div class="w-auto h-[44px] ml-auto flex items-center">
 
                 <div class="w-[200px] h-[38px] rounded-xl bg-white mr-4 flex">

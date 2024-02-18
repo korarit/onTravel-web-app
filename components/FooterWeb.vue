@@ -6,9 +6,9 @@ const language = ref<any>(inject('language'))
         <div class="w-[100%] bg-[#F9A825] py-12 px-12 2xl:px-24 flex flex-wrap justify-between">
 
             <!-- about web application-->
-            <div class="w-[29%]">
-                <div class="w-[100%] h-[60px] bg-slate-300 rounded-xl mb-6">
-
+            <div class="w-[25%]">
+                <div class="w-[100%] h-auto mb-6">
+                    <img src="/logo.svg" style="width: 100%;height: ;">
                 </div>
                 <p class="text-[18px] font-medium text-[#F5F5F5] text-justify leading-9">{{ language.footer.about }}</p>
             </div>
