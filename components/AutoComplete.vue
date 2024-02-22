@@ -1,6 +1,6 @@
 <template>
     <div class="relative"  v-click-outside="clickedOutside">
-        <input :value="data.length === 0 ? '' : value" @input="searchResults" @focusin="showOptions = true" :placeholder="placeholder" ref="input" tabindex="1"
+        <input :value="data.length === 0 ? '' : value" @input="searchResults" :disabled="disable" @focusin="showOptions = true" :placeholder="placeholder" ref="input" tabindex="1"
             :class="inputClass" />
         <span v-if="showOptions === false" @click="showList()"
             class="absolute inset-y-0 right-0 pr-4 flex items-center cursor-pointer">
@@ -29,38 +29,37 @@
     </div>
 </template>
   
-<script setup>
+<script setup lang="ts">
 
-const props = defineProps({
-    placeholder: {
-        type: String,
-        default: "Enter text here.",
-    },
-    data: Array,
-    search_key: String,
-    inputClass: {
-        type: String,
-        default: "border border-gray-300 py-2 pl-3 w-full rounded-md focus:outline-none focus:shadow-outline",
-    },
-    dropdownClass: {
-        type: String,
-        default: "absolute w-full text-black z-[200] bg-white border border-gray-300 mt-1 mh-48 overflow-hidden overflow-y-scroll rounded-md shadow-md",
-    },
+export interface Props {
+    placeholder: string
+    disable: Boolean
+    data: Array<any>
+    search_key: string
+    inputClass: string
+    dropdownClass: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+    placeholder: "Enter text here...",
+    inputClass: "border border-gray-300 py-2 pl-3 w-full rounded-md focus:outline-none focus:shadow-outline",
+    dropdownClass: "absolute w-full text-black z-[200] bg-white border border-gray-300 mt-1 mh-48 overflow-hidden overflow-y-scroll rounded-md shadow-md",
 });
 
-const input = ref("");
-const value = ref("");
+const input = ref<string>("");
+const value = ref<string>("");
 
-const showOptions = ref(false);
-const fulloptions = ref(false);
-const chosenOption = ref("");
-const searchTerm = ref("");
+const showOptions = ref<boolean>(false);
+const fulloptions = ref<boolean>(false);
+const chosenOption = ref<string | Array<any>>("");
+const searchTerm = ref<string>("");
 
-const Results = ref([]);
+const Results = ref<Array<any>>([]);
 watch(() => props.data,() => {
     console.log('prop value changed', props.data)
     if (props.data.length > 0) {
         Results.value = props.data;
+        value.value = "";
     }else{
         Results.value = [];
         value.value = "";
@@ -71,13 +70,13 @@ watch(() => props.data,() => {
 
 const selected = defineModel();
 
-function searchResults(event) {
+function searchResults(event: any) {
     value.value = event.target.value;
 
-    if(event.target.value === "") {
+    if(event.target.value === null) {
         Results.value = props.data;
     }else{
-        Results.value = props.data.filter((item) => {
+        Results.value = props.data.filter((item:any) => {
             let inputValue = event.target.value.toLowerCase();
             let provinceName = item[props.search_key];
             return provinceName.includes(inputValue);
@@ -88,7 +87,7 @@ function searchResults(event) {
 
 
 
-const emit = defineEmits(['input', 'chosen'], ['update:modelValue'])
+const emit = defineEmits(['input', 'chosen', 'update:modelValue'])
 
 
 function showList() {
@@ -106,22 +105,20 @@ function reset() {
     emit("chosen", null);
 }
 
-function handleInput(evt) {
+function handleInput(evt:any) {
     emit("input", evt.target.value);
     searchTerm.value = evt.target.value;
     showOptions.value = true;
 }
 
 function handleSelf() {
-    emit("input", item.name);
-    emit("chosen", item);
-    chosenOption.value = item.name;
     showOptions.value = false;
-    input.value.focus();
+    const inputRef = ref<HTMLInputElement | null>(null);
+    inputRef.value?.focus();
 }
 
 // ส่วนของการเลือก
-function handleClick(item) {
+function handleClick(item:any) {
     emit("input", "");
     chosenOption.value = "";
     value.value = item[props.search_key];

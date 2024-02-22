@@ -220,7 +220,7 @@ const dataTest3 = ref([
   <div class="bg-gray-100 h-fit">
     <!-- header -->
     <div class="flex justify-between px-6 2xl:px-6 mt-12 h-auto">
-      <h1 class="text-3xl font-bold">แผนการ</h1>
+      <h1 class="text-3xl font-bold">แผนการท่องเที่ยวไทย</h1>
       <div class="flex items-center ">
         <div class="mr-6 flex -space-x-5 h-fit">
           <div class="h-16 w-16 rounded-full bg-gray-500"></div>

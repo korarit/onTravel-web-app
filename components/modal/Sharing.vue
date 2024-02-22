@@ -115,7 +115,7 @@ function Copy(){
                     <button
                         @click="Copy"
                         class="w-[27%] border-2 border-black bg-[#F9A825] select-none hover:bg-[#d49542] active:bg-[#d49542] h-full rounded-2xl text-white font-medium text-[28px]">
-                        คัดลอก{{ language.modal.sharing.copy }}
+                        {{ language.modal.sharing.copy }}
                     </button>
                 </div>
             </div>

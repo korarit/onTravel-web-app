@@ -19,64 +19,6 @@ definePageMeta({
 const language = ref(await inject('language'));
 const lang_code = await inject('language_code');
 
-const dropfile_enter = ref(false);
-const image_input_list = ref([]);
-
-const event_drop = ['dragenter', 'dragover', 'dragleave', 'drop'];
-onMounted(() => {
-    event_drop.forEach((event) => {
-        document.addEventListener(event, (e) => {
-            e.preventDefault();
-        });
-    });
-});
-onUnmounted(() => {
-    event_drop.forEach((event) => {
-        document.removeEventListener(event, (e) => {
-            e.preventDefault();
-        });
-    });
-});
-
-function dropFile(e) {
-    e.preventDefault();
-    let dt = e.dataTransfer;
-    let files = dt.files;
-
-    //check file type
-    if (!files[0].type.startsWith("image")) {
-        alert("กรุณาเลือกไฟล์รูปภาพเท่านั้น");
-        return;
-    }
-
-    let blobUrl = URL.createObjectURL(files[0]);
-    
-    // ตรวจสอบว่ามีรูปภาพนี้ใน image_input_list หรือไม่
-    if (image_input_list.value.includes(blobUrl)) {
-        alert("รูปภาพนี้มีอยู่แล้วในรายการ");
-        return;
-    }
-
-    
-    image_input_list.value.push(blobUrl);
-    console.log(URL.createObjectURL(files[0]));
-
-    dropfile_enter.value = false;
-}
-
-function uploadFile(event) {
-    var file = event.target.files[0];
-    if (file.type.split('/')[0] !== 'image') {
-        alert('Please select image file');
-        return;
-    }
-
-    image_input_list.value.push(URL.createObjectURL(file));
-}
-
-function removeImage(index) {
-    image_input_list.value.splice(index, 1);
-}
 
 ////////////////////////////// ตำแหน่งที่อยู่ //////////////////////////////
 const selectedProvince = ref([]);
@@ -204,7 +146,7 @@ const removeSocialMedia = (index) => {
                         placeholder="ชื่อสถานที่">
                 </div>
                 <div class="mt-4">
-                    <label for="info" class="text-2xl  font-bold text-[#01579B]">รายละเอียสถานที่</label>
+                    <label for="info" class="text-2xl  font-bold text-[#01579B]">รายละเอียดสถานที่</label>
                     <!-- <textarea id="info" rows="4" class="  block py-3 px-3 w-full  border-2 border-gray-950 rounded-lg "
                         placeholder="Write your thoughts here..."></textarea> -->
                         <div class="bg-white rounded-lg  border-2 border-black">
@@ -218,41 +160,7 @@ const removeSocialMedia = (index) => {
 
                 </div>
                 <div class="mt-8">
-                    <input id="file_input" type="file" hidden @change="uploadFile">
-                    <div class="bg-white rounded-t-lg px-4 border-black border-x-2 border-t-2 w-full py-2 flex items-center">
-                        <p for="upload" class="text-[24px] font-bold text-[#01579B]">อัพโหลดรูปภาพ</p>
-                        <label for="file_input" class="ml-auto bg-[#F9A825] hover:bg-yellow-600 py-2 px-10 rounded-md text-white text-lg font-semibold cursor-pointer">
-                            Upload File
-                        </label>
-                    </div>
-                    <div
-                        :class="`w-full ${dropfile_enter === true ? 'bg-gray-100' : 'bg-white'}  rounded-b-lg items-center justify-center flex flex-col border-x-2 border-b-2 border-gray-950 shadow-inner shadow-black/30 min-h-[248px]`"
-                        @drop.prevent="dropFile" @dragover="dropfile_enter = true" @dragleave="dropfile_enter = false"
-                    >
-
-                        <div class="flex flex-col" v-if="dropfile_enter === false && image_input_list.length === 0">
-                            <div  id="show" style="background-image: url('https://img2.pic.in.th/pic/Vectorupload.png');" class="w-[100px] h-[70px] bg-center bg-contain bg-no-repeat mx-auto select-none">
-                            </div>
-                            <div class="mx-auto text-[28px] text-[#A8A7A7] mt-2 select-none">Drop File Image Here</div>
-                        </div>
-                        <p v-else-if="dropfile_enter === true && image_input_list.length === 0" class="text-[36px] text-[#F9A825] select-none">Drop File To Here</p>
-                        <div v-if="image_input_list.length > 0" class="relative h-fit w-full">
-
-                            <div class="w-full grid grid-cols-3 gap-6 p-6">
-                                <div class="relative rounded-md shadow-md shadow-black/30 w-full h-[200px]" v-for="(image, index) in image_input_list" :key="index">
-                                    <button @click="removeImage(index)" class="absolute z-10 -top-4 -right-2 bg-red-600 rounded-lg h-8 w-8 flex justify-center items-center">
-                                        <font-awesome-icon :icon="['fas', 'xmark']" class="text-[30px] text-white" />
-                                    </button>
-                                    <div class="absolute overflow-hidden rounded-md bg-contain bg-center bg-no-repeat bg-black w-full h-full" :style="`background-image: url('${image}')`">
-                                        <!-- <img :src="image" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  object-scale-down h-full "> -->
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        
-                    </div>
-                   
+                    <UploadImage />
                 </div>
                 <div class="mt-4">
                     <label for="new" class="text-2xl font-bold text-[#01579B] ">ช่องทางการติดต่อ</label>
@@ -294,23 +202,26 @@ const removeSocialMedia = (index) => {
                             <AutoComplete 
                                 @chosen="handleProvince"
                                 :data="ThaiData"
+                                :disable="ThaiData.length > 0 ? false : true"
                                 search_key="province_name_th"
                                 placeholder="โปรดเลือก จังหวัด"
-                                inputClass="py-3 px-3 pe-11 block w-full border-2 border-gray-950 rounded-lg font-bold "
+                                inputClass="py-3 px-3 pe-11 block w-full border-2 border-gray-950 rounded-lg font-bold disabled:bg-[#CFCFCF] disabled:placeholder:text-[#777777]"
                             />
 
                             <AutoComplete :data="selectedProvince"
                                 @chosen="handleAmphoe"
+                                :disable="selectedProvince.length > 0 ? false : true"
                                 search_key="amphoe_name_th"
                                 placeholder="โปรดเลือก อำเภอ"
-                                inputClass="py-3 px-3 pe-11 block w-full border-2 border-gray-950 rounded-lg font-bold "
+                                inputClass="py-3 px-3 pe-11 block w-full border-2 border-gray-950 rounded-lg font-bold disabled:bg-[#CFCFCF] disabled:placeholder:text-[#777777]"
                             />
 
                             <AutoComplete :data="selectedAmphoe"
                                 @chosen="handleTambon"
+                                :disable="selectedAmphoe.length > 0 ? false : true"
                                 search_key="district_name_th"
                                 placeholder="โปรดเลือก ตำบล"
-                                inputClass="py-3 px-3 pe-11 block w-full border-2 border-gray-950 rounded-lg font-bold "
+                                inputClass="py-3 px-3 pe-11 block w-full border-2 border-gray-950 rounded-lg font-bold disabled:bg-[#CFCFCF] disabled:placeholder:text-[#777777]"
                             />
 
 
