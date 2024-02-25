@@ -9,18 +9,26 @@ const language = ref(await inject('language'))
 const language_code = ref<string>(await inject('language_code') as string)
 const language_date = ref<string>(language_code.value === 'th' ? 'th-TH' : 'en-US')
 
+const emit = defineEmits(['addDate'])
 
-const showTrasition = ref(false)
 
-watch(() => props.show, (value:boolean) => {
-    if(value){
-        showTrasition.value = true
+const showTrasition = ref<boolean>(false)
+watch(() => props.show, () => {
+    if (props.show){
+        setTimeout(() => {
+            showTrasition.value = true
+        }, 20);
     }
-})
+},{ immediate: true })
+
+const date = ref(null)
+
 function ModalClose() {
     showTrasition.value = false
     setTimeout(() => {
-        props.modalClose()
+        if (props.modalClose) {
+            props.modalClose()
+        }
         
         nextTick(() => {
         date.value = null
@@ -28,6 +36,14 @@ function ModalClose() {
         });
     }, 320);
 
+}
+
+function getDateTimestamp(){
+    if (date.value !== null){
+        let dateObject = new Date(date.value);
+        emit('addDate', dateObject.getTime())
+        ModalClose()
+    }
 }
 const attributes = ref([
   {
@@ -39,8 +55,6 @@ const attributes = ref([
 ]);
 
 
-
-const date = ref(null)
 const resetting = ref(false);
 
 
@@ -112,7 +126,7 @@ const selectDragAttribute = computed(() => ({
                 <VDatePicker :locale="language_code" color="sky-blue" dot-bg="" v-model="date"  :min-date="new Date(2024, 1 , 1)" :max-date="new Date(2024, 1 , 29)" :attributes="attributes" expanded transparent borderless />
             </div>
 
-            <button v-if="date !== null" id="button-add-time" @click="ModalClose()" class="w-full h-[50px] text-[20px] font-semibold text-white bg-green-500   rounded-md">
+            <button v-if="date !== null" id="button-add-time" @click="getDateTimestamp()" class="w-full h-[50px] text-[20px] font-semibold text-white bg-green-500   rounded-md">
                 เพิ่มวันที่ {{ date !== null ? new Date(date).toLocaleDateString(language_date, { year: 'numeric', month: 'long', day: 'numeric' }) : '' }}
             </button>
             <button v-else id="button-add-time" class="w-full h-[50px] text-[20px] font-semibold text-white bg-green-600   rounded-md">

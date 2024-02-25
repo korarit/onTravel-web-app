@@ -38,44 +38,6 @@ onUnmounted(() => {
     });
 });
 
-function dropFile(e: DragEvent) {
-    e.preventDefault();
-    let dt = e.dataTransfer;
-    let files = dt?.files;
-
-    if (files) {
-        for (var i = 0; i < files.length; ++i) {
-        
-            if (files[i].type.split('/')[0] !== 'image') {
-                alert('กรุณาเลือกไฟล์รูปภาพเท่านั้น');
-                return;
-            }
-
-            image_input_list.value.push(URL.createObjectURL(files[i]));
-
-        }
-    }
-    dropfile_enter.value = false;
-}
-
-function uploadFile(event: any) {
-    var list_file = event.target.files;
-    for (var i = 0; i < list_file.length; ++i) {
-        
-        if (list_file.item(i).type.split('/')[0] !== 'image') {
-            alert('Please select image file');
-            return;
-        }
-
-        image_input_list.value.push(URL.createObjectURL(list_file.item(i)));
-    }
-
-}
-
-function removeImage(index: number) {
-    image_input_list.value.splice(index, 1);
-}
-
 ////////////////////////////// ตำแหน่งที่อยู่ //////////////////////////////
 const selectedProvince = ref([]);
 const selectedAmphoe = ref([]);
@@ -494,7 +456,7 @@ const removeFacilitate = (index:any) => {
         </div>
     </div>
 
-    <div v-show="socialModalShow">
+    <div v-if="socialModalShow">
         <ModalSocialMedia @chooseSocial="addSocialMedia" :modalClose="() => socialModalShow = false" :show="socialModalShow" />
     </div>
 </ClientOnly>   

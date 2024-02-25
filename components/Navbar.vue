@@ -3,6 +3,9 @@
 </style>
 <script setup lang="ts">
 const props = defineProps<{
+    profileShow: Boolean
+    profileModal: Function
+    profileModalClose: Function
     LoginModal: Function
     setLanguage: Function
 }>();
@@ -15,6 +18,18 @@ function ChangeLanguage(event: Event) {
     localStorage.setItem('language', value)
 
     console.log(value);
+}
+
+function OpenProfile() {
+    if (props.profileShow) {
+        setTimeout(() => {
+            props.profileModalClose()
+        }, 5);
+    }else{
+        setTimeout(() => {
+            props.profileModal()
+        }, 5);
+    }
 }
 
 </script>
@@ -36,9 +51,12 @@ function ChangeLanguage(event: Event) {
                     </select>
                 </div>
 
-                <button @click="LoginModal()" class="w-auto h-[44px] rounded-lg bg-white border-2 border-black flex items-center px-4">
+                <button v-if="false" @click="LoginModal()" class="w-auto h-[44px] rounded-lg bg-white border-2 border-black flex items-center px-4">
                     <img src="/icon/user_icon.svg" class="w-[32px] h-[32px]" alt="user_icon">
                     <p class="ml-2 text-[18px] font-semibold">เข้าสู่ระบบ</p>
+                </button>
+                <button v-else @click="OpenProfile()" class=" h-[48px] w-[48px] flex items-center justify-center rounded-full bg-white">
+                    <img src="/icon/user_icon.svg" class="w-[36px] h-[36px]" alt="user_icon">
                 </button>
             </div>
         </div>

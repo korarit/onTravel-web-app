@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     },
   },
   modules: [
+    '@nuxtjs/cloudinary',
     'vue3-carousel-nuxt',
     '@nuxtjs/turnstile',
     'nuxt3-leaflet',

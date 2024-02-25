@@ -317,7 +317,7 @@ const removeSocialMedia = (index) => {
         </div>
     </div>
 
-    <div v-show="socialModalShow">
+    <div v-if="socialModalShow">
         <ModalSocialMedia @chooseSocial="addSocialMedia" :modalClose="() => socialModalShow = false" :show="socialModalShow" />
     </div>
 </ClientOnly>   

@@ -10,11 +10,14 @@ const props = defineProps({
 const language = ref(await inject('language'))
 
 const showTrasition = ref(false)
-watch(() => props.show, (value) => {
-    if (value) {
-        showTrasition.value = true
+watch(() => props.show, () => {
+    if (props.show){
+        setTimeout(() => {
+            showTrasition.value = true
+        }, 20);
     }
-})
+},{ immediate: true })
+
 
 //list_social
 const list_social = {

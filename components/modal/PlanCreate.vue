@@ -14,11 +14,14 @@ const language_code = ref<any>(await inject('language_code'))
 const showTrasition = ref(false)
 
 // ตรวจสอบค่า props.show ถ้าเป็น true ให้แสดงการเปลี่ยนค่า showTrasition ให้เป็น true เพื่อให้แสดงการเปิด Modal อย่างสวยงาม
-watch(() => props.show, (value) => {
-    if (value) {
-        showTrasition.value = true
+watch(() => props.show, () => {
+    if (props.show){
+        setTimeout(() => {
+            showTrasition.value = true
+        }, 20);
     }
-})
+},{ immediate: true })
+
 // ฟังก์ชันปิด Modal และเปลี่ยนค่า showTrasition ให้เป็น false เพื่อให้แสดงการซ่อน Modal อย่างสวยงาม
 function ModalClose(){
     showTrasition.value = false

@@ -13,8 +13,9 @@ definePageMeta({
         <p class=" font-bold text-2xl leading-[4rem] my-auto select-none">สร้างบัญชีสถานที่ท่องเที่ยว</p>
       </div>
 
-      <div
-        class=" flex items-center justify-center bg-white rounded-full absolute bottom-8 left-7 w-[64px] h-[64px] opacity-80">
+      
+
+      <div class=" flex items-center justify-center bg-white rounded-full absolute bottom-8 left-7 w-[64px] h-[64px] opacity-80">
       </div>
 
     </div>
@@ -26,8 +27,7 @@ definePageMeta({
         <p class=" font-bold text-2xl leading-[4rem] my-auto select-none">สร้างบัญชีที่พัก</p>
       </div>
 
-      <div
-        class=" flex items-center justify-center bg-white rounded-full absolute bottom-8 left-7 w-[64px] h-[64px] opacity-80">
+      <div class=" flex items-center justify-center bg-white rounded-full absolute bottom-8 left-7 w-[64px] h-[64px] opacity-80">
       </div>
 
     </div>

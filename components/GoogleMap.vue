@@ -1,8 +1,8 @@
 <template>
-    <div style="height:100%; width:100%">
+    <div class="w-full h-full">
       <LMap
         ref="map"
-        :zoom="16"
+        :zoom="zoomLevel"
         :maxZoom="18"
         :center="[location[0], location[1]]"
         :zoomControl="false"
@@ -15,7 +15,7 @@
           name="GoogleMap"
         />
         <LMarker :lat-lng="[location[0], location[1]]">
-          <LIcon iconUrl="/icon/location-pin.png" :iconSize="[64, 64]" :iconAnchor="[35, 40]"></LIcon>
+          <LIcon iconUrl="/icon/location-pin.png" :iconSize="[48, 48]" :iconAnchor="[35, 40]"></LIcon>
         </LMarker>
       </LMap>
     </div>
@@ -26,9 +26,8 @@
   const zoom = ref(6)
 
   defineProps({
-    location: {
-      type: Array
-    }
+    location: Array,
+    zoomLevel: Number
   })
   </script>
   

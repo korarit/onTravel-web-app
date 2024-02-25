@@ -77,6 +77,17 @@
             "button_upload": "UPLOAD",
             "button_create": "Create Travel Plan"
         },
+        "plan_card_create":{
+            "title": "Add Card to Travel Plan",
+            "input_title": "Name of travel plan",
+            "start_date": "Start date",
+            "end_date": "End date",
+            "input_description": "Travel plan details",
+            "map": "Location of place",
+            "image": "Picture of travel plan cover",
+            "button_upload": "UPLOAD",
+            "button_create": "Confirm"
+        },
         "sharing":{
             "title": "Share To Other Platforms",
             "copy": "Copy"

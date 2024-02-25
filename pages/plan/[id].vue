@@ -1,4 +1,5 @@
-<script setup>
+<script setup lang="ts">
+import mockup_data from '~/assets/json/mockup_plan.json'
 
 
 definePageMeta({
@@ -6,214 +7,93 @@ definePageMeta({
 })
 
 //สำหรับเงื่อนไขการแสดง modal
-const shareModalShow = ref(false);
+const shareModalShow = ref<boolean>(false);
+const DateModalShow = ref<boolean>(false);
+const cardModalShow = ref<boolean>(false);
 
-const DateModalShow = ref(false);
+const addCardModalShow = ref<boolean>(false);
+const addCard_PlanIndex = ref<number | null>(null);
+const TimeStampAdd = ref<number | null>(null);
 
-const dataTest = ref([
-  {
-    id: 1,
-    title: "hello1",
-    description: "test",
-    image: "/numpoo.jpg",
-    view: 9000,
-    review_point: 4.2,
-    start_time: "09:20",
-    end_time: "16:20",
-    owner_name: "numpoo",
-    owner_lastname: "poo",
-    owner_image: "numpoo.jpg"
-  },
-  {
-    id: 2,
-    title: "hello2",
-    description: "test",
-    image: "https://storage.googleapis.com/techsauce-prod/ugc/uploads/2022/9/1663238988_1663238987903.jpeg",
-    view: 10020,
-    review_point: 4.3,
-    start_time: "10:20",
-    end_time: "16:20",
-    owner: "numpoo",
-    owner_lastname: "poo",
-    owner_image: "numpoo.jpg"
-  },
-  {
-    id: 3,
-    title: "hello3",
-    description: "test",
-    image: "https://static.thairath.co.th/media/B6FtNKtgSqRqbnNsUjIbmiEcqGTAplE6rsu5LmPq0IP7vZS8ASy5qvnYYde7wSEWD1QkN.jpg",
-    view: 10030,
-    review_point: 4.1,
-    start_time: "10:40",
-    end_time: "16:20",
-    owner: "numpoo",
-    owner_lastname: "poo",
-    owner_image: "numpoo.jpg"
-  },
-  {
-    id: 4,
-    title: "hello4",
-    description: "test",
-    image: "/numpoo.jpg",
-    view: 10050,
-    review_point: 4.5,
-    start_time: "11:00",
-    end_time: "16:20",
-    owner: "numpoo",
-    owner_lastname: "poo",
-    owner_image: "numpoo.jpg"
-  },
-  {
-    id: 5,
-    title: "hello5",
-    description: "test",
-    image: "https://static.thairath.co.th/media/B6FtNKtgSqRqbnNsUjIbmiEcqGTAplE6rsu5LmPq0IP7vZS8ASy5qvnYYde7wSEWD1QkN.jpg",
-    view: 10060,
-    review_point: 4.6,
-    start_time: "07:20",
-    end_time: "16:20",
-    owner: "numpoo",
-    owner_lastname: "poo",
-    owner_image: "numpoo.jpg"
-  },
-])
+const cardData = ref(null);
+function cardModalData(Data: any) {
+  cardModalShow.value = true
 
+  cardData.value = Data
+}
 
-const dataTest2 = ref([
-  {
-    id: 1,
-    title: "hello1",
-    description: "test",
-    image: "/numpoo.jpg",
-    view: 9000,
-    review_point: 4.5,
-    start_time: "09:20",
-    end_time: "16:20",
-    owner_name: "numpoo",
-    owner_lastname: "poo",
-    owner_image: "numpoo.jpg"
-  },
-  {
-    id: 2,
-    title: "hello2",
-    description: "test",
-    image: "https://storage.googleapis.com/techsauce-prod/ugc/uploads/2022/9/1663238988_1663238987903.jpeg",
-    view: 10020,
-    review_point: 4.5,
-    start_time: "10:20",
-    end_time: "16:20",
-    owner: "numpoo",
-    owner_lastname: "poo",
-    owner_image: "numpoo.jpg"
-  },
-  {
-    id: 3,
-    title: "hello3",
-    description: "test",
-    image: "https://static.thairath.co.th/media/B6FtNKtgSqRqbnNsUjIbmiEcqGTAplE6rsu5LmPq0IP7vZS8ASy5qvnYYde7wSEWD1QkN.jpg",
-    view: 10030,
-    review_point: 4.5,
-    start_time: "10:40",
-    end_time: "16:20",
-    owner: "numpoo",
-    owner_lastname: "poo",
-    owner_image: "numpoo.jpg"
-  },
-  {
-    id: 4,
-    title: "hello4",
-    description: "test",
-    image: "/numpoo.jpg",
-    view: 10040,
-    review_point: 4.5,
-    start_time: "11:00",
-    end_time: "16:20",
-    owner: "numpoo",
-    owner_lastname: "poo",
-    owner_image: "numpoo.jpg"
-  },
-  {
-    id: 5,
-    title: "hello5",
-    description: "test",
-    image: "https://static.thairath.co.th/media/B6FtNKtgSqRqbnNsUjIbmiEcqGTAplE6rsu5LmPq0IP7vZS8ASy5qvnYYde7wSEWD1QkN.jpg",
-    view: 10030,
-    review_point: 4.5,
-    start_time: "7:20",
-    end_time: "16:20",
-    owner: "numpoo",
-    owner_lastname: "poo",
-    owner_image: "numpoo.jpg"
-  },
-])
+function addCardShow(index: number, TimeStamp: number) {
+  addCardModalShow.value = true
+  addCard_PlanIndex.value = index
+  TimeStampAdd.value = TimeStamp
+}
 
-const dataTest3 = ref([
-  {
-    id: 1,
-    title: "hello1",
-    description: "test",
-    image: "/numpoo.jpg",
-    view: 9000,
-    review_point: 4.5,
-    start_time: "09:00",
-    end_time: "16:20",
-    owner_name: "numpoo",
-    owner_lastname: "poo",
-    owner_image: "numpoo.jpg"
-  },
-  {
-    id: 2,
-    title: "hello2",
-    description: "test",
-    image: "https://storage.googleapis.com/techsauce-prod/ugc/uploads/2022/9/1663238988_1663238987903.jpeg",
-    view: 10020,
-    review_point: 4.5,
-    start_time: "10:20",
-    end_time: "16:20",
-    owner: "numpoo",
-    owner_lastname: "poo",
-    owner_image: "numpoo.jpg"
-  },
-  {
-    id: 3,
-    title: "hello3",
-    description: "test",
-    image: "https://static.thairath.co.th/media/B6FtNKtgSqRqbnNsUjIbmiEcqGTAplE6rsu5LmPq0IP7vZS8ASy5qvnYYde7wSEWD1QkN.jpg",
-    view: 10030,
-    review_point: 4.5,
-    start_time: "10:40",
-    end_time: "16:20",
-    owner: "numpoo",
-    owner_lastname: "poo",
-    owner_image: "numpoo.jpg"
-  },
-  {
-    id: 4,
-    title: "hello4",
-    description: "test",
-    image: "/numpoo.jpg",
-    view: 10040,
-    review_point: 4.5,
-    start_time: "11:00",
-    end_time: "16:20",
-    owner: "numpoo",
-    owner_lastname: "poo",
-    owner_image: "numpoo.jpg"
-  },
-  {
-    id: 5,
-    title: "hello5",
-    description: "test",
-    image: "https://static.thairath.co.th/media/B6FtNKtgSqRqbnNsUjIbmiEcqGTAplE6rsu5LmPq0IP7vZS8ASy5qvnYYde7wSEWD1QkN.jpg",
-    view: 10030,
-    review_point: 4.5,
-    start_time: "11:20",
-    end_time: "16:20",
-    owner: "numpoo",
-    owner_lastname: "poo",
-    owner_image: "numpoo.jpg"
-  },
-])
+interface PlanCardType {
+    id: number;
+    title: string;
+    description: string;
+    image: string;
+    view: number;
+    review_point: number;
+    start_time: string;
+    end_time: string;
+
+    owner_name: string;
+    owner_lastname: string;
+    owner_image: string;
+
+    location: {
+        lat: number;
+        lon: number;
+    }
+}
+interface PlanCardAdd {
+    title: string;
+    description: string;
+    image: string;
+    view: number;
+    review_point: number;
+    start_time: string;
+    end_time: string;
+
+    owner_name: string;
+    owner_lastname: string;
+    owner_image: string;
+
+    location: {
+        lat: number;
+        lon: number;
+    }
+}
+function addCardToPlan(data: PlanCardAdd) {
+
+  let set_data:PlanCardType = {
+    id: data_plan.value.length + 1,
+    ...data
+  }
+
+  if (addCard_PlanIndex.value !== null) {
+    data_plan.value[addCard_PlanIndex.value].plan.push(set_data)
+
+    addCard_PlanIndex.value = null
+  }
+  console.log('test 1 23 3 4')
+}
+
+const data_plan = ref(mockup_data)
+
+function addDate(TimeStamp: number) {
+  data_plan.value.push({
+    date_timestamp: TimeStamp,
+    sort_type: "view_sorted",
+    plan: []
+  })
+}
+
+function removeDate(index: number) {
+  data_plan.value.splice(index, 1)
+}
+
 </script>
 
 <template>
@@ -227,7 +107,8 @@ const dataTest3 = ref([
           <div class="h-16 w-16 rounded-full bg-red-500"></div>
           <div class="h-16 w-16 rounded-full bg-blue-500"></div>
         </div>
-        <button @click="() => shareModalShow = true" class="flex items-center justify-center text-white shadow-inner bg-[#0000005c] shadow-black/50 w-[8dvw] h-12 p-2 text-lg font-extrabold rounded-md ">
+        <button @click="() => shareModalShow = true"
+          class="flex items-center justify-center text-white shadow-inner bg-[#0000005c] shadow-black/50 w-[8dvw] h-12 p-2 text-lg font-extrabold rounded-md ">
           <i class="fa-solid fa-user-plus"></i>
           Share
         </button>
@@ -236,12 +117,22 @@ const dataTest3 = ref([
     </div>
 
     <!-- รายการแผน -->
-    <PlanList title="12/12/2024" :ListPlan="dataTest" />
-    <PlanList title="13/12/2024" :ListPlan="dataTest2" />
-    <PlanList title="14/12/2024" :ListPlan="dataTest3" />
+    <div v-if="data_plan.length > 0">
+      <PlanList  
+      v-for="(item, index) in data_plan"
+      :index="index"
+      :dateTimestamp="item['date_timestamp']" 
+      :ListPlan="item['plan']" 
+      :remove="()=> removeDate(index)" 
+      :AddCard="addCardShow"
+      :showData="cardModalData" 
+    />
+    </div>
+
 
     <div class=" flex flex-col text-center w-fit mx-auto my-12">
-      <button @click="() => DateModalShow = true" class="bg-green-500 text-white px-4 py-2 rounded-md shadow-md shadow-black/30 w-[40dvw] mb-6 text-2xl">
+      <button @click="() => DateModalShow = true"
+        class="bg-green-500 text-white px-4 py-2 rounded-md shadow-md shadow-black/30 w-[40dvw] mb-6 text-2xl">
         เพิ่มวันในแผนการ
       </button>
       <button class="bg-red-500 text-white px-4 py-2 rounded-md shadow-md shadow-black/30 w-[40dvw] text-2xl">
@@ -254,12 +145,28 @@ const dataTest3 = ref([
     </div>
   </div>
 
+
+
   <ClientOnly>
+
+    <!-- modal แชร์แผน-->
     <div v-show="shareModalShow">
       <ModalPlanShare :modalClose="() => shareModalShow = false" :show="shareModalShow" />
     </div>
-    <div v-show="DateModalShow">
-      <ModalPlanDatePick :modalClose="() => DateModalShow = false" :show="DateModalShow" />
+
+    <!-- modal เพิ่ม card ในแผน-->
+    <div v-if="addCardModalShow">
+      <ModalPlanAdd :modalClose="() => addCardModalShow = false" :show="addCardModalShow" :TimeStamp="TimeStampAdd" @addCard="addCardToPlan" />
+    </div>
+
+    <!-- modal ข้อมูลขอแต่ล่ะ card-->
+    <div v-if="cardModalShow && cardData != null">
+    <ModalPlanCard :modalClose="() => cardModalShow = false" :show="cardModalShow" :Data="cardData" />
+    </div>
+
+    <!-- modal เพิ่มวันที่-->
+    <div v-if="DateModalShow">
+      <ModalPlanDatePick :modalClose="() => DateModalShow = false" :show="DateModalShow" @addDate="addDate" />
     </div>
   </ClientOnly>
 </template> 

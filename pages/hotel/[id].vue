@@ -90,7 +90,7 @@
 
       <div class=" flex flex-col border-black bg-[#FDFDFD] border-2 rounded-xl min-h-[57%] mt-auto p-6">
         <div class="w-full h-[84%]  rounded-xl justify-items-center">
-          <GoogleMap :location="[data.location.lat, data.location.lon]" />
+          <GoogleMap :location="[data.location.lat, data.location.lon]" :zoomLevel="16" />
         </div>
         <div class="flex justify-between items-center mt-4">
           <p class="text-[3dvh] font-semibold justify-start">
@@ -136,10 +136,28 @@
     </div>
   </div>
 
+  <div class="px-12 2xl:px-24 max-w-[100dvw] flex items-center">
+    <p class="text-[30px] font-semibold">การรีวิว</p>
+    <button @click="reviewModalShow = true" class="ml-auto w-[15%] h-[48px] rounded-md bg-[#F9A825] border-2 border-black">
+      <p class="text-[20px] font-semibold text-white">รีวิวสถานที่</p>
+    </button>
+  </div>
 
-  <div v-show="sharingModalShow">
+  <div class="px-12 2xl:px-24 max-w-[100dvw] h-auto my-8" v-if="data.room !== 0">
+    <div class=" grid grid-cols-1 gap-y-8 h-auto">
+      <Review v-for="review in data.review" :key="review" :data="review"  />
+    </div>
+  </div>
+
+
+  <div v-if="sharingModalShow">
     <ModalSharing :modalClose="() => sharingModalShow = false" :show="sharingModalShow" />
   </div>
+
+  <div v-if="reviewModalShow" >
+    <ModalReview :modalClose="() => reviewModalShow = false" :show="reviewModalShow" />
+  </div>
+
 </template>
 
 <script setup>
@@ -180,6 +198,14 @@ const data = ref({
     'https://imgcy.trivago.com/c_limit,d_dummy.jpeg,f_auto,h_600,q_auto,w_600//hotelier-images/42/fe/57ad825ce2c6e84292518ceb877adfd49bbb49be786e58035cb4cd33e738.jpeg',
     'https://www.style-stay.com/wp-content/uploads/2021/09/225125680-800x534.jpg',
     'https://cf.bstatic.com/xdata/images/hotel/max1024x768/332710360.jpg?k=1358c2d77fb76b01039223e325e57b17aedad30235447a6a0d3e8a6f1d564ebb&o=&hp=1'
+  ],
+  review: [
+    {
+      id: 1, 
+      description: 'Lorem ipsum dolor sit amet consectetur Lorem ipsum, dolor sit amet consectetur adipisicing elit. Id dolore aperiam sint excepturi voluptates fugit quod illum quisquam, impedit error delectus accusamus modi ab. Pariatur nihil ea doloremque officiis veritatis! adipisicing elit. Sed veritatis illo nemo ducimus animi necessitatibus. Velit provident autem a distinctio eaque quia porro reiciendis tempora, sunt, magnam modi perspiciatis quas.',
+      point : 4.5,
+      image: ['https://baanphuwaan.org/wp-content/uploads/2022/08/BW-0078.jpg','https://www.style-stay.com/wp-content/uploads/2021/09/225125680-800x534.jpg','https://www.grandecentrepointpattaya.com/upload/rooms-and-suites/2-rooms-and-suites.jpg?v=66']
+    }
   ]
 });
 definePageMeta({
@@ -189,6 +215,8 @@ definePageMeta({
 
 //สำหรับเงื่อนไขการแสดง modal
 const sharingModalShow = ref(false);
+const reviewModalShow = ref(false);
+
 
 </script>
 

@@ -1,6 +1,6 @@
 <template>
     <div class="h-[500px] mb-4">
-    <component :is="Carousel" id="gallery" :items-to-show="1" :wrap-around="false" v-model="currentSlide">
+    <component v-if="ImageList != undefined" :is="Carousel" id="gallery" :items-to-show="1" :wrap-around="false" v-model="currentSlide">
         <component :is="Slide" v-for="slide in (ImageList?.length - 1)" :key="slide">
             <div class="carousel__item bg-cover bg-center" :style="`min-height: 500px;width:100%`">
                 <NuxtImg :src="ImageList[slide]" :modifiers="{height:500,width:1000}" format="avif" fill="cover" height="500" width="1000" style="object-fit: cover;height: 100%;width: 100%;"/>
@@ -13,7 +13,7 @@
     </component>
     </div>
 
-    <component :is="Carousel" id="thumbnails" :items-to-show="7" :wrap-around="true" v-model="currentSlide" ref="carousel">
+    <component  v-if="ImageList != undefined" :is="Carousel" id="thumbnails" :items-to-show="7" :wrap-around="true" v-model="currentSlide" ref="carousel">
         <component :is="Slide" v-for="index in (ImageList?.length - 1)" :key="index" style="margin: 0;">
             <div class="grallay-item mx-0 bg-cover bg-center" @click="slideTo(index - 1)" :style="`height: 100px;width:100%`">
                 <NuxtImg :src="ImageList[index]" format="webp" :modifiers="{height:500,width:1000}" height="100" width="200" style="object-fit: cover;height: 100%;width: 100%;" />

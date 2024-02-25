@@ -7,6 +7,7 @@ type dataItem = {
 }
 defineProps<{
     dataItem: dataItem
+    id: number
 }>();
 </script>
 <template>
@@ -28,10 +29,10 @@ defineProps<{
                     </div>
 
                     <!-- ปุ่มไปยังแผนการ -->
-                    <button class="px-6 py-2 w-full lg:w-fit rounded-lg bg-[#F9A825] flex items-center justify-center border-2 border-white">
+                    <NuxtLink :to="`/plan/${id}`" class="px-6 py-2 w-full lg:w-fit rounded-lg bg-[#F9A825] flex items-center justify-center border-2 border-white">
                         <font-awesome-icon :icon="['fas', 'eye']" class="text-[20px] text-white xl:mr-2" />
                         <p class="lg:hidden xl:block text-[18px] leading-4 font-medium text-white">ดูแผน</p>
-                    </button>
+                    </NuxtLink>
                 </div>
             </div>
         </div>

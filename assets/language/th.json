@@ -77,6 +77,17 @@
             "button_upload": "อัพโหลด",
             "button_create": "สร้างแผนการท่องเที่ยว"
         },
+        "plan_card_create":{
+            "title": "เพิ่ม card ลงแผน",
+            "input_title": "ชื่อแผนการท่องเที่ยว",
+            "start_date": "เวลาเริ่มต้น",
+            "end_date": "เวลาสิ้นสุด",
+            "input_description": "รายละเอียดแผนการท่องเที่ยว",
+            "map": "ตำแหน่งสถานที่",
+            "image": "รูป ปกแผนการท่องเที่ยว",
+            "button_upload": "อัพโหลด",
+            "button_create": "ยืนยัน"
+        },
         "sharing":{
             "title": "แชร์ไปยังที่อื่น ๆ",
             "copy": "คัดลอก"

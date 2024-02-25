@@ -6,8 +6,11 @@ import 'vue-advanced-cropper/dist/style.css';
 const props = defineProps({
     ModalClose: Function,
     ImageChange: Function,
+    CropImg: Function,
     image: String
 })
+const emit = defineEmits(['imageOutput'])
+
 
 ////////////////// แปลภาษา //////////////////////
 const language = ref(await inject('language'))
@@ -19,8 +22,10 @@ function crop_image(){
     //ดึงข้อมูลจากการ crop รูปภาพ
     const { coordinates, canvas, } = cropper.value.getResult();
 
-    //ส่งรูปภาพที่ crop ได้ไปยังหน้าที่เรียกใช้
-    props.ImageChange(canvas.toDataURL());
+    canvas.toBlob(blob => {
+        emit('imageOutput', blob);
+    });
+
     //ปิด Modal
     props.ModalClose();
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const language = ref<any>(inject('language'))
+const language = ref<any>(await inject('language'))
 </script>
 <template>
     <ClientOnly>

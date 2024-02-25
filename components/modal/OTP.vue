@@ -1,11 +1,20 @@
 <script setup>
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+
+//use dayjs plugin
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
+
 const props = defineProps({
-    otpClose: {
-        type: Function
-    },
-    show: {
-        type: Boolean
-    }
+    otpClose: Function,
+    show: Boolean,
+    otpData: Object,
+    resend: Function
 })
 
 ////////////////// แปลภาษา //////////////////////
@@ -18,11 +27,14 @@ const otp_phone = ref({
 const otp_type = ref("")
 
 const showTrasition = ref(false)
-watch(() => props.show, (value) => {
-    if (value) {
-        showTrasition.value = true
+watch(() => props.show, () => {
+    if (props.show){
+        setTimeout(() => {
+            showTrasition.value = true
+        }, 20);
     }
-})
+},{ immediate: true })
+
 function ModalClose(){
     showTrasition.value = false
     setTimeout(() => {
@@ -30,6 +42,69 @@ function ModalClose(){
     }, 310);
 }
 
+//request otp time
+const request_time = ref(600)
+const request_minute = ref(0)
+const request_second = ref(0)
+
+function cooldownRequest(){
+    let y = setInterval(function() {
+        request_minute.value = Math.floor(request_time.value / 60);
+        request_second.value = request_time.value % 60;
+
+        request_time.value -= 1;
+        if (request_time.value < 0) {
+            clearInterval(y);
+            request_time.value = 0;
+        }
+    } , 1000);
+}
+
+//expire time
+const expire_minute = ref(0)
+const expire_second = ref(0)
+
+watch(() => props.otpData, () => {
+    //คำนวณเวลาที่เหลือ จากเวลาที่ส่งมาเป็น millisecond
+
+},{ immediate: true })
+
+onMounted(() => {
+    if (props.otpData.ExpireTime !== undefined) {
+
+        let x = setInterval(function() {
+            // Get current date
+            const date = dayjs().tz('Asia/Bangkok');
+            const now = date.valueOf();
+
+            let distance = props.otpData.ExpireTime - now;
+
+            expire_minute.value = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            expire_second.value = Math.floor((distance % (1000 * 60)) / 1000);
+
+            if (distance < 0) {
+                clearInterval(x);
+            }
+        } , 1000);
+
+    }
+    if(request_time.value !== 0){
+        cooldownRequest()
+    }
+
+})
+
+
+async function resendOTP(){
+    if(request_time.value === 0){
+        request_time.value = 600
+        cooldownRequest()
+
+        //ส่ง request otp ใหม่
+        const otp = await resendOTP()
+    }
+
+}
 </script>
 <style scoped>
 @import url("~/assets/css/modal.css");
@@ -51,18 +126,18 @@ function ModalClose(){
 
                     <div class="flex justify-between my-5">
                         <p class="text-[20px] font-semibold leading-5 select-none">
-                            กรอก OTP ใน {{ language.modal.otp.input_otp }}
-                            <span class="text-[#3CBC41] underline underline-offset-2">9:59</span> {{ language.modal.otp.minute }}
+                            {{ language.modal.otp.input_otp }}
+                            <span class="text-[#3CBC41] underline underline-offset-2">{{ expire_minute }}:{{ expire_second }}</span> {{ language.modal.otp.minute }}
                         </p>
                         <p class="text-[20px] font-semibold leading-5 select-none">CODE : 
-                            <span class="text-[#3CBC41] underline underline-offset-2">QXYC12</span>
+                            <span class="text-[#3CBC41] underline underline-offset-2">{{ otpData.OTPCode }}</span>
                         </p>
                     </div>
                     <div class="w-full h-[70px]">
                         <OTPInput :fields="6"/>
                     </div>
                     <div class="w-full my-6">
-                        <p class="text-right text-[24px] font-semibold text-[#0277BD] leading-8">{{ language.modal.otp.wait_resend }} 2:59</p>
+                        <p class="text-right text-[24px] font-semibold text-[#0277BD] leading-8">{{ language.modal.otp.wait_resend }} {{ request_minute }}:{{ request_second }}</p>
                     </div>
                     <div class="w-full mb-[42px]"> 
                         <button class="w-full h-[60px] rounded-md bg-[#FF9800] shadow-sm shadow-[#00000074] text-[24px] font-semibold text-white">

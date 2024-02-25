@@ -5,23 +5,39 @@ const props = defineProps({
 });
 
 ////////////////// แปลภาษา //////////////////////
-const language = ref(await inject('language'))
+const language = ref<any>(await inject('language'))
 
 
-const showTrasition = ref(false)
+const showTrasition = ref<boolean>(false)
 
-watch(() => props.show, (value) => {
-    if(value){
-        showTrasition.value = true
+watch(() => props.show, () => {
+    if (props.show){
+        setTimeout(() => {
+            showTrasition.value = true
+        }, 20);
     }
-})
+},{ immediate: true })
+
 function ModalClose() {
     showTrasition.value = false
     setTimeout(() => {
-        props.modalClose()
-        console.log('test')
+        if (props.modalClose) {
+            props.modalClose();
+        }
     }, 320);
 }
+
+//url จาก config
+const config = useRuntimeConfig()
+//ดึง url ของหน้าเว็บ
+const route = useRoute()
+console.log(config.public.WEB_URL)
+const url = ref(config.public.WEB_URL+route.path)
+
+function Copy(){
+    navigator.clipboard.writeText(config.public.WEB_URL+route.path)
+}
+
 
 </script>
 <style scoped>
@@ -72,7 +88,7 @@ function ModalClose() {
 
                         <select class="border-none rounded-lg select-none bg-opacity-50 font-semibold text-[18px] " name="ผู้ร่วมแผน" id="cars">
                             <option value="volvo">ผู้ร่วมแผน</option>
-                            <option value="saab">Saab</option>
+                            <option value="saab">ผู้เข้าชม</option>
                         </select>
                     </div>
 
@@ -90,7 +106,7 @@ function ModalClose() {
 
                         <select class="border-none rounded-lg select-none bg-opacity-50 font-semibold text-[18px] " name="ผู้ร่วมแผน" id="cars">
                             <option value="volvo">ผู้ร่วมแผน</option>
-                            <option value="saab">Saab</option>
+                            <option value="saab">ผู้เข้าชม</option>
                         </select>
                     </div>
 
@@ -109,7 +125,7 @@ function ModalClose() {
 
                         <select class="border-none rounded-lg select-none bg-opacity-50 font-semibold text-[18px] " name="ผู้ร่วมแผน" id="cars">
                             <option value="volvo">ผู้ร่วมแผน</option>
-                            <option value="saab">Saab</option>
+                            <option value="saab">ผู้เข้าชม</option>
                         </select>
                     </div>
 
@@ -126,7 +142,7 @@ function ModalClose() {
                         <div>
                             <select class="border-none rounded-lg select-none bg-opacity-50 font-semibold text-[18px] " name="ผู้ร่วมแผน" id="cars">
                                 <option value="volvo">ทุกคนทีมีลิงก์</option>
-                                <option value="saab">Saab</option>
+                                <option value="saab">ผู้เข้าชม</option>
                             </select>
                         </div>
 
@@ -136,15 +152,15 @@ function ModalClose() {
                 </div>
                 <div class="">
                     <select class="border-none rounded-lg select-none bg-opacity-50 font-semibold text-[18px]" name="ผู้ร่วมแผน" id="cars">
-                        <option value="volvo">ผู้มีสิทธ์อ่าน</option>
-                        <option value="saab">Saab</option>
+                        <option value="volvo">ผู้ร่วมแผน</option>
+                        <option value="saab">ผู้เข้าชม</option>
                     </select>
                 </div>
 
             </div>
 
             <div class="w-full flex items-center justify-between mt-8">
-                <button class="border-2 w-[16dvw] xl:w-[13dvw] h-[4dvw] xl:h-[3.5dvw]  2xl:h-[3.5dvw] shadow-md border-[#F9A825] hover:bg-[#f4f4f4] items-center bg-opacity-100 flex rounded-xl">
+                <button @click="Copy()" class="border-2 w-[16dvw] xl:w-[13dvw] h-[4dvw] xl:h-[3.5dvw]  2xl:h-[3.5dvw] shadow-md border-[#F9A825] hover:bg-[#f4f4f4] items-center bg-opacity-100 flex rounded-xl">
                     <div class="flex items-center justify-center mx-auto">
                         <div class="mr-2">
                             <font-awesome-icon :icon="['fas', 'link']" class="text-[24px] h-[10px] text-[#349AE4]" />
@@ -153,7 +169,7 @@ function ModalClose() {
                     </div>
                 </button>
 
-                <button>
+                <button @click="ModalClose">
                     <div class="border-2 w-[16dvw] xl:w-[13dvw] h-[4dvw] xl:h-[3.5dvw]  2xl:h-[3.5dvw]  border-black shadow-md  bg-[#F9A825] items-center bg-opacity-100 justify-center flex rounded-xl    ">
                         <h1 class="font-medium text-[20px] text-white">บันทึก</h1>
                     </div>

@@ -54,15 +54,6 @@ const token_turnstile = ref(null);
 //สำหรับเงื่อนไขการแสดง modal
 const otpModalShow = ref(false);
 
-//เก็บค่าของรูปที่จะ crop
-const image_crop = ref(null);
-
-//เงื่อนไขการแสดงร modal ของการ crop รูป
-const ImageCropShow = ref(false);
-
-//เก็บค่าของรูปที่จะ crop
-const profile_img = ref(null);
-
 //เก็บ status loading
 const loadingRegister = ref(false);
 const loadingStatus = ref('');
@@ -203,6 +194,15 @@ function passwordMacth(event) {
     }
 }
 
+//เก็บค่าของรูปที่จะ crop
+const image_crop = ref(null);
+
+//เงื่อนไขการแสดงร modal ของการ crop รูป
+const ImageCropShow = ref(false);
+
+//เก็บค่าของรูปที่จะ crop
+const profile_img = ref(null);
+
 //ฟังก์สำหรับส่งค่าไปยัง modal crop image
 function profile_upload(event) {
     var file = event.target.files[0];
@@ -228,9 +228,37 @@ function profile_upload(event) {
     }
 }
 
-function ImageChange(image) {
-    profile_img.value = image;
+//profile image blob
+const profile_img_blob = ref(null);
+
+function CropImg(blob) {
+    profile_img.value = URL.createObjectURL(blob);
+    profile_img_blob.value = blob;
 }
+
+//otpdata
+const otpData = ref(null);
+
+async function requestOTP(type, phone) {
+    const otp = await GetOTP(type, phone, token_turnstile.value);
+    if (otp) {
+        return otp;
+    } else {
+        return false;
+    }
+}
+
+async function resendOTP() {
+    loadingRegister.value = true;
+    loadingStatus.value = 'GET OTP SMS ...';
+    const OTP = await requestOTP('sms', document.getElementById('phone').value);
+    loadingRegister.value = false;
+    loadingStatus.value = '';
+    if (OTP) {
+        otpData.value = OTP;
+    }
+}
+
 
 async function CheckData() {
     let dataNotEmply = inputNotEmply();
@@ -239,11 +267,6 @@ async function CheckData() {
     var confirm_pass = document.getElementById("password-match");
     let password_match = false;
     let password_strength = false;
-
-    //ส่งไปหา backend เพื่อเช็คว่ามีคำหยาบหรือไม่
-    var username = document.getElementById("username");
-    var name = document.getElementById("name");
-    var lastname = document.getElementById("lastname");
 
     if (dataNotEmply && token_turnstile.value !== null) {
 
@@ -263,45 +286,20 @@ async function CheckData() {
             password_strength = true;
         }
 
+        if ( dataNotEmply === true && password_match === true && password_strength === true) {
 
-        //loading
-        loadingRegister.value = true;
-        loadingStatus.value = 'AI กำลังตรวจสอบว่า ไม่มีคำหยาบคาย';
+            loadingRegister.value = true;
+            loadingStatus.value = 'GET OTP SMS ...';
 
-        // ส่งไปหา backend เพื่อเช็คว่ามีคำหยาบหรือไม่
-        const check_inputContent = await TextContentSafety([username.value, name.value, lastname.value], this.token_turnstile);
+            const OTP = await requestOTP('sms', document.getElementById('phone').value);
 
-        //loading end
-        loadingRegister.value = false;
-        loadingStatus.value = '';
-
-        if (check_inputContent[0] === false) {
-            inputError("username", "ไม่อนุญาติให้ใช้ คำหยาบ", true);
-            document.getElementById('main').scrollTo({ top: username.offsetTop, behavior: 'smooth' });
-            turnsite.value?.reset();
-        }
-        if (check_inputContent[1] === false) {
-            inputError("name", "ไม่อนุญาติให้ใช้ คำหยาบ", true);
-            if(check_inputContent[0] === true){
-                document.getElementById('main').scrollTo({ top: name.offsetTop, behavior: 'smooth' });
-                turnsite.value?.reset();
+            loadingRegister.value = false;
+            loadingStatus.value = '';
+            if (OTP) {
+                otpData.value = OTP;
+                otpModalShow.value = true;
             }
-        }
-        if (check_inputContent[2] === false) {
-            inputError("lastname", "ไม่อนุญาติให้ใช้ คำหยาบ", true);
-            if(check_inputContent[0] === true && check_inputContent[1] === true){
-                document.getElementById('main').scrollTo({ top: lastname.offsetTop, behavior: 'smooth' });
-                turnsite.value?.reset();
-            }
-        }
 
-
-        if (
-            dataNotEmply === true && password_match === true &&
-            password_strength === true && check_inputContent[0] &&
-            check_inputContent[1] && check_inputContent[2]
-        ) {
-            otpModalShow.value = true;
         } else {
             console.log('ไม่ผ่าน');
         }
@@ -569,12 +567,12 @@ async function CheckData() {
             </div>
         <!-- </NuxtLayout> -->
 
-        <div v-show="otpModalShow">
-            <ModalOTP :otpClose="() => otpModalShow = false" :show="otpModalShow" />
+        <div v-if="otpModalShow">
+            <ModalOTP :otpClose="() => otpModalShow = false" :show="otpModalShow" :otpData="otpData" :resend="resendOTP()" />
         </div>
 
         <div v-show="ImageCropShow">
-            <ModalImageCrop :ModalClose="() => ImageCropShow = false" :image="image_crop" :ImageChange="ImageChange" />
+            <ModalImageCrop :ModalClose="() => ImageCropShow = false" :image="image_crop" @imageOutput="CropImg" />
         </div>
 
     </ClientOnly>

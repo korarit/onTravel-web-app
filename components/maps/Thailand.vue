@@ -421,19 +421,18 @@
 }
 
 </style>
-<script setup>
+<script setup lang="ts">
 const props = defineProps({
-   Province:{
-      type: Function,
-      default: () => {}
-   }
+   Province: Function
 })
-function changeHoverValue(hvalue){
+function changeHoverValue(hvalue: any){
   if (hvalue != null && hvalue.target != null){
       let title = hvalue.target.attributes["title"].nodeValue;
       let id = hvalue.target.id;
       if (title != null && id !== "LKSG"){
-         props.Province(hvalue.target.id)
+         if (props.Province){
+            props.Province(hvalue.target.id)
+         }
          //console.log(hvalue.target.id, title.value);
       }
   }

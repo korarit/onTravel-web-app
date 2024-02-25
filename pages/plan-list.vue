@@ -11,7 +11,7 @@ definePageMeta({
 });
 
 const loginStatus = ref<Boolean>(true)
-const plan_list = ref<string[]>([])
+const plan_list = ref<string[]>([''])
 
 const showPlanCreate = ref<boolean>(false)
 
@@ -132,27 +132,27 @@ const language = ref<any>(inject('language'))
                     <div class="max-w-[100%] h-fit grid grid-cols-3 gap-x-[5%] gap-y-8">
 
                         <div class="w-[100%]">
-                            <ItemPlanCard :dataItem="TravelDataTest" />
+                            <ItemPlanCard :dataItem="TravelDataTest" :id="1" />
                         </div>
 
                         <div class="w-[100%]">
-                            <ItemPlanCard :dataItem="TravelDataTest" />
+                            <ItemPlanCard :dataItem="TravelDataTest" :id="2" />
                         </div>
 
                         <div class="w-[100%]">
-                            <ItemPlanCard :dataItem="TravelDataTest" />
+                            <ItemPlanCard :dataItem="TravelDataTest" :id="3" />
                         </div>
 
                         <div class="w-[100%]">
-                            <ItemPlanCard :dataItem="TravelDataTest" />
+                            <ItemPlanCard :dataItem="TravelDataTest" :id="4" />
                         </div>
 
                         <div class="w-[100%]">
-                            <ItemPlanCard :dataItem="TravelDataTest" />
+                            <ItemPlanCard :dataItem="TravelDataTest" :id="5" />
                         </div>
 
                         <div class="w-[100%]">
-                            <ItemPlanCard :dataItem="TravelDataTest" />
+                            <ItemPlanCard :dataItem="TravelDataTest" :id="6" />
                         </div>
 
                     </div>
@@ -170,7 +170,7 @@ const language = ref<any>(inject('language'))
             </div>
         <!-- </NuxtLayout> -->
         <ClientOnly>
-            <div v-show="showPlanCreate">
+            <div v-if="showPlanCreate">
                     <ModalPlanCreate :modalCloseShow="() => showPlanCreate = false" :show="showPlanCreate" />
             </div>
         </ClientOnly>   

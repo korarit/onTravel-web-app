@@ -25,11 +25,14 @@ function filterPasswordInput(inputElement) {
     inputElement.target.value = filteredValue;
 }
 
-watch(() => props.show, (value) => {
-    if (value) {
-        showTrasition.value = true
+watch(() => props.show, () => {
+    if (props.show){
+        setTimeout(() => {
+            showTrasition.value = true
+        }, 20);
     }
-})
+},{ immediate: true })
+
 function ModalClose(){
     showTrasition.value = false
     setTimeout(() => {

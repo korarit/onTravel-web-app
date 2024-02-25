@@ -68,7 +68,7 @@
 
       <div class=" flex flex-col border-black bg-[#FDFDFD] border-2 rounded-xl min-h-[57%] mt-auto p-6">
         <div class="w-full h-[84%]  rounded-xl justify-items-center">
-          <GoogleMap :location="[data.location.lat, data.location.lon]" />
+          <GoogleMap :location="[data.location.lat, data.location.lon]" :zoomLevel="16" />
         </div>
         <div class="flex justify-between items-center mt-4">
           <p class="text-[3dvh] font-semibold justify-start">
@@ -95,6 +95,13 @@
     </div>
   </div>
 
+  <div class="px-12 2xl:px-24 max-w-[100dvw] flex items-center">
+    <p class="text-[30px] font-semibold">การรีวิว</p>
+    <button @click="reviewModalShow = true" class="ml-auto w-[15%] h-[48px] rounded-md bg-[#F9A825] border-2 border-black">
+      <p class="text-[20px] font-semibold text-white">รีวิวสถานที่</p>
+    </button>
+  </div>
+
   <div class="px-12 2xl:px-24 max-w-[100dvw] h-auto my-8" v-if="data.room !== 0">
     <div class=" grid grid-cols-1 gap-y-8 h-auto">
       <Review v-for="review in data.review" :key="review" :data="review"  />
@@ -102,8 +109,12 @@
   </div>
 
 
-  <div v-show="sharingModalShow">
+  <div v-if="sharingModalShow">
     <ModalSharing :modalClose="() => sharingModalShow = false" :show="sharingModalShow" />
+  </div>
+
+  <div v-if="reviewModalShow" >
+    <ModalReview :modalClose="() => reviewModalShow = false" :show="reviewModalShow" />
   </div>
 </template>
 
@@ -156,6 +167,8 @@ definePageMeta({
 
 //สำหรับเงื่อนไขการแสดง modal
 const sharingModalShow = ref(false);
+
+const reviewModalShow = ref(false);
 
 </script>
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 definePageMeta({
-    layout: 'defaultmain',
+  layout: 'defaultmain',
 });
 
 // ข้อมูลที่ใช้ในการแสดงผล ความสนใจ
@@ -120,6 +120,28 @@ function profile_upload(event: any) {
 
 function ImageChange(image:string) {
     profile_img.value = image;
+}
+
+//otpdata
+const otpData = ref<null | any>(null);
+
+async function requestOTP(type:string, phone:string) {
+    const otp = true;
+    if (otp) {
+        return otp;
+    } else {
+        return false;
+    }
+}
+
+async function resendOTP() {
+    var phone:any = document.getElementById('phone');
+    if(phone){
+    const OTP = await requestOTP('sms', phone.value);
+    if (OTP) {
+        otpData.value = OTP;
+    }
+    }
 }
 
 
@@ -520,7 +542,7 @@ function ImageChange(image:string) {
 
     <!-- Modal OTP -->
     <div v-show="otpModalShow">
-        <ModalOTP :otpClose="() => otpModalShow = false" :show="otpModalShow" />
+        <ModalOTP :otpClose="() => otpModalShow = false" :show="otpModalShow" :otpData="otpData" :resend="() => resendOTP()" />
     </div>
 
     <!-- Modal Image Crop -->

@@ -16,6 +16,7 @@ interface PlanCardType {
 
 const props = defineProps<{
     CardData: PlanCardType
+    ModalData: Function
 }>();
 
 
@@ -27,9 +28,9 @@ const props = defineProps<{
     :style="`${CardData.image !== '' ? 'background-image: url('+CardData.image+')' : ''}`"
   >
     
-    <div class="absolute min-h-[25%] top-16 left-[50%] right-[50%] -translate-x-[50%] w-[90%] flex justify-center bg-[#ffffffbc] text-center align-middle rounded-2xl">
+    <button @click="() => ModalData(CardData)" class="absolute min-h-[25%] top-16 left-[50%] right-[50%] -translate-x-[50%] w-[90%] flex justify-center bg-[#ffffffbc] text-center align-middle rounded-2xl">
         <p class=" font-bold text-2xl leading-[4rem] my-auto select-none">{{ CardData.title }}</p>
-    </div>
+    </button>
 
     <div class="absolute bottom-[30px] left-[5%]">
         <div class="h-[3dvw] w-[3dvw] rounded-full bg-[#C0410C] flex  justify-center items-center select-none">
@@ -37,13 +38,13 @@ const props = defineProps<{
         </div>
     </div>
 
-    <div class="absolute top-[20px] right-[5%]">
+    <button @click="() => ModalData(CardData)" class="absolute top-[20px] right-[5%]">
         <div class="flex space-x-1">
             <div class="h-[0.7dvw] w-[0.7dvw] rounded-full bg-[#ffffffc8]"></div>
             <div class="h-[0.7dvw] w-[0.7dvw] rounded-full bg-[#ffffffc8]"></div>
             <div class="h-[0.7dvw] w-[0.7dvw] rounded-full bg-[#ffffffc8]"></div>
         </div>
-    </div>
+    </button>
 
     
     <button v-if="CardData.image === ''" class="absolute bottom-[30px] right-[6%] select-none">
