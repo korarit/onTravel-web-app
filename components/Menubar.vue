@@ -28,7 +28,7 @@ const language = ref<any>(inject('language') as any)
                     <NuxtLink to="/plan-list" v-bind:class="(selectPage === 'แผนการท่องเที่ยว') ? 'menu-active' : 'menu'">
                         <p class="text-[1.2rem] font-semibold text-slate-100">{{ language.menubar.plan }}</p>
                     </NuxtLink>
-                    <NuxtLink to="/provice-select" v-bind:class="(selectPage === 'สถานที่ในจังหวัด') ? 'menu-active rounded-tr-xl' : 'menu rounded-tr-xl'">
+                    <NuxtLink to="/province-select" v-bind:class="(selectPage === 'สถานที่ในจังหวัด') ? 'menu-active rounded-tr-xl' : 'menu rounded-tr-xl'">
                         <p class="text-[1.2rem] font-semibold text-slate-100">{{ language.menubar.province }}</p>
                     </NuxtLink>
                 </div>

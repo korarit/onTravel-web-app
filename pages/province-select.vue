@@ -42,6 +42,15 @@ async function changeProvince(idProvince) {
     province.value = ProvinceName[idProvince][lang_code.value]
 }
 
+async function selectProvince(idProvince) {
+    if (idProvince === "") {
+        province.value = ""
+        return
+    }
+    let getname = ProvinceName[idProvince][lang_code.value]
+    return navigateTo('/province/'+getname)
+}
+
 </script>
 <template>
     <ClientOnly>
@@ -58,19 +67,19 @@ async function changeProvince(idProvince) {
                     <div class="w-[45%] h-[80dvh]">
 
                         <!-- แผนที่ ภาคใต้ -->
-                        <MapsThailandSouth :Province="changeProvince" v-if="zoneselect == 'south'" />
+                        <MapsThailandSouth :Province="changeProvince" :select="selectProvince" v-if="zoneselect == 'south'" />
 
                         <!-- แผนที่ ภาคเหนือ -->
-                        <MapsThailandNorth :Province="changeProvince" v-else-if="zoneselect == 'north'" />
+                        <MapsThailandNorth :Province="changeProvince" :select="selectProvince" v-else-if="zoneselect == 'north'" />
 
                         <!-- แผนที่ ภาคกลาง -->
-                        <MapsThailandCenter :Province="changeProvince" v-else-if="zoneselect == 'center'" />
+                        <MapsThailandCenter :Province="changeProvince" :select="selectProvince" v-else-if="zoneselect == 'center'" />
 
                         <!-- แผนที่ ภาคตะวันออกเฉียงเหนือ -->
-                        <MapsThailandNortheast :Province="changeProvince" v-else-if="zoneselect == 'northeast'" />
+                        <MapsThailandNortheast :Province="changeProvince" :select="selectProvince" v-else-if="zoneselect == 'northeast'" />
 
                         <!-- แผนที่ ทั้งประเทศ -->
-                        <MapsThailand :Province="changeProvince" v-else-if="zoneselect == 'all'"/>
+                        <MapsThailand :Province="changeProvince" :select="selectProvince" v-else-if="zoneselect == 'all'"/>
 
                     </div>
                     <!-- ส่วนของ card-->

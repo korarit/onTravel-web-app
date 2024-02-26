@@ -164,6 +164,12 @@
             "calendar": "Calendar of TAT"
         },
 
+        "province":{
+            "title":"place in province",
+            "search_result": "result of search in province",
+            "not_result_search": "No result of search in province"
+        },
+
         "user":{
             "title": "Profile",
             "upload_image": "UPLOAD",

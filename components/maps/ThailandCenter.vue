@@ -1,7 +1,7 @@
 <template>
     <div class="w-full h-full">
         <svg width="100%" height="100%" viewBox="0 0 330 335" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" xmlns:undefined="http://mapsvg.com">
-            <g @mouseover="changeHoverValue">
+            <g @mouseover="changeHoverValue" @mousedown="selectProvince">
                 <path id="10" class="province_map" title="Krung Thep Maha Nakhon (Bangkok)" d="m165.28844,122.79588l0.7,-0.33l2,0.66l0.51,-0.71l0.92,0.42l0.02,0.76l0.97,0.03l0.04,0.41l3.31,0.12l1.17,0.83l1.47,0.08l6.19,-1.38l6.29,-0.59l0,0l-0.52,5.83l-0.26,0.81l-0.69,-0.1l3.08,2.5l-1.91,1.66l-3.67,6.17l0.39,0.25l0,0l-0.12,0.53l-4.77,-1.85l-5.27,-0.12l0.13,1.57l-0.9,2.71l-2.11,-0.72l-0.07,-0.64l-0.79,0.33l-0.52,1.32l-4.51,-1.14l0.54,-1.65l-2.15,-0.97l-0.62,2.33l-0.8,0.2l-0.91,-0.7l-0.28,0.43l-0.19,3.13l0.4,1.56l-0.76,0.26l-1.92,-0.44l-0.75,0.99l-0.34,-0.82l-0.7,0.04l-0.68,3.38l0.54,3.67l0,0l-3.01,0.59l0,0l-0.23,-1.22l1.03,-2.14l-0.14,-1.23l-1.56,0.21l-0.69,-2.14l-0.54,0.19l0.35,-0.35l-0.76,-2.66l-0.99,-0.74l-1.08,-0.06l-0.55,-6.38l0,0l-0.14,-4.58l-0.67,-1.54l0,0l0.72,1.26l8.74,0.44l0.75,0.59l2.05,-0.77l1.01,-0.87l-0.58,-0.31l0.13,-0.52l2.35,-1.71l1.35,-6.88z"/>
                 <path id="11" class="province_map" title="Samut Prakan" d="m157.74844,153.61588l-0.54,-3.67l0.68,-3.38l0.7,-0.04l0.34,0.82l0.75,-0.99l1.92,0.44l0.76,-0.26l-0.4,-1.56l0.19,-3.13l0.28,-0.43l0.91,0.7l0.8,-0.2l0.62,-2.33l2.15,0.97l-0.54,1.65l4.51,1.14l0.52,-1.32l0.79,-0.33l0.07,0.64l2.11,0.72l0.9,-2.71l-0.13,-1.57l5.27,0.12l4.77,1.85l0.12,-0.53l0,0l6.34,2.32l-0.47,0.72l1.01,0.67l-0.2,0.75l-2.43,2.66l-1.11,0.17l0.52,1.44l-0.69,1.09l-1.04,-0.61l-1.14,2.73l-0.05,2.27l-1.3,-0.32l-0.24,1.09l0,0l-3.58,-0.91l-7.76,-0.98l-3.33,-0.96l-3.59,-2.68l-0.06,-0.69l1.14,-1.55l-0.15,-1.18l-2.19,-0.48l-0.18,0.27l2.11,0.53l-1.07,2.66l1.01,2.09l-0.33,0.76l-0.73,0.66l-2.77,0.59l-5.27,0.29z"/>
                 <path id="12" class="province_map" title="Nonthaburi" d="m150.47844,111.37588l-0.84,4.15l2.08,4.32l4.53,0.73l1.64,1.02l0.6,-0.32l2.51,2.39l2.11,-0.56l0.59,-0.75l1.59,0.44l0,0l-1.35,6.88l-2.35,1.71l-0.13,0.52l0.58,0.31l-1.01,0.87l-2.05,0.77l-0.75,-0.59l-8.74,-0.44l-0.72,-1.26l0,0l-2.82,-6.08l-0.88,-0.73l2.27,-2.89l-1.87,-1.69l0.37,-0.96l-0.69,-0.52l0.97,-8.03l0,0l1.44,-1.01l2.31,0.87l0.61,0.85z"/>
@@ -52,19 +52,32 @@
   animation-fill-mode: forwards;
 }
 </style>
-<script setup>
-const props = defineProps({
-   Province:{
-      type: Function,
-      default: () => {}
-   }
-})
-function changeHoverValue(hvalue){
+<script setup lang="ts">
+const props = defineProps<{
+   Province: Function,
+   select: Function
+}>()
+function changeHoverValue(hvalue:any){
   if (hvalue != null && hvalue.target != null){
       let title = hvalue.target.attributes["title"].nodeValue;
       let id = hvalue.target.id;
       if (title != null && id !== "LKSG"){
-        props.Province(hvalue.target.id)
+        if (props.Province){
+          props.Province(hvalue.target.id)
+        }
+         //console.log(hvalue.target.id, title.value);
+      }
+  }
+}
+
+function selectProvince(hvalue: any){
+  if (hvalue != null && hvalue.target != null){
+      let title = hvalue.target.attributes["title"].nodeValue;
+      let id = hvalue.target.id;
+      if (title != null && id !== "LKSG"){
+         if (props.select){
+            props.select(hvalue.target.id)
+         }
          //console.log(hvalue.target.id, title.value);
       }
   }

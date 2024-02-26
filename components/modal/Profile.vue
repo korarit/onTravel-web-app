@@ -12,7 +12,7 @@ const props = defineProps({
     <div class="bg-white rounded-lg shadow-lg shadow-black/30 border-2 border-black w-fit h-fit px-4 py-3">
         <div class="flex w-full h-fit space-x-4">
             <div class="w-fit h-fit flex items-center">
-                <div class="bg-black rounded-full h-[120px] w-[120px]"></div>
+                <div class="bg-cover bg-center rounded-full h-[120px] w-[120px]" style="background-image: url('/img/profile_test.jpg');"></div>
             </div>
             <div class="w-fit h-fit flex items-center justify-center">
                 <div class="h-fit">

@@ -89,11 +89,16 @@ function CancelPassword(target: string) {
 }
 
 
-const image_crop = ref<string>('');
+//เก็บค่าของรูปที่จะ crop
+const image_crop = ref<any | null>(null);
+
+//เงื่อนไขการแสดงร modal ของการ crop รูป
 const ImageCropShow = ref<boolean>(false);
 
-const profile_img = ref<string>('');
+//เก็บค่าของรูปที่จะ crop
+const profile_img = ref<string | null>(null);
 
+//ฟังก์สำหรับส่งค่าไปยัง modal crop image
 function profile_upload(event: any) {
     var file = event.target.files[0];
     if (file) {
@@ -118,8 +123,13 @@ function profile_upload(event: any) {
     }
 }
 
-function ImageChange(image:string) {
-    profile_img.value = image;
+//profile image blob
+const profile_img_blob = ref<Blob | null>(null);
+
+function CropImg(blob: Blob) {
+    profile_img.value = URL.createObjectURL(blob);
+    profile_img_blob.value = blob;
+
 }
 
 //otpdata
@@ -151,7 +161,7 @@ async function resendOTP() {
     <div class="container mx-auto px-4 py-4 lg:px-40 sm:w-[70%]">
 
         <!-- profile edit -->
-        <div class="rounded-full h-[256px] w-[256px] mx-auto my-12 bg-cover bg-center flex items-end overflow-hidden" :style="{ backgroundImage: `url(${profile_img === '' ? 'https://cdn-icons-png.flaticon.com/512/149/149071.png' : profile_img})` }">
+        <div class="rounded-full h-[256px] w-[256px] mx-auto my-12 bg-cover bg-center flex items-end overflow-hidden" :style="{ backgroundImage: `url(${profile_img === null ? 'https://cdn-icons-png.flaticon.com/512/149/149071.png' : profile_img})` }">
             <label 
                 class="w-[100%] h-[30%] flex justify-center pt-[7%] space-x-2 cursor-pointer" 
                 style="background-color: rgba(0, 0, 0, 0.517);"
@@ -306,7 +316,7 @@ async function resendOTP() {
                             v-if="edit.password === false"
                             @click="editPassword('password')"
                             type="button"
-                            class="w-[21%] bg-black text-white font-bold text-lg inline-flex items-center justify-center justify-center rounded-e-lg hover:bg-slate-800"
+                            class="w-[21%] bg-black text-white font-bold text-lg inline-flex items-center justify-center  rounded-e-lg hover:bg-slate-800"
 
                         >
                             แก้ไข
@@ -541,13 +551,13 @@ async function resendOTP() {
     </div>
 
     <!-- Modal OTP -->
-    <div v-show="otpModalShow">
+    <div v-if="otpModalShow">
         <ModalOTP :otpClose="() => otpModalShow = false" :show="otpModalShow" :otpData="otpData" :resend="() => resendOTP()" />
     </div>
 
     <!-- Modal Image Crop -->
      <div v-show="ImageCropShow">
-        <ModalImageCrop :ModalClose="() => ImageCropShow = false" :image="image_crop" :ImageChange="ImageChange" />
+        <ModalImageCrop :ModalClose="() => ImageCropShow = false" :image="image_crop"  @imageOutput="CropImg" />
     </div>
 
 </template>

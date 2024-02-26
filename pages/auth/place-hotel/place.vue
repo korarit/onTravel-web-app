@@ -265,7 +265,7 @@ const removeSocialMedia = (index) => {
                     </div>
                 </div>
                 
-                <label for="" class="text-3xl font-bold mt-8  md:w-1/4 md:pr-4 text-[#01579B]">INTERESTS</label>
+                <label for="" class="text-3xl font-bold mt-8  md:w-1/4 md:pr-4 text-[#01579B]">ประเภทของสถานที่</label>
                 <div class="mb-6 mt-6 md:items-center justify-items-between  grid grid-cols-3 gap-8 text-center">
                     <button 
                         :class="`${interest.adventure ? 'bg-[#36ad2d]' : 'bg-[#616161]'} py-3 border border-solid border-black rounded-3xl text-white text-xl select-none`"

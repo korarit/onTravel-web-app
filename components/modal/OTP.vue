@@ -70,7 +70,7 @@ watch(() => props.otpData, () => {
 },{ immediate: true })
 
 onMounted(() => {
-    if (props.otpData.ExpireTime !== undefined) {
+    if (props.otpData.ExpireTime !== undefined && props.otpData.ExpireTime !== null) {
 
         let x = setInterval(function() {
             // Get current date

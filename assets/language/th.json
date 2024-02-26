@@ -105,6 +105,7 @@
             "not_result_search": "ไม่พบผลลัพท์ที่ใกล้เคียงกับ คำค้นหา"
         },
 
+
         "hotel":{
             "share": "Share",
             "title_review_point": "Review Point",
@@ -163,6 +164,13 @@
             "south": "ใต้",
             "calendar": "ปฎิทินการท่องเที่ยว ททท"
         },
+
+        "province":{
+            "title":"สถานที่ในจังหวัด",
+            "search_result": "ผลลัพธ์การค้นหาในจังหวัด",
+            "not_result_search": "ไม่พบผลลัพท์ที่ใกล้เคียงกับ คำค้นหา ในจังหวัด"
+        },
+
 
         "user":{
             "title": "Profile",
@@ -257,7 +265,7 @@
 
             "title_interests": "ความสนใจ",
             "interests":{
-                "adventure": "พจนภัย",
+                "adventure": "พจญภัย",
                 "nature": "ธรรมชาติ ป่าเขา",
                 "sea": "ทะเล ชายหาด",
                 "history": "ประวัติศาสตร์",
