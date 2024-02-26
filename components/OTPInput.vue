@@ -7,14 +7,13 @@ const data = ref(Array(props.fields).fill('')); // Initialize with empty values
 const firstInputEl:any = ref(null);
 const emit = defineEmits(['update:modelValue']);
 
-watch(
-  () => data,
-  (newVal:any) => {
+watch(data.value,(newVal:any) => {
     if (
       newVal.every((value:any) => value !== '') &&
       newVal.length === props.fields
     ) {
-      emit('update:modelValue', Number(newVal.join('')));
+      console.log(newVal.join(''));
+      emit('update:modelValue', String(newVal.join('')));
     } else {
       emit('update:modelValue', null);
     }
@@ -53,11 +52,11 @@ const handlePaste = (e:any) => {
 
 <template>
   <div class="otp w-full flex justify-between">
-      <input
+    <input
         v-for="field in fields"
         :key="field - 1"
         v-model="data[field - 1]"
-        ref="firstInputEl"
+        :ref="el => { if (field === 1) firstInputEl = el; }"
         type="text"
         maxlength="1"
         class="border border-black shadow-inner shadow-[#3d3d3d87] rounded w-[10%] h-[70px] text-center text-[30px] font-semibold focus:outline-3 outline-[#6166E7] bg-[#D9D9D9]"

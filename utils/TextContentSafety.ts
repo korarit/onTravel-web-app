@@ -24,7 +24,7 @@ export default async function (textContent: string[], turnstileToken: string){
             method: 'POST',
             body: JSON.stringify({input: textContent})
         })
-        if(pending_data.value === false){
+        if(pending_data.value === false ){
             //ตรวจสอบว่ามีการส่งค่าที่เป็นคำหยาบกลับมาหรือไม่
             let data_result:any = check_result.value
             console.log(data_result)

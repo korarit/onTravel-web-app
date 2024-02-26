@@ -19,13 +19,6 @@ const props = defineProps({
 
 ////////////////// แปลภาษา //////////////////////
 const language = ref(await inject('language'))
-
-const otp_phone = ref({
-    time_request: "",
-    code_request: "",
-})
-const otp_type = ref("")
-
 const showTrasition = ref(false)
 watch(() => props.show, () => {
     if (props.show){
@@ -105,6 +98,19 @@ async function resendOTP(){
     }
 
 }
+
+const emit = defineEmits(['sendOTP'])
+const otp_code = ref('')
+
+function send(){
+    if (otp_code.value.length < 6 && otp_code.value !== '') {
+        alert('กรุณากรอกรหัส OTP ให้ครบ 6 หลัก')
+        return
+    }
+    emit('sendOTP', otp_code.value)
+    ModalClose()
+}
+
 </script>
 <style scoped>
 @import url("~/assets/css/modal.css");
@@ -134,13 +140,13 @@ async function resendOTP(){
                         </p>
                     </div>
                     <div class="w-full h-[70px]">
-                        <OTPInput :fields="6"/>
+                        <OTPInput v-model="otp_code" :fields="6"/>
                     </div>
                     <div class="w-full my-6">
                         <p class="text-right text-[24px] font-semibold text-[#0277BD] leading-8">{{ language.modal.otp.wait_resend }} {{ request_minute }}:{{ request_second }}</p>
                     </div>
                     <div class="w-full mb-[42px]"> 
-                        <button class="w-full h-[60px] rounded-md bg-[#FF9800] shadow-sm shadow-[#00000074] text-[24px] font-semibold text-white">
+                        <button @click="() => send()" class="w-full h-[60px] rounded-md bg-[#FF9800] shadow-sm shadow-[#00000074] text-[24px] font-semibold text-white">
                             {{ language.modal.otp.button_confirm }}
                         </button>
                     </div>

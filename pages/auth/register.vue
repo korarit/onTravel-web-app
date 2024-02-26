@@ -51,6 +51,10 @@ const interest = ref({
 //เก็บค่า token ที่ได้จาก turnstile
 const token_turnstile = ref(null);
 
+function loginTurnstile() {
+    console.log('login turnstile', token_turnstile.value);
+}
+
 //สำหรับเงื่อนไขการแสดง modal
 const otpModalShow = ref(false);
 
@@ -230,17 +234,19 @@ function profile_upload(event) {
 
 //profile image blob
 const profile_img_blob = ref(null);
+let profile_img_blob_test = null;
 
 function CropImg(blob) {
     profile_img.value = URL.createObjectURL(blob);
     profile_img_blob.value = blob;
+    profile_img_blob_test = blob;
 }
 
 //otpdata
 const otpData = ref(null);
 
-async function requestOTP(type, phone) {
-    const otp = await GetOTP(type, phone, token_turnstile.value);
+async function requestOTP(type, phone, token_turnstile) {
+    const otp = await GetOTP(type, phone, 'register', token_turnstile);
     if (otp) {
         return otp;
     } else {
@@ -251,7 +257,7 @@ async function requestOTP(type, phone) {
 async function resendOTP() {
     loadingRegister.value = true;
     loadingStatus.value = 'GET OTP SMS ...';
-    const OTP = await requestOTP('sms', document.getElementById('phone').value);
+    const OTP = await requestOTP('sms', document.getElementById('phone').value, token_turnstile.value);
     loadingRegister.value = false;
     loadingStatus.value = '';
     if (OTP) {
@@ -291,13 +297,15 @@ async function CheckData() {
             loadingRegister.value = true;
             loadingStatus.value = 'GET OTP SMS ...';
 
-            const OTP = await requestOTP('sms', document.getElementById('phone').value);
+            if(token_turnstile.value){
+                const OTP = await requestOTP('sms', document.getElementById('phone').value, token_turnstile.value);
 
-            loadingRegister.value = false;
-            loadingStatus.value = '';
-            if (OTP) {
-                otpData.value = OTP;
-                otpModalShow.value = true;
+                loadingRegister.value = false;
+                loadingStatus.value = '';
+                if (OTP) {
+                    otpData.value = OTP;
+                    otpModalShow.value = true;
+                }
             }
 
         } else {
@@ -306,6 +314,66 @@ async function CheckData() {
     }
     console.log(token_turnstile.value);
 }
+
+
+
+
+
+//////////////////////////// เชื่อมต่อกับ backend ////////////////////////////
+const {Login} = useAuth();
+
+async function signUpWithCredentials(OTP) {
+    // Probably you'll do some validation here before submitting to the backend
+    // ...
+    // This is the object that our backend expects for the `signIn` endpoint
+
+    //create interest array
+    let interest_list = [];
+    for (const [key, value] of Object.entries(interest.value)) {
+        if (value === true) {
+            interest_list.push(key);
+        }
+    }
+    //make interest array to string
+    interest_list = interest_list.join(',');
+    
+    console.log('OTP', OTP);
+    if (OTP.length < 6) {
+        alert('Please enter OTP code');
+        return;
+    }
+    if (otpData.value.OTPCode === undefined || otpData.value.OTPCode === '') {
+        return;
+    }
+
+    const data = {
+        username: document.getElementById('username').value,
+        name: document.getElementById('name').value,
+        last_name: document.getElementById('lastname').value,
+        province: document.getElementById('province').value,
+        phone_number: document.getElementById('phone').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value,
+        interests: interest_list,
+        otp: OTP,
+        otp_code: otpData.value.OTPCode,
+        profile_img: profile_img_blob_test
+    };
+
+    //console.log('test', turnstileToken)
+    try{
+        const send_tobacked = await Register(data);
+        if(send_tobacked !== null){
+
+            console.log(send_tobacked)
+        }else {
+            console.log(send_tobacked)
+        }
+    }catch(err){
+        console.log(err)
+    }
+  }
+
 
 
 </script>
@@ -390,7 +458,7 @@ async function CheckData() {
                             class="w-full p-3 border border-gray-950 rounded-md text-xl font-medium  placeholder-[#3939397e] select-template bg-white"
                         >
                             <option value="" selected class="text-black">{{ language.page.register.input_province }}</option>
-                            <option value="1" class="text-black">พะเยา</option>
+                            <option value="พะเยา" class="text-black">พะเยา</option>
                         </select>
                     </div>
                 </div>
@@ -558,7 +626,7 @@ async function CheckData() {
                             <p>{{ loadingStatus }}</p>
                         </div>
                     </button>
-                    <button class="bg-[#d63e33] hover:bg-[#EF4236]  py-3 border border-solid border-red-700 rounded-xl text-white text-xl">
+                    <button @click="() => loginTurnstile()" class="bg-[#d63e33] hover:bg-[#EF4236]  py-3 border border-solid border-red-700 rounded-xl text-white text-xl">
                         {{ language.page.register.button_cancel }}
                     </button>
 
@@ -568,7 +636,7 @@ async function CheckData() {
         <!-- </NuxtLayout> -->
 
         <div v-if="otpModalShow">
-            <ModalOTP :otpClose="() => otpModalShow = false" :show="otpModalShow" :otpData="otpData" :resend="resendOTP()" />
+            <ModalOTP :otpClose="() => otpModalShow = false" :show="otpModalShow" @sendOTP="signUpWithCredentials" :otpData="otpData" :resend="() => resendOTP()" />
         </div>
 
         <div v-show="ImageCropShow">

@@ -22,8 +22,21 @@ export default defineNuxtConfig({
       families:{
         Kanit: [100,200,300,400,500,600,700,800,900]
       }
-    }]
+    }],
+    '@sidebase/nuxt-auth',
   ],
+  auth: {
+    baseURL: 'http://localhost:5000/authentication',
+    provider: {
+      type: 'local',
+      endpoints: {
+        signIn: { path: '/login', method: 'post' },
+        register: { path: '/register_user', method: 'post' },
+        signOut: { path: '/logout', method: 'post' }
+      }
+    }
+
+  },
   build: {
     transpile: ['@fortawesome/vue-fontawesome']
   },

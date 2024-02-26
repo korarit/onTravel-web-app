@@ -17,7 +17,7 @@ export default async function (type: string,receiver: string, use_for: string, t
 
     const runtimeConfig = useRuntimeConfig();
 
-    console.log(turnstileToken)
+    //console.log('test', turnstileToken)
     try{
         const {data: check_result, pending: pending_data, error: error_data, refresh} = await useFetch(runtimeConfig.public.BACKEND_URL+'/security/otp',
         {   
@@ -27,10 +27,10 @@ export default async function (type: string,receiver: string, use_for: string, t
             },
             body: JSON.stringify({type: type, receiver: receiver, use_for: use_for})
         })
-        if(pending_data.value === false && error_data  === null){
+        if(pending_data.value === false){
             //ตรวจสอบว่ามีการส่งค่าที่เป็นคำหยาบกลับมาหรือไม่
             let data_result:any = check_result.value
-            console.log(data_result)
+            console.log('test 2',data_result)
             let result:APIresult = data_result
 
             return result

@@ -24,7 +24,7 @@ function crop_image(){
 
     canvas.toBlob(blob => {
         emit('imageOutput', blob);
-    });
+    }, 'image/jpeg');
 
     //ปิด Modal
     props.ModalClose();
