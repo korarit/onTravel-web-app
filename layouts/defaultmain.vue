@@ -26,6 +26,9 @@ function closeProfile() {
     }, 100);
 
 }
+
+const { data, status } = useAuth()
+
 </script>
 <style>
 body {
@@ -51,14 +54,22 @@ body {
 <template>
     <div id="main" class="overflow-x-hidden overflow-y-auto h-[100dvh]">
         <div class="relative w-[100dvw] h-[70px]">
-            <Navbar class="w-full absolute top-0" :profileShow="profileShow" :profileModal="() => profileShow = true"
-                :profileModalClose="() => closeProfile()" :LoginModal="() => loginShow = true" :setLanguage="setLanguage" />
+            <Navbar class="w-full absolute top-0" 
+                :profileShow="profileShow" 
+                :profileModal="() => profileShow = true"
+                :profileModalClose="() => closeProfile()" 
+                :LoginModal="() => loginShow = true" 
+                :setLanguage="setLanguage" 
+                :LoginStatus="status"
+            />
 
-            <Transition name="modal">
-            <div v-show="profileShow" class="absolute -bottom-[220px] right-12 2xl:right-24 z-[100]">
-                   <ModalProfile :modalClose="() => closeProfile()" />
+            <div v-if="status == 'authenticated'">
+                <Transition name="modal">
+                <div v-show="profileShow" class="absolute -bottom-[220px] right-12 2xl:right-24 z-[100]">
+                    <ModalProfile :modalClose="() => closeProfile()" />
+                </div>
+                </Transition>
             </div>
-            </Transition>
         </div>
         <slot />
         <div class="max-w-[100dvw]">

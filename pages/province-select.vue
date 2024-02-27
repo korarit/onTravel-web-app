@@ -9,6 +9,7 @@ import ProvinceName from "~/assets/json/province_name.json"
 
 definePageMeta({
   layout: 'defaultmain',
+  auth: false
 });
 
 const zoneselect = ref("all")

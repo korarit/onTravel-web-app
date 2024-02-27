@@ -13,7 +13,8 @@ if (!process.server) {
 
 
 definePageMeta({
-  layout: 'defaultmain',
+    layout: 'defaultmain',
+    auth: 'auth'
 });
 ////////////////////// แปลภาษา ///////////////////////
 const language = ref(await inject('language'));

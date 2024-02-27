@@ -3,7 +3,8 @@ import '@vueup/vue-quill/dist/vue-quill.snow.css'
 import ThaiData from "~/assets/json/thailand_data.json"
 
 definePageMeta({
-  layout: 'defaultmain',
+    layout: 'defaultmain',
+    auth: 'auth'
 });
 
 if (!process.server) {

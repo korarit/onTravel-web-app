@@ -7,6 +7,7 @@ body {
 <script setup>
 definePageMeta({
   layout: 'defaultmain',
+  auth: false
 })
 
 const Data = {

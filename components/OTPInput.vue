@@ -22,19 +22,23 @@ watch(data.value,(newVal:any) => {
 );
 
 const handleOtpInput = (e: Event, index:any) => {
-
   const target = e.target as any;
-  if (e && target.nextElementSibling) {
-    target.nextElementSibling.focus();
-  } else if (e && target.previousElementSibling) {
-    target.previousElementSibling.focus();
-  }
-
   // Check if the current field is empty and move focus to the previous field if needed
   if (e && target.previousElementSibling && data.value[index] === '') {
-    target.previousElementSibling.focus();
+    if (index !== 0) {
+      target.previousElementSibling.focus();
+    }else{
+      target.focus();
+    }
+  } else if (e && target.nextElementSibling && index !== props.fields - 1 && data.value[index] !== '') {
+    target.nextElementSibling.focus();
+  } else if (e && index === props.fields) {
+    target.ElementSibling.blur();
   }
 };
+
+
+
 
 
 

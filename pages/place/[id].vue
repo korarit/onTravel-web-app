@@ -97,7 +97,7 @@
 
   <div class="px-12 2xl:px-24 max-w-[100dvw] flex items-center">
     <p class="text-[30px] font-semibold">การรีวิว</p>
-    <button @click="reviewModalShow = true" class="ml-auto w-[15%] h-[48px] rounded-md bg-[#F9A825] border-2 border-black">
+    <button v-if="status == 'authenticated'" @click="reviewModalShow = true" class="ml-auto w-[15%] h-[48px] rounded-md bg-[#F9A825] border-2 border-black">
       <p class="text-[20px] font-semibold text-white">รีวิวสถานที่</p>
     </button>
   </div>
@@ -119,6 +119,8 @@
 </template>
 
 <script setup>
+const { status } = useAuth();
+
 const data = ref({
   name : "Place 0001",
   descirtion: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur neque, sunt iure minus cum, qui blanditiis fugit inventore nesciunt architecto numquam saepe assumenda nobis atque. Similique doloribus voluptate consequuntur eligendi.",
@@ -162,6 +164,7 @@ const data = ref({
 });
 definePageMeta({
     layout: 'defaultmain',
+    auth: false
 });
 
 

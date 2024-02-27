@@ -26,13 +26,31 @@ export default defineNuxtConfig({
     '@sidebase/nuxt-auth',
   ],
   auth: {
+    globalAppMiddleware: true,
     baseURL: 'http://localhost:5000/authentication',
     provider: {
       type: 'local',
       endpoints: {
         signIn: { path: '/login', method: 'post' },
         register: { path: '/register_user', method: 'post' },
-        signOut: { path: '/logout', method: 'post' }
+        signOut: { path: '/logout', method: 'get' },
+        getSession: { path: '/session', method: 'get' }
+      },
+      token: {
+        signInResponseTokenPointer: '/login_token',
+      },
+      pages:{
+        login: '/'
+      },
+      parseResponse: function(response: any){
+        return {
+          success: response.success,
+          message: response.message,
+          login_token: response.login_token,
+          name: response.name,
+          last_name: response.last_name,
+          profile_img: response.profile_img
+        }
       }
     }
 

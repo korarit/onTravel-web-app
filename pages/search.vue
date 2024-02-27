@@ -1,6 +1,7 @@
 <script setup>
 definePageMeta({
   layout: 'defaultmain',
+  auth: false
 });
 
 ////////////////////// แปลภาษา ///////////////////////

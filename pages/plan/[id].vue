@@ -4,6 +4,7 @@ import mockup_data from '~/assets/json/mockup_plan.json'
 
 definePageMeta({
   layout: 'defaultmain',
+  auth: 'auth'
 })
 
 //สำหรับเงื่อนไขการแสดง modal

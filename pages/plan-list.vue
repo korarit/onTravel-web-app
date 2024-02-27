@@ -8,9 +8,9 @@ body {
 
 definePageMeta({
   layout: 'defaultmain',
+  auth: false
 });
 
-const loginStatus = ref<Boolean>(true)
 const plan_list = ref<string[]>([''])
 
 const showPlanCreate = ref<boolean>(false)
@@ -40,6 +40,7 @@ const list_image_url = ref<String[]>([
 ////////////////////// แปลภาษา ///////////////////////
 const language = ref<any>(inject('language'))
 
+const {data, status, getSession} = useAuth()
 </script>
 <template>
         <!-- <NuxtLayout name="defaultmain"> -->
@@ -52,7 +53,7 @@ const language = ref<any>(inject('language'))
             <div class="max-w-[100dvw] px-12 2xl:px-24">
 
                 <!-- กรณีไม่ได้ login-->
-                <template v-if="loginStatus == false && plan_list.length == 0">
+                <template v-if="status != 'authenticated'">
 
                     <!-- หัวข้อ + ปุ่ม -->
                     <div class="w-[100%] flex items-center mb-6">
@@ -77,7 +78,7 @@ const language = ref<any>(inject('language'))
 
                 </template>
                 <!-- กรณีไม่มีแผนการ -->
-                <template v-else-if="loginStatus == true && plan_list.length == 0">
+                <template v-else-if="status == 'authenticated' && plan_list.length == 0">
 
                     <!-- หัวข้อ + ปุ่ม -->
                     <div class="w-[100%] flex items-center mb-6">
@@ -112,7 +113,7 @@ const language = ref<any>(inject('language'))
                 </template>
 
                 <!-- กรณีมีแผนการ -->
-                <template v-else-if="loginStatus == true && plan_list.length > 0">
+                <template v-else-if="status == 'authenticated' && plan_list.length > 0">
 
                     <!-- หัวข้อ + ปุ่ม -->
                     <div class="w-[100%] flex items-center mb-6">

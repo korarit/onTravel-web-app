@@ -8,6 +8,7 @@ const props = defineProps<{
     profileModalClose: Function
     LoginModal: Function
     setLanguage: Function
+    LoginStatus: string
 }>();
 
 function ChangeLanguage(event: Event) {
@@ -53,7 +54,7 @@ function OpenProfile() {
                     </select>
                 </div>
 
-                <button v-if="false" @click="LoginModal()" class="w-auto h-[44px] rounded-lg bg-white border-2 border-black flex items-center px-4">
+                <button v-if="LoginStatus != 'authenticated'" @click="LoginModal()" class="w-auto h-[44px] rounded-lg bg-white border-2 border-black flex items-center px-4">
                     <img src="/icon/user_icon.svg" class="w-[32px] h-[32px]" alt="user_icon">
                     <p class="ml-2 text-[18px] font-semibold">เข้าสู่ระบบ</p>
                 </button>

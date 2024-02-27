@@ -40,6 +40,44 @@ function ModalClose(){
     }, 310);
 }
 
+const { signIn } = useAuth()
+
+const username = ref('')
+const password = ref('')
+
+async function Login(e){
+    var email_regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@a-zA-Z0-9?(?:\\.a-zA-Z0-9?)*$/;
+    var phone_regex = /^0[0-9]{9}$/;
+    let is_phone = phone_regex.test(username.value);
+    let is_email = email_regex.test(password.value);
+
+    console.log("is_phone", is_phone);
+
+    let type = '';
+    if (is_phone) {
+        type = 'phone';
+    } else if (is_email) {
+        type = 'email';
+    }else{
+        return;
+    }
+
+    e.preventDefault()
+
+    const formData = reactive({
+        type: type,
+        username: username.value,
+        password: password.value
+    })
+
+    try {
+        let res = await signIn({...formData},{redirect: false})
+        ModalClose()
+        console.log("res", res);
+    } catch (error) {
+        console.log(error);
+    }
+}
 </script>
 <style scoped>
 @import url("~/assets/css/modal.css");
@@ -67,8 +105,9 @@ input[type="password"]::-ms-reveal {
                     <p class="text-[28px] 2xl:text-[30px] text-center leading-[34px] font-extrabold mb-5">{{ language.modal.login.title }}</p>
                     <div class="mx-auto relative w-[80%] h-[48px] 2xl:h-[50px]">
                         <input 
+                            v-model="username"
                             class="mx-auto w-full h-full pl-[4.1rem] text-[16px] 2xl:text-[18px] font-medium placeholder-[#909090] rounded-md shadow-inner shadow-[#8a8a8a] bg-[#d1d1d1] focus:outline-none" 
-                            type="text" placeholder="Phone number / Email / Username"
+                            type="text" placeholder="Phone number / Email"
                         />
                         <div class="absolute inset-y-0 left-0 pl-[1.4rem] flex items-center pointer-events-none">
                             <font-awesome-icon :icon="['fas', 'user']" class="text-[24px] 2xl:text-[26px]" />
@@ -76,6 +115,7 @@ input[type="password"]::-ms-reveal {
                     </div>
                     <div class="mx-auto relative w-[80%] h-[50px] mt-5">
                         <input 
+                            v-model="password"
                             class="mx-auto w-full h-full pl-[4.1rem] text-[16px] 2xl:text-[18px] font-medium placeholder-[#909090] rounded-md shadow-inner shadow-[#8a8a8a] bg-[#d1d1d1] focus:outline-none" 
                             type="password" placeholder="Password"
                             @input="filterPasswordInput"
@@ -97,6 +137,7 @@ input[type="password"]::-ms-reveal {
                     <div class="mx-auto w-[80%] space-y-5">
 
                         <button
+                            @click="Login"
                             class="w-full h-[48px] 2xl:h-[50px] rounded-md bg-[#FFA624] hover:bg-[#d68923] shadow-md shadow-[#d0d0d0]  text-[22px] 2xl:text-[24px] font-bold  text-white focus:outline-none mb-5"
                         >
                             {{ language.modal.login.button_login }}

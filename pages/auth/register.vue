@@ -18,6 +18,8 @@
     }
 </style>
 <script setup>
+import { faSignIn } from '@fortawesome/free-solid-svg-icons';
+
 definePageMeta({
   layout: 'defaultmain',
 });
@@ -320,7 +322,7 @@ async function CheckData() {
 
 
 //////////////////////////// เชื่อมต่อกับ backend ////////////////////////////
-const {Login} = useAuth();
+const {signIn} = useAuth();
 
 async function signUpWithCredentials(OTP) {
     // Probably you'll do some validation here before submitting to the backend
@@ -365,14 +367,24 @@ async function signUpWithCredentials(OTP) {
         const send_tobacked = await Register(data);
         if(send_tobacked !== null){
 
-            console.log(send_tobacked)
+            const datalogin = reactive({
+                type: "phone",
+                username: data.phone_number,
+                password: data.password
+            });
+            try{
+                await signIn({...datalogin});
+                navigateTo('/');
+            }catch(err){
+                console.log(err);
+            }
         }else {
             console.log(send_tobacked)
         }
     }catch(err){
         console.log(err)
     }
-  }
+}
 
 
 

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
   layout: 'defaultmain',
+  auth: 'auth'
 });
 
 // ข้อมูลที่ใช้ในการแสดงผล ความสนใจ
