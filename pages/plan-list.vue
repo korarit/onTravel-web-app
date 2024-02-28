@@ -10,6 +10,10 @@ definePageMeta({
   layout: 'defaultmain',
   auth: false
 });
+useHead({
+  title: 'onTravel - plan'
+})
+
 
 const plan_list = ref<string[]>([''])
 

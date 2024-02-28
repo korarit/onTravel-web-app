@@ -3,6 +3,18 @@ definePageMeta({
   layout: 'defaultmain',
   auth: false
 })
+useHead({
+  title: 'onTravel - hotels',
+  htmlAttrs: {
+    lang: 'en',
+  }
+})
+useSeoMeta({
+  title: 'onTravel - รายการที่พัก',
+  ogTitle: 'onTravel - Province',
+  description: 'รายการที่พักในเว็บไซต์ ontravel',
+  ogDescription: 'รายการที่พักในเว็บไซต์ ontravel'
+})
 
 
 const TravelDataTest:any = {

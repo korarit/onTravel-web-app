@@ -24,6 +24,8 @@ export default defineNuxtConfig({
       }
     }],
     '@sidebase/nuxt-auth',
+    'nuxt-delay-hydration',
+
   ],
   auth: {
     globalAppMiddleware: true,
@@ -72,5 +74,10 @@ export default defineNuxtConfig({
       WEB_URL: process.env.WEB_URL as string,
       BACKEND_URL: process.env.BACKEND_URL as string,
     }
+  },
+  delayHydration: { 
+    mode: 'init',
+    // enables nuxt-delay-hydration in dev mode for testing  
+    debug: false
   }
 })

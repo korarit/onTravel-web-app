@@ -97,6 +97,7 @@ function changeShow(index: number){
                         v-bind:class="(id-1 == keyData)?'bg-[#F9A825] h-[16px] w-[16px] rounded-full' : 'bg-[#fbd18d] h-[16px] w-[16px] rounded-full'"
                         @click="changeShow(id-1)"
                         :key="id-1"
+                        :aria-label="`click to select ${id-1}`"
                     ></button>
                 </div>
             </div>

@@ -22,6 +22,7 @@ import { faSignIn } from '@fortawesome/free-solid-svg-icons';
 
 definePageMeta({
   layout: 'defaultmain',
+  auth: false
 });
 ////////////////////// แปลภาษา ///////////////////////
 const language = ref(await inject('language'));

@@ -14,7 +14,7 @@ defineProps<{
         <div class="w-[100%] overflow-x-hidden">
             <!-- รูปภาพตัวอย่าง -->
             <div class="w-[100%] h-[250px] mb-4">
-                <img :src="dataItem.image" class="object-cover drop-shadow-md rounded-xl w-[100%] h-[100%]">
+                <img :src="dataItem.image" alt="image of place" class="object-cover drop-shadow-md rounded-xl w-[100%] h-[100%]">
             </div>
 
             <p class="text-[20px] text-justify">

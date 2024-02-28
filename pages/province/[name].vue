@@ -4,7 +4,6 @@ definePageMeta({
   auth: false
 })
 
-
 const TravelDataTest:any = {
     image: "https://static.thairath.co.th/media/dFQROr7oWzulq5FZUIVNrgcAuSEVpmdZwKSC23KlKAEMNBbMBJ7GEvpfzId6osBXpwm.jpg",
     title: "12 ที่เที่ยวสมุทรสงคราม ปักหมุดตลาดต้อง ไป แวะไหว้พระวัดดัง",
@@ -14,6 +13,17 @@ const TravelDataTest:any = {
 
 const route = useRoute()
 const router = useRouter()
+
+useHead({
+  title: `onTravel - ${route.params.name}`
+})
+useSeoMeta({
+  title: 'onTravel - Province',
+  ogTitle: 'onTravel - Province',
+  description: 'เว็บไซต์ ontravel แนะนำสถานที่ท่องเที่ยวและ ที่พัก ในไทย',
+  ogDescription: 'เว็บไซต์ ontravel แนะนำสถานที่ท่องเที่ยวและ ที่พัก ในไทย'
+})
+
 
 const keyword = ref<string>(route.query.keyword as string)
 const newkeyword = ref<string>("")

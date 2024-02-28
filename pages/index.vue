@@ -9,6 +9,19 @@ definePageMeta({
   layout: 'defaultmain',
   auth: false
 })
+useHead({
+  title: 'onTravel',
+  htmlAttrs: {
+    lang: 'en',
+  }
+})
+useSeoMeta({
+  title: 'onTravel',
+  ogTitle: 'onTravel',
+  description: 'เว็บไซต์ ontravel แนะนำสถานที่ท่องเที่ยวและ ที่พัก ในไทย',
+  ogDescription: 'เว็บไซต์ ontravel แนะนำสถานที่ท่องเที่ยวและ ที่พัก ในไทย'
+})
+
 
 const Data = {
     time: "11 / 12 / 2567",

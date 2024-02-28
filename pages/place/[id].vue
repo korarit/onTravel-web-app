@@ -166,6 +166,18 @@ definePageMeta({
     layout: 'defaultmain',
     auth: false
 });
+useHead({
+  title: 'onTravel - place',
+  htmlAttrs: {
+    lang: 'en',
+  }
+})
+useSeoMeta({
+  title: 'onTravel - Place',
+  ogTitle: 'onTravel - Place',
+  description: 'สถานที่ท่องเที่ยวในเว็บไซต์ ontravel กดลิ้งค์เข้ามาดูเพิ่มเติม',
+  ogDescription: 'สถานที่ท่องเที่ยวในเว็บไซต์ ontravel กดลิ้งค์เข้ามาดูเพิ่มเติม'
+})
 
 
 //สำหรับเงื่อนไขการแสดง modal

@@ -27,6 +27,62 @@ function closeProfile() {
 
 }
 
+const ForgetPasswordShow = ref<boolean>(false)
+const otpModalShow = ref<boolean>(false)
+
+interface otpDataType {
+    OTPCode: string
+    NowTime: number
+    ExpireTime: number
+}
+
+const otpData = ref<otpDataType>()
+const setOTPData = (data: otpDataType) => {
+    otpData.value = data
+    ForgetPasswordShow.value = false
+    setTimeout(() => {
+        otpModalShow.value = true
+    }, 400);
+}
+
+interface resetPasswordDataType {
+    username: string
+    new_password: string
+}
+const resetPasswordData = ref<resetPasswordDataType | null>()
+const setResetPasswordData = (data: resetPasswordDataType) => {
+    resetPasswordData.value = data
+}
+async function resetPassword(passOTP: string) {
+    if (resetPasswordData.value == null) {
+        return
+    }
+    if (otpData.value == null) {
+        return
+    }
+
+    try{
+        const res = await ResetPassword(resetPasswordData.value.username, passOTP, otpData.value.OTPCode, resetPasswordData.value.new_password)
+        if (res) {
+            otpModalShow.value = false
+        }
+
+    }catch(e){
+        console.log(e)
+    }
+}
+
+async function resendOTP() {
+    if (resetPasswordData.value == null) {
+        return
+    }
+    const res = await ForgetPasswordOTP(resetPasswordData.value['username'])
+    if (res) {
+        otpData.value = res
+    }
+}
+
+
 const { data, status } = useAuth()
 
 </script>
@@ -75,8 +131,15 @@ body {
         <div class="max-w-[100dvw]">
             <FooterWeb />
         </div>
+        <div v-if="ForgetPasswordShow">
+            <ModalForgetPassword :modalClose="() => ForgetPasswordShow = false" :show="ForgetPasswordShow" @SendForgetPassword="setOTPData" @resetPassword="setResetPasswordData" />
+        </div>
+        <div v-if="otpModalShow">
+            <ModalOTP :otpClose="() => otpModalShow = false" :show="otpModalShow" @sendOTP="resetPassword" :otpData="otpData" :resend="() => resendOTP()" />
+        </div>
+
         <div v-if="loginShow">
-            <ModalLogin :LoginClose="() => loginShow = false" :show="loginShow" />
+            <ModalLogin :LoginClose="() => loginShow = false" :show="loginShow" :openForget="() => ForgetPasswordShow = true" />
         </div>
     </div>
 </template>

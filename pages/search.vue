@@ -3,6 +3,18 @@ definePageMeta({
   layout: 'defaultmain',
   auth: false
 });
+useHead({
+  title: 'onTravel - search',
+  htmlAttrs: {
+    lang: 'en',
+  }
+})
+useSeoMeta({
+  title: 'onTravel - Search',
+  ogTitle: 'onTravel - Search',
+  description: 'ค้นหาที่พัก และ สถานที่ท่องเที่ยวในเว็บไซต์ ontravel',
+  ogDescription: 'ค้นหาที่พัก และ สถานที่ท่องเที่ยวในเว็บไซต์ ontravel'
+})
 
 ////////////////////// แปลภาษา ///////////////////////
 const language = ref(await inject('language'));

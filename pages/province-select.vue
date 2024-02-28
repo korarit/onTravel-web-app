@@ -11,6 +11,18 @@ definePageMeta({
   layout: 'defaultmain',
   auth: false
 });
+useHead({
+  title: 'onTravel - province',
+  htmlAttrs: {
+    lang: 'en',
+  }
+})
+useSeoMeta({
+  title: 'onTravel - province',
+  ogTitle: 'onTravel - Province',
+  description: 'ค้นหาที่พักในจังหวัดผ่าน เว็บไซต์ ontravel',
+  ogDescription: 'ค้นหาที่พักในจังหวัดผ่าน เว็บไซต์ ontravel'
+})
 
 const zoneselect = ref("all")
 const province = ref("")

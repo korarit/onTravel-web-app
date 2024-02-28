@@ -39,21 +39,20 @@ export default async function (data: any){
         redirect: "manual"
     };
     try{
-        const send_tobacked = await fetch("http://localhost:5000/authentication/register_user", request)
+        const send_tobacked = await fetch(runtimeConfig.public.BACKEND_URL+"/authentication/register_user", request)
         if(send_tobacked.status === 200){
-            //ตรวจสอบว่ามีการส่งค่าที่เป็นคำหยาบกลับมาหรือไม่
             let data_result = await send_tobacked.json()
             //console.log('test 2',data_result)
             let result = data_result
 
-            console.log(result)
+            //console.log(result)
             return result
         }else {
             console.log(send_tobacked.text())
             return null
         }
     }catch(err){
-        console.log(err)
+        console.log(err.text())
         return null
     }
 }

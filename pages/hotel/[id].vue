@@ -215,7 +215,18 @@ definePageMeta({
     layout: 'defaultmain',
     auth: false
 });
-
+useHead({
+  title: 'onTravel - Hotel',
+  htmlAttrs: {
+    lang: 'en',
+  }
+})
+useSeoMeta({
+  title: 'onTravel - Hotel',
+  ogTitle: 'onTravel - Hotel',
+  description: 'รายละเอียดที่พัก ในเว็บไซต์ ontravel กดลิ้งค์เข้ามาดูเพิ่มเติม',
+  ogDescription: 'รายละเอียดที่พัก ในเว็บไซต์ ontravel กดลิ้งค์เข้ามาดูเพิ่มเติม'
+})
 
 //สำหรับเงื่อนไขการแสดง modal
 const sharingModalShow = ref(false);

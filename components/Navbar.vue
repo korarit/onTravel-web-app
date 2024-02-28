@@ -38,8 +38,8 @@ function OpenProfile() {
     <ClientOnly>
         <div class="w-[100dvw] z-[1000] h-[70px] bg-[#F9A825] px-12 2xl:px-24 flex items-center drop-shadow-lg">
             <div class="h-[80%] flex items-center">
-                <NuxtLink to="/" class="w-full h-full">
-                    <img src="/logo.svg" style="height: 100%;">
+                <NuxtLink to="/" class="w-full h-full" aria-label="click to black homepage">
+                    <img src="/logo.svg" alt="logo-web" style="height: 100%;">
                 </NuxtLink>
             </div>
             <div class="w-auto h-[44px] ml-auto flex items-center">
