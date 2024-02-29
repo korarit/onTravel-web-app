@@ -3,15 +3,17 @@ type dataItem = {
     image: string,
     title: string,
     point: number,
-    views: number
+    views: number,
 }
 const props = defineProps<{
-    dataItem: dataItem
+    dataItem: dataItem,
+    link: string
 }>();
 
 </script>
 <template>
     <ClientOnly>
+        <NuxtLink :to="link" class="w-[100%] h-[100%]">
         <div class="w-[100%] h-[100%]">
             <!-- รูปภาพตัวอย่าง -->
             <div class="w-[100%] h-[250px] mb-4">
@@ -36,6 +38,7 @@ const props = defineProps<{
                 </div>
             </div>
         </div>
+        </NuxtLink>
     </ClientOnly>
 </template>
 <style scoped>

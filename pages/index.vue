@@ -64,27 +64,27 @@ const language = ref(inject('language'))
                 <div class="max-w-[100%] grid grid-cols-3 gap-x-[5%] gap-y-8">
 
                     <div class="w-[100%]">
-                        <ItemTravelGuide :dataItem="TravelDataTest" />
+                        <ItemTravelGuide :dataItem="TravelDataTest" :id="1" />
                     </div>
 
                     <div class="w-[100%]">
-                        <ItemTravelGuide :dataItem="TravelDataTest" />
+                        <ItemTravelGuide :dataItem="TravelDataTest" :id="2" />
                     </div>
 
                     <div class="w-[100%]">
-                        <ItemTravelGuide :dataItem="TravelDataTest" />
+                        <ItemTravelGuide :dataItem="TravelDataTest" :id="3" />
                     </div>
 
                     <div class="w-[100%]">
-                        <ItemTravelGuide :dataItem="TravelDataTest" />
+                        <ItemTravelGuide :dataItem="TravelDataTest" :id="4" />
                     </div>
                     
                     <div class="w-[100%]">
-                        <ItemTravelGuide :dataItem="TravelDataTest" />
-                    </div>
+                        <ItemTravelGuide :dataItem="TravelDataTest" :id="5" />
+                    </div> 
                     
                     <div class="w-[100%]">
-                        <ItemTravelGuide :dataItem="TravelDataTest" />
+                        <ItemTravelGuide :dataItem="TravelDataTest" :id="6" />
                     </div>
                 </div>
             </div>

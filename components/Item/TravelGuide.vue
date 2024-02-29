@@ -7,10 +7,12 @@ type dataItem = {
 }
 defineProps<{
     dataItem: dataItem
+    id: number  
 }>();
 </script>
 <template>
     <ClientOnly>
+        <NuxtLink :to="`/place/${id}`" class="w-[100%] h-[100%]" >
         <div class="w-[100%] overflow-x-hidden">
             <!-- รูปภาพตัวอย่าง -->
             <div class="w-[100%] h-[250px] mb-4">
@@ -21,6 +23,7 @@ defineProps<{
                 {{ dataItem.title  }}
             </p>
         </div>
+        </NuxtLink>
     </ClientOnly>
 </template>
 <style scoped>

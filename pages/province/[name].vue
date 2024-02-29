@@ -104,40 +104,40 @@ body{
                     <template v-else-if="search_status === true">
                         <div class="grid grid-cols-4 gap-x-[2%] gap-y-8 w-[100%]">
                             <div class="w-[100%]">
-                                <ItemSearch :dataItem="TravelDataTest" />
+                                <ItemSearch :dataItem="TravelDataTest" link="/place/1" />
                             </div>
                             <div class="w-[100%]">
-                                <ItemSearch :dataItem="TravelDataTest" />
+                                <ItemSearch :dataItem="TravelDataTest" link="/place/2" />
                             </div>
                             <div class="w-[100%]">
-                                <ItemSearch :dataItem="TravelDataTest" />
+                                <ItemSearch :dataItem="TravelDataTest" link="/place/3" />
                             </div>
                             <div class="w-[100%]">
-                                <ItemSearch :dataItem="TravelDataTest" />
+                                <ItemSearch :dataItem="TravelDataTest" link="/place/4" />
                             </div>
                             <div class="w-[100%]">
-                                <ItemSearch :dataItem="TravelDataTest" />
+                                <ItemSearch :dataItem="TravelDataTest" link="/place/5" />
                             </div>
                             <div class="w-[100%]">
-                                <ItemSearch :dataItem="TravelDataTest" />
+                                <ItemSearch :dataItem="TravelDataTest" link="/place/6" />
                             </div>
                             <div class="w-[100%]">
-                                <ItemSearch :dataItem="TravelDataTest" />
+                                <ItemSearch :dataItem="TravelDataTest" link="/place/7" />
                             </div>
                             <div class="w-[100%]">
-                                <ItemSearch :dataItem="TravelDataTest" />
+                                <ItemSearch :dataItem="TravelDataTest" link="/place/8" />
                             </div>
                             <div class="w-[100%]">
-                                <ItemSearch :dataItem="TravelDataTest" />
+                                <ItemSearch :dataItem="TravelDataTest" link="/place/9" />
                             </div>
                             <div class="w-[100%]">
-                                <ItemSearch :dataItem="TravelDataTest" />
+                                <ItemSearch :dataItem="TravelDataTest" link="/place/10" />
                             </div>
                             <div class="w-[100%]">
-                                <ItemSearch :dataItem="TravelDataTest" />
+                                <ItemSearch :dataItem="TravelDataTest" link="/place/11" />
                             </div>
                             <div class="w-[100%]">
-                                <ItemSearch :dataItem="TravelDataTest" />
+                                <ItemSearch :dataItem="TravelDataTest" link="/place/12" />
                             </div>
                         </div>
                     </template>
