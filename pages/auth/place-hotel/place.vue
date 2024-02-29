@@ -171,7 +171,7 @@ const removeSocialMedia = (index) => {
 
                         <div class="relative md:w-3/4 h-[54px] w-full">
                             <input 
-                                type="tel" id='phone'
+                                type="tel" id='contact'
                                 class="absolute h-full px-3 pe-11 block w-full border-2 border-gray-950 rounded-lg"
                                 :placeholder="contact.placeholder"
                             >

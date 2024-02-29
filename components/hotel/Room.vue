@@ -1,7 +1,7 @@
 <template>
     <div class="flex w-full h-[20dvw] sha shadow-[#0000004b]">
         <div class=" w-1/2 h-full bg-cover bg-center border-l-2 border-y-2 border-black rounded-l-xl relative" :style="`background-image: url('${data.image[0]}');`">
-            <button class=" flex items-center justify-center rounded-bl-xl  absolute inset-x-0 bottom-0 w-full h-20 select-none" style="background-color: rgba(255, 255, 255, 0.7)">
+            <button @click="() => openImg()" class=" flex items-center justify-center rounded-bl-xl  absolute inset-x-0 bottom-0 w-full h-20 select-none" style="background-color: rgba(255, 255, 255, 0.7)">
                 <font-awesome-icon :icon="['fas', 'camera-retro']" class="text-3xl mr-4" style="color: rgba(0, 0, 0, 0.8);" />
                 <p class=" text-xl font-bold" style="color: rgba(0, 0, 0, 0.7);">คลิกเพื่อดูรูปภาพเพิ่มเติม</p>
             </button>
@@ -27,7 +27,8 @@ interface Room {
     image: string[]
 }
 defineProps<{
-  data: Room
+  data: Room,
+  openImg: Function
 }>()
 </script>
 

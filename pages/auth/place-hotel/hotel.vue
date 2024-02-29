@@ -161,6 +161,11 @@ const removeFacilitate = (index:any) => {
     list_facilitate.value.splice(index, 1);
 }
 
+const list_room = ref([{}])
+const addRoom = () => {
+    list_room.value.push({});
+}
+
 </script>
 <template>
     <ClientOnly>
@@ -207,7 +212,7 @@ const removeFacilitate = (index:any) => {
 
                         <div class="relative md:w-3/4 h-[54px] w-full">
                             <input 
-                                type="tel" id='phone'
+                                type="tel" id='contact'
                                 class="absolute h-full px-3 pe-11 block w-full border-2 border-gray-950 rounded-lg"
                                 :placeholder="contact.placeholder"
                             >
@@ -341,7 +346,7 @@ const removeFacilitate = (index:any) => {
                         <div class="relative md:w-3/4 h-[54px] w-full">
                             <input 
                                 @input="valueFacilitate(index, $event.target.value)"
-                                type="tel" id='phone'
+                                type="tel" id='data'
                                 class="absolute h-full px-3 pe-11 block w-full border-2 border-gray-950 rounded-lg"
                                 :placeholder="`สิ่งอำนวยความสะดวก รายการที่ ${index+1}`"
                             >
@@ -365,9 +370,9 @@ const removeFacilitate = (index:any) => {
                 <div class="w-full h-[2px] bg-[#F9A825] mt-10 mb-7"></div>
 
                 <!-- รายการห้องพัก-->
-                <div class="">
+                <div class="" >
                     <p class="text-2xl mb-1 font-bold text-[#01579B]">รายการประเภท ห้องพัก</p>
-                    <div class="w-full flex">
+                    <div class="w-full flex mb-8" v-for="(item, index) in list_room" :key="index">
 
                         <div class="w-[45%]">
                             <label for="file_input2">
@@ -434,6 +439,7 @@ const removeFacilitate = (index:any) => {
                     </div>
                     <div class="flex w-full items-center">
                         <button type="button"
+                            @click="addRoom()"
                             class="mt-6 py-3 w-full mx-auto bg-[#01579B] hover:bg-blue-900 text-white rounded-md shadow-inner flex items-center justify-center">
                             <p class="font-medium text-2xl">เพิ่มรายการที่พัก</p>
                         </button>

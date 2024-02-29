@@ -132,7 +132,7 @@
 
   <div class="px-12 2xl:px-24 max-w-[100dvw] h-fit my-8" v-if="data.room !== 0">
     <div class=" grid grid-cols-2 gap-8">
-      <HotelRoom v-for="room in data.room" :key="room" :data="room" />
+      <HotelRoom v-for="room in data.room" :key="room" :data="room" :openImg="() => roomImgModalShow = true" />
     </div>
   </div>
 
@@ -156,6 +156,10 @@
 
   <div v-if="reviewModalShow" >
     <ModalReview :modalClose="() => reviewModalShow = false" :show="reviewModalShow" />
+  </div>
+
+  <div v-if="roomImgModalShow">
+    <ModalRoomImg :modalClose="() => roomImgModalShow = false" :show="roomImgModalShow" :ImageList="data.image" />
   </div>
 
 </template>
@@ -231,6 +235,7 @@ useSeoMeta({
 //สำหรับเงื่อนไขการแสดง modal
 const sharingModalShow = ref(false);
 const reviewModalShow = ref(false);
+const roomImgModalShow = ref(false)
 
 
 </script>
