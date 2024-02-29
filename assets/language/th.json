@@ -65,7 +65,8 @@
             "minute": "นาที",
             "button_confirm": "ยืนยันรหัส OTP",
             "wait_resend": "ขอรหัสอีกครั้งได้ใน",
-            "button_resend": "ขอรหัส OTP อีกครั้ง"
+            "request_resend": "ขอรหัส OTP อีกครั้ง",
+            "resend_button":"ยืนรหัส OTP ใหม่อีกครั้ง"
         },
         "plan_create":{
             "title": "สร้างแผนการท่องเที่ยว",

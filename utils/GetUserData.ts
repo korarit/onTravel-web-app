@@ -1,7 +1,5 @@
 interface APIresult {
-    OTPCode: string
-    NowTime: number
-    ExpireTime: number
+    success: boolean
 }
 
 /*
@@ -13,32 +11,34 @@ interface APIresult {
     @return ค่า APIresult หากสำเร็จ และ null หากไม่สำเร็จ
 
 */
-export default async function (username: string){
+export default async function (LoginToken: string){
 
     const runtimeConfig = useRuntimeConfig();
 
-    console.log('test0003', username)
+    const myHeaders:Headers = new Headers();
+    myHeaders.append("Authorization", LoginToken);
+
 
     //console.log('test', turnstileToken)
     try{
-        const {data: check_result, pending: pending_data, error: error_data, refresh} = await useFetch(runtimeConfig.public.BACKEND_URL+'/authentication/forgotpassword/get_otp',
+        const data = await fetch(runtimeConfig.public.BACKEND_URL+'/authentication/user',
         {   
-            method: 'POST',
-            body: JSON.stringify({type: "phone", username: username})
+            method: 'GET',
+            headers: myHeaders
         })
-        if(pending_data.value === false){
+        if(data.status === 200){
             //ตรวจสอบว่ามีการส่งค่าที่เป็นคำหยาบกลับมาหรือไม่
-            let data_result:any = check_result.value
-            console.log('test 2',data_result)
+            let data_result:any = data.json()
+            //console.log('test 2',data_result)
             let result:APIresult = data_result
 
             return result
-        }else if(error_data !== null){
-            console.log(error_data)
-            return null
+        }else{
+            console.log(data.text())
+            return data.text()
         }
-    }catch(err){
-        console.log(err)
+    }catch(err: any){
+        console.log(err.text())
         return null
     }
 }

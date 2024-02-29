@@ -35,7 +35,7 @@ export default defineNuxtConfig({
       endpoints: {
         signIn: { path: '/login', method: 'post' },
         register: { path: '/register_user', method: 'post' },
-        signOut: { path: '/logout', method: 'get' },
+        signOut: { path: '/logout', method: 'delete' },
         getSession: { path: '/session', method: 'get' }
       },
       token: {
@@ -79,5 +79,8 @@ export default defineNuxtConfig({
     mode: 'init',
     // enables nuxt-delay-hydration in dev mode for testing  
     debug: false
+  },
+  cloudinary: {
+    cloudName: 'dmdp8ebln',
   }
 })

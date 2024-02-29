@@ -1,5 +1,5 @@
 interface APIresult {
-    Success: boolean
+    success: boolean
 }
 
 /*
@@ -14,7 +14,7 @@ export default async function (username:string, otp:string, otp_code:string, new
     //console.log('test', turnstileToken)
     try{
         const send_tobacked = await fetch(runtimeConfig.public.BACKEND_URL+"/authentication/forgotpassword", {   
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -29,10 +29,9 @@ export default async function (username:string, otp:string, otp_code:string, new
         if(send_tobacked.status === 200){
             let data_result = await send_tobacked.json()
             let result = data_result
-            return result.Success
+            return result.success
         }else {
-            console.log(await send_tobacked.text())
-            return null
+            return (await send_tobacked.text()).toLocaleLowerCase()
         }        
     }catch(err){
         console.log(err)

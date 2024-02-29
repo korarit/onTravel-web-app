@@ -20,6 +20,9 @@ async function setLanguage(code: string) {
 provide('language_code', lang_code)
 provide('language', language)
 
+const { data, status, signIn } = useAuth()
+
+
 function closeProfile() {
     setTimeout(() => {
         profileShow.value = false
@@ -29,6 +32,8 @@ function closeProfile() {
 
 const ForgetPasswordShow = ref<boolean>(false)
 const otpModalShow = ref<boolean>(false)
+
+const otpError = ref<string>('')
 
 interface otpDataType {
     OTPCode: string
@@ -53,6 +58,8 @@ const resetPasswordData = ref<resetPasswordDataType | null>()
 const setResetPasswordData = (data: resetPasswordDataType) => {
     resetPasswordData.value = data
 }
+
+
 async function resetPassword(passOTP: string) {
     if (resetPasswordData.value == null) {
         return
@@ -63,8 +70,20 @@ async function resetPassword(passOTP: string) {
 
     try{
         const res = await ResetPassword(resetPasswordData.value.username, passOTP, otpData.value.OTPCode, resetPasswordData.value.new_password)
-        if (res) {
+        if (res === true) {
             otpModalShow.value = false
+            try{
+                const res = await signIn({
+                    type: "phone",
+                    username: resetPasswordData.value.username,
+                    password: resetPasswordData.value.new_password
+                })
+                alert('Reset Password Success')
+            }catch(e){
+                alert('Reset Password Success')
+            }
+        }else{
+            otpError.value = res
         }
 
     }catch(e){
@@ -81,9 +100,6 @@ async function resendOTP() {
         otpData.value = res
     }
 }
-
-
-const { data, status } = useAuth()
 
 </script>
 <style>
@@ -121,7 +137,7 @@ body {
 
             <div v-if="status == 'authenticated'">
                 <Transition name="modal">
-                <div v-show="profileShow" class="absolute -bottom-[220px] right-12 2xl:right-24 z-[100]">
+                <div v-if="profileShow" class="absolute -bottom-[220px] right-12 2xl:right-24 z-[100]">
                     <ModalProfile :modalClose="() => closeProfile()" />
                 </div>
                 </Transition>
@@ -135,7 +151,7 @@ body {
             <ModalForgetPassword :modalClose="() => ForgetPasswordShow = false" :show="ForgetPasswordShow" @SendForgetPassword="setOTPData" @resetPassword="setResetPasswordData" />
         </div>
         <div v-if="otpModalShow">
-            <ModalOTP :otpClose="() => otpModalShow = false" :show="otpModalShow" @sendOTP="resetPassword" :otpData="otpData" :resend="() => resendOTP()" />
+            <ModalOTP :otpClose="() => otpModalShow = false" :show="otpModalShow" @sendOTP="resetPassword" :otpError="otpError" :otpData="otpData" :resend="() => resendOTP()" />
         </div>
 
         <div v-if="loginShow">

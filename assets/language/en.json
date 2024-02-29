@@ -65,7 +65,8 @@
             "minute": "minute",
             "button_confirm": "Confirm OTP",
             "wait_resend": "Request the OTP code again at",
-            "button_resend": "Request OTP code again"
+            "request_resend": "Request OTP code again",
+            "resend_button":"Enter OTP code again"
         },
         "plan_create":{
             "title": "Create Travel Plan",

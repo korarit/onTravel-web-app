@@ -27,16 +27,16 @@ export default async function (type: string,receiver: string, use_for: string, t
             },
             body: JSON.stringify({type: type, receiver: receiver, use_for: use_for})
         })
-        if(pending_data.value === false){
+        if(pending_data.value === false && error_data.value === null){
             //ตรวจสอบว่ามีการส่งค่าที่เป็นคำหยาบกลับมาหรือไม่
             let data_result:any = check_result.value
             console.log('test 2',data_result)
             let result:APIresult = data_result
 
             return result
-        }else if(error_data !== null){
+        }else if(error_data.value !== null){
             console.log(error_data)
-            return null
+            return error_data
         }
     }catch(err){
         console.log(err)

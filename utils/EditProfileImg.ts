@@ -1,5 +1,9 @@
 interface APIresult {
     success: boolean
+    Message: string
+    name: string
+    last_name: string
+    profile_img: number
 }
 
 /*
@@ -11,34 +15,35 @@ interface APIresult {
     @return ค่า APIresult หากสำเร็จ และ null หากไม่สำเร็จ
 
 */
-export default async function (LoginToken: string){
+export default async function (LoginToken: string, profile_img: Blob){
 
     const runtimeConfig = useRuntimeConfig();
 
-    const myHeaders:Headers = new Headers();
-    myHeaders.append("Authorization", LoginToken);
+    const register_data: FormData = new FormData();
+    register_data.append('image', profile_img);
 
-
-    //console.log('test', turnstileToken)
+    console.log('test', LoginToken)
     try{
-        const data = await fetch(runtimeConfig.public.BACKEND_URL+'/authentication/logout',
+        const send_tobacked = await fetch(runtimeConfig.public.BACKEND_URL+'/authentication/user/edit_img',
         {   
-            method: 'GET',
-            headers: myHeaders
-        })
-        if(data.status === 200){
-            //ตรวจสอบว่ามีการส่งค่าที่เป็นคำหยาบกลับมาหรือไม่
-            let data_result:any = data.json()
+            method: 'PUT',
+            headers: {
+                'Authorization': "Bearer "+LoginToken
+            },
+            body: register_data
+        });
+        if(send_tobacked.status === 200){
+            let data_result = await send_tobacked.json()
             //console.log('test 2',data_result)
-            let result:APIresult = data_result
+            let result = data_result
 
+            //console.log(result)
             return result
-        }else{
-            console.log(data.text())
-            return data.text()
+        }else {
+            console.log(send_tobacked.text())
+            return null
         }
-    }catch(err: any){
-        console.log(err.text())
+    }catch(err){
         return null
     }
 }

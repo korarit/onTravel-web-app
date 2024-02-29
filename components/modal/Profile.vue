@@ -19,21 +19,6 @@ async function logout() {
     } catch (error) {
         console.log(error)
     }
-    // console.log(data.value?.login_token);
-    // if (status.value == 'authenticated' && data.value?.login_token) {
-    //     let backend_logout = await LogOut(data.value?.login_token as string)
-    //     if (backend_logout?.success) {
-    //         try {
-    //             await signOut()
-    //             if (props.modalClose){
-    //                 props.modalClose()
-    //             }
-    //         } catch (error) {
-    //             console.log(error)
-    //         }
-    //     }
-    // }
-
 }
 
 
@@ -42,8 +27,8 @@ async function logout() {
 <template>
     <div v-if="status == 'authenticated'" class="bg-white rounded-lg shadow-lg shadow-black/30 border-2 border-black w-fit h-fit px-4 py-3">
         <div class="flex w-full h-fit space-x-4">
-            <div class="w-fit h-fit flex items-center">
-                <div class="bg-cover bg-center rounded-full h-[120px] w-[120px]" style="background-image: url('/img/profile_test.jpg');"></div>
+            <div class="w-[120px] h-[120px] flex items-center rounded-full overflow-hidden">
+                <CldImage :src="data?.profile_img"  class="w-full h-full object-cover" />
             </div>
             <div class="w-fit h-fit flex items-center justify-center">
                 <div class="h-fit">

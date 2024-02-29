@@ -84,6 +84,7 @@ async function Login(e){
         ModalClose()
         console.log("res", res);
     } catch (error) {
+        loading_login.value = false
         console.log(error);
     }
 }

@@ -30,7 +30,7 @@ export default async function (data: any){
     register_data.append('interests', data.interests);
     register_data.append('otp', data.otp );
     register_data.append('otp_code', data.otp_code );
-    register_data.append('profile_img', data.profile_img as blob);
+    register_data.append('profile_img', data.profile_img as Blob);
 
     //console.log('test', turnstileToken)
     const request = {

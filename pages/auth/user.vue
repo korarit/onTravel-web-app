@@ -4,26 +4,22 @@ definePageMeta({
   auth: 'auth'
 });
 
-// ข้อมูลที่ใช้ในการแสดงผล ความสนใจ
-const interest = ref({
-    adventure: true,
-    nature: false,
-    sea: true,
-    history: false,
-    eating: true,
-    scenic: false
-})
-
 //เก็บค่าสำหรับแก้ไขข้อมูลใน fill
 const edit = ref({
     username: false,
     name: false,
-    lastname: false,
+    last_name: false,
     email: false,
     password: false,
-    phone: false,
+    phone_number: false,
     province: false
 })
+
+//ฟังก์สำหรับเช็คความแข็งแรงของ password
+function filterPasswordInput(inputElement:any) {
+    filteredPassword(inputElement, check_password.value);
+}
+
 
 //เก็บค่าสำหรับแสดงผล ของรหัสผ่าน
 const check_password = ref({
@@ -49,12 +45,6 @@ function CancelData(target: string) {
     edit.value[target as keyof typeof edit.value] = false;
 }
 
-function saveData(target: string) {
-    let input = document.getElementById(target);
-    input?.setAttribute('disabled', 'true');
-    edit.value[target as keyof typeof edit.value] = false;
-}
-
 function editPassword(target: string) {
     //remove disabled
     if(edit.value[target as keyof typeof edit.value] === false){
@@ -68,17 +58,6 @@ function editPassword(target: string) {
 }
 
 const otpModalShow = ref(false);
-
-
-function savePassword(target: string) {
-    let input = document.getElementById(target);
-    input?.setAttribute('disabled', 'true');
-    edit.value[target as keyof typeof edit.value] = false;
-    if (input instanceof HTMLInputElement) {
-            input.value = '************************';
-    }
-    otpModalShow.value = true;
-}
 
 function CancelPassword(target: string) {
     let input = document.getElementById(target);
@@ -100,7 +79,8 @@ const ImageCropShow = ref<boolean>(false);
 const profile_img = ref<string | null>(null);
 
 //ฟังก์สำหรับส่งค่าไปยัง modal crop image
-function profile_upload(event: any) {
+//ฟังก์สำหรับส่งค่าไปยัง modal crop image
+function profile_upload(event) {
     var file = event.target.files[0];
     if (file) {
         //check file type is image
@@ -124,54 +104,203 @@ function profile_upload(event: any) {
     }
 }
 
-//profile image blob
-const profile_img_blob = ref<Blob | null>(null);
-
-function CropImg(blob: Blob) {
-    profile_img.value = URL.createObjectURL(blob);
-    profile_img_blob.value = blob;
-
-}
 
 //otpdata
 const otpData = ref<null | any>(null);
+const {status, data, getSession, signIn} = useAuth()
+const user_data = ref<any | null>(null)
 
-async function requestOTP(type:string, phone:string) {
-    const otp = true;
-    if (otp) {
-        return otp;
-    } else {
-        return false;
+
+// ข้อมูลที่ใช้ในการแสดงผล ความสนใจ
+const interest = ref<any>({
+    adventure: true,
+    nature: false,
+    sea: true,
+    history: false,
+    eating: true,
+    scenic: false
+})
+
+//profile image blob
+const profile_img_blob = ref<Blob | null>(null);
+async function CropImg(blob:Blob) {
+    profile_img.value = URL.createObjectURL(blob);
+    if (blob) {
+        console.log(data.value?.login_token);
+        const status_upload = await EditProfileImg(data.value?.login_token as string, blob)
+        if(status_upload){
+            console.log('upload success');
+        }
     }
 }
+
+
+
+async function saveData(target: string) {
+    let input:any = document.getElementById(target);
+    console.log(target);
+    try{
+        const edit_data:any = await EditUser(data.value?.login_token as string, target, input?.value as string)
+        if(edit_data?.success){
+            user_data.value[target] = input?.value
+            input?.setAttribute('disabled', 'true');
+            edit.value[target as keyof typeof edit.value] = false;
+        }
+    }catch(e){
+        console.log(e);
+    }
+}
+
+
+function changeProfile(){
+    if(profile_img_blob_test){
+        console.log(profile_img_blob_test);
+    }
+
+}
+
+
+const new_password = ref<string>('')
+const otpError = ref<string | null>(null)
+
+
+async function resetPassword(passOTP: string) {
+    if (new_password.value == '') {
+        return
+    }
+    if (otpData.value == null) {
+        return
+    }
+
+    try{
+        const res = await ResetPassword(user_data.value?.username, passOTP, otpData.value.OTPCode, new_password.value)
+        if (res === true) {
+            otpModalShow.value = false
+            try{
+                const res = await signIn({
+                    type: "phone",
+                    username: data.value?.username,
+                    password: new_password.value
+                })
+                console.log('reset password success');
+
+                await refreshNuxtData()
+                otpModalShow.value = false
+            }catch(e){
+                alert('Reset Password Success')
+            }
+        }else{
+            otpError.value = res
+        }
+
+    }catch(e){
+        console.log(e)
+    }
+}
+
+async function savePassword(target: string) {
+
+    //check ค่าของรหัสผ่าน 
+    if (check_password.value.more_8 === false || check_password.value.number === false || check_password.value.lowercase === false || check_password.value.uppercase === false || check_password.value.special === false) {
+        alert('รหัสผ่านไม่ถูกต้อง');
+        return;
+    }
+
+    if (status.value === 'authenticated' && data.value !== undefined) {
+        let input = document.getElementById(target);
+            if (input instanceof HTMLInputElement) {
+                if(input.value === ''){
+                return
+            }
+            new_password.value = input.value;
+        }
+
+        console.log(user_data.value.phone_number);
+
+        const res_data = await ForgetPasswordOTP(user_data.value?.phone_number as string)
+        if(res_data){
+            otpData.value = res_data
+            otpModalShow.value = true
+        }
+
+        input?.setAttribute('disabled', 'true');
+        edit.value[target as keyof typeof edit.value] = false;
+        if (input instanceof HTMLInputElement) {
+                input.value = '************************';
+        }
+
+
+    }
+}
+
 
 async function resendOTP() {
-    var phone:any = document.getElementById('phone');
-    if(phone){
-    const OTP = await requestOTP('sms', phone.value);
-    if (OTP) {
-        otpData.value = OTP;
+    if (data.value == null) {
+        return
     }
+    const res = await ForgetPasswordOTP(data.value?.phone_number)
+    if (res) {
+        otpData.value = res
     }
 }
+
+async function GetProfile() {
+    if (status.value === 'authenticated' && data.value !== undefined) {
+        //get profile
+        const getdata:any = await GetUserData(data.value?.login_token as string)
+        if(getdata?.success){
+            user_data.value = getdata
+
+            //set ค่าให้กับ interests หากค่าใน api (ส่งมาเป็น list) ตรงกับ key ใน interest ให้เปลี่ยนเป็น true
+            if(interest.value){
+                for (const key in interest.value) {
+                    if(getdata.interests.includes(key)){
+                        interest.value[key] = true
+                    }else{
+                        interest.value[key] = false
+                    }
+                }
+            }
+            
+            
+            console.log(user_data.value);
+        }
+    }
+}
+onMounted(() => {
+    GetProfile()
+})
 
 
 </script>
 
 <template>
-    <div class="container mx-auto px-4 py-4 lg:px-40 sm:w-[70%]">
+    <div class="container mx-auto flex items-center justify-center h-[80dvh]" v-if="user_data == null">
+        <p class="text-[36px] font-medium">กำลังดึงข้อมูล . . . </p>
+    </div>
+    <div class="container mx-auto px-4 py-4 lg:px-40 sm:w-[70%]" v-else>
 
         <!-- profile edit -->
-        <div class="rounded-full h-[256px] w-[256px] mx-auto my-12 bg-cover bg-center flex items-end overflow-hidden" :style="{ backgroundImage: `url(${profile_img === null ? 'https://cdn-icons-png.flaticon.com/512/149/149071.png' : profile_img})` }">
+        <div class="rounded-full h-[256px] w-[256px] relative mx-auto my-12 overflow-hidden" :style="{ backgroundImage: `url(${profile_img === null ? 'https://cdn-icons-png.flaticon.com/512/149/149071.png' : profile_img})` }">
             <label 
-                class="w-[100%] h-[30%] flex justify-center pt-[7%] space-x-2 cursor-pointer" 
+                class="absolute z-10 bottom-0 w-[100%] h-[30%] flex justify-center pt-[7%] space-x-2 cursor-pointer" 
                 style="background-color: rgba(0, 0, 0, 0.517);"
                 for="getFile"
             >
-            <font-awesome-icon :icon="['fas', 'camera']" class="text-[30px] text-white" />
+                <font-awesome-icon :icon="['fas', 'camera']" class="text-[30px] text-white" />
                 <p class="text-[20px] font-bold text-white select-none">UPLOAD</p>
-                </label>
-                <input type='file' id="getFile" hidden @change="profile_upload" >
+            </label>
+            <div v-if="profile_img === null && user_data.profile_img == ''" class="w-full h-full">
+                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="w-full h-full object-cover" />
+            </div>
+            <div v-else-if="profile_img !== null" class="w-full h-full">
+                <img :src="profile_img" class="w-full h-full object-cover" />
+            </div>
+            <div v-else class="w-full h-full">
+                <CldImage :src="user_data.profile_img"  class="w-full h-full object-cover" />
+
+            </div>
+            <input type='file' id="getFile" hidden @change="profile_upload" >
         </div>
         <label for="new" class="text-2xl font-bold text-[#01579B]">Profile</label>
 
@@ -183,7 +312,7 @@ async function resendOTP() {
                         <input 
                             type="text" id='username'
                             class="py-3 px-3 pe-11 block w-full border-2 border-gray-950 rounded-s-lg text-[16px] font-medium placeholder:text-[18px] placeholder:font-medium disabled:bg-[#dbdbdb]"
-                            value="omega1234azaza" placeholder="แก้ไข Username" disabled
+                            :value="user_data.username" placeholder="แก้ไข Username" disabled
                         >
 
                         <button 
@@ -215,8 +344,9 @@ async function resendOTP() {
                     <div class="flex rounded-lg shadow-sm">
                         <input 
                             type="text" id='name'
+                            :value="user_data.name"
                             class="py-3 px-3 pe-11 block w-full border-2 border-gray-950 rounded-s-lg text-[16px] font-medium placeholder:text-[18px] placeholder:font-medium disabled:bg-[#dbdbdb]"
-                            value="Suphakit" placeholder="แก้ไขชื่อ" disabled>
+                            placeholder="แก้ไขชื่อ" disabled>
                         <button
                             v-if="edit.name === false"
                             type="button"
@@ -241,19 +371,20 @@ async function resendOTP() {
 
             <!-- fill สำหรับแก้ไข นาสกุล -->
             <div class="mb-6 mt-6 md:flex md:items-center">
-                <label for="lastname" class="text-xl font-bold  mb-2 md:w-1/4 md:pr-4">Lastname</label>
+                <label for="last_name" class="text-xl font-bold  mb-2 md:w-1/4 md:pr-4">Lastname</label>
                 <div class="relative md:w-3/4">
                     <div class="flex rounded-lg shadow-sm">
                         <input 
-                            type="text" id='lastname'
+                            type="text" id='last_name'
+                            :value="user_data.last_name"
                             class="py-3 px-3 pe-11 block w-full border-2 border-gray-950 rounded-s-lg text-[16px] font-medium placeholder:text-[18px] placeholder:font-medium disabled:bg-[#dbdbdb]" 
-                            value="Ranphol" placeholder="แก้ไขนามสกุล"
+                            placeholder="แก้ไขนามสกุล"
                             disabled>
                         <button 
-                            v-if="edit.lastname === false"
+                            v-if="edit.last_name === false"
                             type="button"
                             class="w-[21%] bg-black text-white font-bold text-lg inline-flex items-center justify-center rounded-e-lg hover:bg-slate-800"
-                            @click="editData('lastname')"
+                            @click="editData('last_name')"
                         >
                             แก้ไข
                         </button>
@@ -277,8 +408,9 @@ async function resendOTP() {
                 <div class="relative md:w-3/4">
                     <div class="flex rounded-lg shadow-sm">
                         <input type="email" id='email'
+                            :value="user_data.email"
                             class="py-3 px-3 pe-11 block w-full border-2 border-gray-950 rounded-s-lg text-[16px] font-medium placeholder:text-[18px] placeholder:font-medium disabled:bg-[#dbdbdb]"
-                            placeholder="แก้ไข Emial" value="supakit0920@gmail.com" disabled>
+                            placeholder="แก้ไข Emial" disabled>
                         <button 
                             v-if="edit.email === false"
                             type="button"
@@ -312,6 +444,7 @@ async function resendOTP() {
                             class="py-3 px-3 pe-11 block w-full border-2 border-gray-950 rounded-s-lg text-[16px] font-medium placeholder:text-[18px] placeholder:font-medium disabled:bg-[#dbdbdb]"
                             placeholder="แก้ไขรหัสผ่าน"
                             value="************************"
+                            @input="filterPasswordInput"
                             disabled >
                         <button 
                             v-if="edit.password === false"
@@ -394,10 +527,11 @@ async function resendOTP() {
                 <div class="relative md:w-3/4">
                     <div class="flex rounded-lg shadow-sm">
                         <input type="text" class="phone-icon py-3 px-3 pe-11 block w-full border-2 border-gray-950 bg-white rounded-s-lg text-[16px] font-medium placeholder:text-[18px] placeholder:font-medium disabled:bg-[#dbdbdb]"
-                            value="090-000-0000" placeholder="Ex. 090xxxxxxx" disabled id='phone'>
+                            :value="user_data.phone_number"
+                             placeholder="Ex. 090xxxxxxx" disabled id='phone_number'>
                         <button 
-                            v-if="edit.phone === false"
-                            @click="editData('phone')"
+                            v-if="edit.phone_number === false"
+                            @click="editData('phone_number')"
                             type="button"
                             class="w-[21%] bg-black text-white font-bold text-lg inline-flex items-center justify-center rounded-e-lg hover:bg-slate-800"
                         >
@@ -426,7 +560,7 @@ async function resendOTP() {
                         <select name="province" id=""
                             class="py-3 px-3 pe-11 block w-full text-[16px] font-medium border-2 border-gray-950 rounded-s-lg disabled:bg-[#cacaca]"
                             disabled>
-                            <option value="1" class="text-[16px] font-medium">พะเยา</option>
+                            <option value="1" class="text-[16px] font-medium">{{ user_data.province }}</option>
                         </select>
 
                         <!-- ปุ่มแก้ไข -->
@@ -553,7 +687,7 @@ async function resendOTP() {
 
     <!-- Modal OTP -->
     <div v-if="otpModalShow">
-        <ModalOTP :otpClose="() => otpModalShow = false" :show="otpModalShow" :otpData="otpData" :resend="() => resendOTP()" />
+        <ModalOTP :otpClose="() => otpModalShow = false" :show="otpModalShow" :otpData="otpData" @sendOTP="resetPassword" :resend="() => resendOTP()" />
     </div>
 
     <!-- Modal Image Crop -->

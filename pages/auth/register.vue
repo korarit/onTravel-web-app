@@ -18,7 +18,7 @@
     }
 </style>
 <script setup>
-import { faSignIn } from '@fortawesome/free-solid-svg-icons';
+import ThaiData from "~/assets/json/thailand_data.json"
 
 definePageMeta({
   layout: 'defaultmain',
@@ -235,6 +235,18 @@ function profile_upload(event) {
     }
 }
 
+
+//เลือกจังหวัด
+const selectedProvince = ref([]);
+
+const handleProvince = async (value) => {
+    if (value === null) {
+        selectedProvince.value = [];
+        return;
+    }
+    selectedProvince.value = await value
+};
+
 //profile image blob
 const profile_img_blob = ref(null);
 let profile_img_blob_test = null;
@@ -375,7 +387,10 @@ async function signUpWithCredentials(OTP) {
             });
             try{
                 await signIn({...datalogin});
-                navigateTo('/');
+                otpModalShow.value = false;
+                setTimeout(() => {
+                    navigateTo('/');
+                }, 600);
             }catch(err){
                 console.log(err);
             }
@@ -461,18 +476,19 @@ async function signUpWithCredentials(OTP) {
                 </div>
 
                 <div class="mb-6 md:flex md:items-center">
-                    <label for="province" class="mb-2 md:mb-0 w-[31%] min-[1700px]:w-[26%] text-xl font-extrabold">
+                    <label class="mb-2 md:mb-0 w-[31%] min-[1700px]:w-[26%] text-xl font-extrabold">
                         &nbsp;&nbsp;{{ language.page.register.title_province }}
                     </label>
 
                     <div class="w-full md:w-3/4 rounded-md bg-white">
-                        <select 
-                            name="province" id="province" 
-                            class="w-full p-3 border border-gray-950 rounded-md text-xl font-medium  placeholder-[#3939397e] select-template bg-white"
-                        >
-                            <option value="" selected class="text-black">{{ language.page.register.input_province }}</option>
-                            <option value="พะเยา" class="text-black">พะเยา</option>
-                        </select>
+                        <AutoComplete 
+                            @chosen="handleProvince"
+                            :data="ThaiData"
+                            :disable="ThaiData.length > 0 ? false : true"
+                            search_key="province_name_th"
+                            placeholder="โปรดเลือก จังหวัด"
+                            inputClass="py-3 px-3 pe-11 block w-full border border-gray-950 rounded-md text-lg font-medium disabled:bg-[#CFCFCF] disabled:placeholder:text-[#777777]"
+                        />
                     </div>
                 </div>
                 <div class="mb-6 md:flex md:items-center">
