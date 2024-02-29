@@ -29,14 +29,14 @@ export default defineNuxtConfig({
   ],
   auth: {
     globalAppMiddleware: true,
-    baseURL: process.env.BACKEND_URL as string,
+    baseURL: process.env.BACKEND_URL as string + '/authentication',
     provider: {
       type: 'local',
       endpoints: {
-        signIn: { path: '/authentication/login', method: 'post' },
-        register: { path: '/authentication/register_user', method: 'post' },
-        signOut: { path: '/authentication/logout', method: 'delete' },
-        getSession: { path: '/authentication/session', method: 'get' }
+        signIn: { path: '/login', method: 'post' },
+        register: { path: '/register_user', method: 'post' },
+        signOut: { path: '/logout', method: 'delete' },
+        getSession: { path: '/session', method: 'get' }
       },
       token: {
         signInResponseTokenPointer: '/login_token',
@@ -81,6 +81,6 @@ export default defineNuxtConfig({
     debug: false
   },
   cloudinary: {
-    cloudName: 'dmdp8ebln',
+    cloudName: process.env.CLOUDINARY_CLOUD_NAME as string,
   }
 })
