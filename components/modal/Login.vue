@@ -54,11 +54,12 @@ async function Login(e){
     let is_email = email_regex.test(password.value);
 
     console.log("is_phone", is_phone);
+    console.log("is_email", is_email);
 
     let type = '';
     if (is_phone) {
         type = 'phone';
-    } else{
+    } else {
         type = 'email';
     }
 
