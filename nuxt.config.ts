@@ -29,14 +29,14 @@ export default defineNuxtConfig({
   ],
   auth: {
     globalAppMiddleware: true,
-    baseURL: 'http://localhost:5000/authentication',
+    baseURL: process.env.BACKEND_URL as string,
     provider: {
       type: 'local',
       endpoints: {
-        signIn: { path: '/login', method: 'post' },
-        register: { path: '/register_user', method: 'post' },
-        signOut: { path: '/logout', method: 'delete' },
-        getSession: { path: '/session', method: 'get' }
+        signIn: { path: '/authentication/login', method: 'post' },
+        register: { path: '/authentication/register_user', method: 'post' },
+        signOut: { path: '/authentication/logout', method: 'delete' },
+        getSession: { path: '/authentication/session', method: 'get' }
       },
       token: {
         signInResponseTokenPointer: '/login_token',
