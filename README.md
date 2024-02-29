@@ -1,4 +1,4 @@
-# Ontravel Project
+# ontravel Project (FRONTEND)
 เป็น project webapp เกี่ยวสถานที่กท่องเที่ยวในประเทศไทย
 
 ## TECH STACK FRONTEND
