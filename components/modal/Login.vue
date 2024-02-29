@@ -58,10 +58,8 @@ async function Login(e){
     let type = '';
     if (is_phone) {
         type = 'phone';
-    } else if (is_email) {
+    } else{
         type = 'email';
-    }else{
-        return;
     }
 
     e.preventDefault()
