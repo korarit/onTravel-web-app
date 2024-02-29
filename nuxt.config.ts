@@ -82,5 +82,10 @@ export default defineNuxtConfig({
   },
   cloudinary: {
     cloudName: process.env.CLOUDINARY_CLOUD_NAME as string,
+  },
+  app: {
+    head: {
+        link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }]
+    }
   }
 })
