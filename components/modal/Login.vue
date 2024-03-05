@@ -43,15 +43,16 @@ function ModalClose(){
 
 const { signIn } = useAuth()
 
-const username = ref('')
-const password = ref('')
+const username_login = ref('')
+const password_login = ref('')
 const loading_login = ref(false)
+const login_fail = ref(false)
 
 async function Login(e){
     var email_regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@a-zA-Z0-9?(?:\\.a-zA-Z0-9?)*$/;
     var phone_regex = /^0[0-9]{9}$/;
-    let is_phone = phone_regex.test(username.value);
-    let is_email = email_regex.test(password.value);
+    let is_phone = phone_regex.test(username_login.value);
+    let is_email = email_regex.test(password_login.value);
 
     console.log("is_phone", is_phone);
     console.log("is_email", is_email);
@@ -67,8 +68,8 @@ async function Login(e){
 
     const formData = reactive({
         type: type,
-        username: username.value,
-        password: password.value
+        username: username_login.value,
+        password: password_login.value
     })
     if (formData.username == '' || formData.password == '') {
         return;
@@ -79,12 +80,14 @@ async function Login(e){
     try {
         loading_login.value = true
         let res = await signIn({...formData},{redirect: false})
+        login_fail.value = false
         loading_login.value = false
         ModalClose()
-        console.log("res", res);
+        // console.log("res", res);
     } catch (error) {
+        login_fail.value = true
         loading_login.value = false
-        console.log(error);
+        // console.log(error);
     }
 }
 
@@ -99,13 +102,6 @@ function openForgetPassword(){
 <style scoped>
 @import url("~/assets/css/modal.css");
 
-input[type="password"]::-webkit-password-suffix,
-input[type="password"]::-webkit-visible-password,
-input[type="password"]::-ms-reveal {
-    display: none !important;
-}
-
-
 </style>
 
 <template>
@@ -119,10 +115,17 @@ input[type="password"]::-ms-reveal {
                     </button>
                 </div>
                 <div class="modal-body w-[100%] flex flex-col">
-                    <p class="text-[28px] 2xl:text-[30px] text-center leading-[34px] font-extrabold mb-5">{{ language.modal.login.title }}</p>
+
+                    <!-- หัวข้อ -->
+                    <div>
+                        <p class="text-[28px] 2xl:text-[30px] text-center leading-[34px] mb-3 font-extrabold">{{ language.modal.login.title }}</p>
+                        <p v-if="login_fail" class="text-[18px] 2xl:text-[22px] mb-1 text-center font-medium text-red-600">เบอร์โทร / Email หรือ รหัสผ่านไม่ถูกต้อง</p>
+                    </div>
+
+                    <!-- ช่องกรอกข้อมูล email / phone number -->
                     <div class="mx-auto relative w-[80%] h-[48px] 2xl:h-[50px]">
                         <input 
-                            v-model="username"
+                            v-model="username_login"
                             class="mx-auto w-full h-full pl-[4.1rem] text-[16px] 2xl:text-[18px] font-medium placeholder-[#909090] rounded-md shadow-inner shadow-[#8a8a8a] bg-[#d1d1d1] focus:outline-none" 
                             type="text" placeholder="Phone number / Email"
                         />
@@ -130,9 +133,11 @@ input[type="password"]::-ms-reveal {
                             <font-awesome-icon :icon="['fas', 'user']" class="text-[24px] 2xl:text-[26px]" />
                         </div>
                     </div>
+
+                    <!-- ช่องกรอกข้อมูล password -->
                     <div class="mx-auto relative w-[80%] h-[50px] mt-5">
                         <input 
-                            v-model="password"
+                            v-model="password_login"
                             class="mx-auto w-full h-full pl-[4.1rem] text-[16px] 2xl:text-[18px] font-medium placeholder-[#909090] rounded-md shadow-inner shadow-[#8a8a8a] bg-[#d1d1d1] focus:outline-none" 
                             type="password" placeholder="Password"
                             @input="filterPasswordInput"
@@ -142,6 +147,7 @@ input[type="password"]::-ms-reveal {
                         </div>
                     </div>
 
+                    <!-- ช่องเลือกการจำรหัสผ่าน -->
                     <div class="mx-auto w-[80%] my-4 flex justify-between items-center">
                         <div class="h-6 w-fit flex items-center">
                             <input type="checkbox" id="terms" name="terms" value="terms" class="w-6 h-6 mr-2 accent-[#313131]">
@@ -153,6 +159,7 @@ input[type="password"]::-ms-reveal {
 
                     <div class="mx-auto w-[80%] space-y-5">
 
+                        <!-- ปุ่ม login -->
                         <button
                             @click="Login"
                             class="w-full h-[48px] 2xl:h-[50px] rounded-md bg-[#FFA624] hover:bg-[#d68923] shadow-md shadow-[#d0d0d0]  focus:outline-none mb-5"
@@ -169,6 +176,7 @@ input[type="password"]::-ms-reveal {
                             </div>
                         </button>
 
+                        <!-- ปุ่ม register -->
                         <NuxtLink to="/auth/register" @click="ModalClose" class="w-full">
                         <button
                             class="w-full h-[48px] 2xl:h-[50px] rounded-md bg-[#FF5722] hover:bg-[#F93E03] shadow-inner shadow-[#00000055] text-[22px] 2xl:text-[24px] font-bold text-white focus:outline-none"
@@ -191,6 +199,7 @@ input[type="password"]::-ms-reveal {
 
                     <div class="mx-auto w-[80%] space-y-5 mb-12">
 
+                        <!-- ปุ่ม login ด้วย facebook -->
                         <button
                             class="w-full h-[48px] 2xl:h-[50px]  flex items-center justify-center rounded-md bg-[#01579B] hover:bg-[#2b5884] shadow-inner shadow-[#0000007e] text-[18px] 2xl:text-[20px] font-bold text-white focus:outline-none"
                         >
@@ -202,6 +211,7 @@ input[type="password"]::-ms-reveal {
                             </div>
                         </button>
 
+                        <!-- ปุ่ม login ด้วย google -->
                         <button
                             class="w-full flex items-center justify-center h-[48px] 2xl:h-[50px]  rounded-md bg-[#fffefe] hover:bg-[#f5f4f4] shadow-inner shadow-[#0000002e] text-[18px] 2xl:text-[20px] font-bold text-black border-2 border-black focus:outline-none"
                         >

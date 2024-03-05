@@ -24,11 +24,11 @@
 
         <input
             class="w-[70%] h-[48px] placeholder-black text-black text-[1.2rem] bg-transparent font-medium focus:outline-none"
-            type="text" placeholder="ค้นหา" v-model="keyword_seacrh" @keyup.enter="GoSearch()" 
+            type="text" :placeholder="language.search" v-model="keyword_seacrh" @keyup.enter="GoSearch()" 
         />
 
         <button @click="GoSearch()" class="w-[20%] h-[48px] bg-black rounded-3xl flex justify-center items-center">
-            <p class="text-[1.2rem] font-semibold text-white">ค้นหา</p>
+            <p class="text-[1.2rem] font-semibold text-white">{{ language.search }}</p>
         </button>
       </div>
     </div>
@@ -48,7 +48,7 @@
             <div class="flex w-full justify-center">
               <font-awesome-icon :icon="['fas', 'share-nodes']" class="text-[4dvh] text-center" />
             </div>
-            <p class="text-[2.5dvh] font-medium">แชร์</p>
+            <p class="text-[2.5dvh] font-medium">{{ language.page.hotel.share }}</p>
           </button>
         </div>
 
@@ -60,22 +60,22 @@
       <div class="border-black bg-[#FDFDFD] border-2 rounded-xl flex items-center justify-between px-8 h-[27%] mt-auto">
         <div class="carousel-item flex flex-col" v-if="data.service.clean">
           <font-awesome-icon :icon="['fas', 'shield']" class="text-[60px]" />
-          <p class="mt-2 text-[2dvh] text-center font-semibold">ความปลอดภัย</p>  
+          <p class="mt-2 text-[2dvh] text-center font-semibold">{{ language.page.hotel.title_service_safe }}</p>  
         </div>
 
         <div class="carousel-item flex flex-col" v-if="data.service.food">
           <font-awesome-icon :icon="['fas', 'bowl-food']" class="text-[60px]" />
-          <p class="mt-2 text-[2dvh] text-center font-semibold">อาหาร</p>  
+          <p class="mt-2 text-[2dvh] text-center font-semibold">{{ language.page.hotel.title_service_food }}</p>  
         </div>
 
         <div class="carousel-item flex flex-col" v-if="data.service.checkin">
           <font-awesome-icon :icon="['fas', 'book']" class="text-[60px]" />
-          <p class="mt-2 text-[2dvh] text-center font-semibold">เช็คอิน 24 ชั่วโมง</p>  
+          <p class="mt-2 text-[2dvh] text-center font-semibold">{{ language.page.hotel.title_service_checkin }}</p>  
         </div>
 
         <div class="carousel-item flex flex-col" v-if="data.service.transport">
           <font-awesome-icon :icon="['fas', 'car']" class="text-[60px] text-center" />
-          <p class="mt-2 text-[2dvh] text-center font-semibold">บริการรับส่ง</p>  
+          <p class="mt-2 text-[2dvh] text-center font-semibold">{{ language.page.hotel.title_service_transport }}</p>  
         </div>
 
       </div>
@@ -83,9 +83,9 @@
     
     <div class="flex flex-col min-h-full w-[33%]">
       <div class="border-black bg-[#FDFDFD] border-2 rounded-xl h-[40%] p-6 grid grid-cols-1 place-content-center">
-        <p class="text-[24px] font-semibold">คะแนนรีวิว {{ data.point_review }}</p>
-        <p class="text-[24px] font-semibold">จำนวนรีวิว {{ data.review_count }}</p>
-        <p class="mt-6 text-[24px] font-semibold">จำนวนผู้เข้าชม {{ data.view_count }}</p>
+        <p class="text-[24px] font-semibold">{{ language.page.hotel.title_review_point }} {{ data.point_review }}</p>
+        <p class="text-[24px] font-semibold">{{ language.page.hotel.title_review_count }} {{ data.review_count }}</p>
+        <p class="mt-6 text-[24px] font-semibold">{{ language.page.hotel.title_view }} {{ data.view_count }}</p>
       </div>
 
       <div class=" flex flex-col border-black bg-[#FDFDFD] border-2 rounded-xl min-h-[57%] mt-auto p-6">
@@ -94,10 +94,10 @@
         </div>
         <div class="flex justify-between items-center mt-4">
           <p class="text-[3dvh] font-semibold justify-start">
-            สถานที่ตั้ง
+            {{ language.page.hotel.title_place }}
           </p>
           <NuxtLink :to="`https://www.google.com/maps/@${data.location.lat},${data.location.lon}`" target="_blank" class="w-[10dvw] p-2 bg-black text-white rounded-lg text-[2.5dvh] text-center">
-            นำทาง
+            {{ language.page.hotel.button_gps }}
           </NuxtLink>
         </div>
       </div>
@@ -106,7 +106,7 @@
 
   <div class="px-12 2xl:px-24 max-w-[100dvw] h-fit my-8" v-if="data.facilities.length !== 0">
     <div class="border-black bg-[#FDFDFD] border-2 rounded-xl w-full h-fit p-6">
-      <p class="text-[3dvh] font-semibold">สิ่งอำนวยความสะดวก</p>
+      <p class="text-[3dvh] font-semibold">{{ language.page.hotel.title_service }}</p>
       <div class="grid grid-cols-4 mt-3 gap-y-2">
         <div class="flex items-center justify-center" :key="facilities" v-for="facilities in data.facilities">
           <font-awesome-icon :icon="['fas', 'check']" class="text-[36px]" />
@@ -119,7 +119,7 @@
 
   <div class="px-12 2xl:px-24 max-w-[100dvw] h-fit my-8" v-if="data.contact.length !== 0">
     <div class="border-black bg-[#FDFDFD] border-2 rounded-xl w-full h-fit p-6">
-      <p class="text-[3dvh] font-semibold">ช่องทางการติดต่อ</p>
+      <p class="text-[3dvh] font-semibold">{{ language.page.hotel.title_contact }}</p>
       <div class="grid grid-cols-4 mt-3 gap-y-2">
         <NuxtLink :to="contact.url"  :key="contact" v-for="contact in data.contact" class="flex items-center justify-center">
           <font-awesome-icon :icon="['fab', contact.icon]" class="text-[36px]" />
@@ -137,9 +137,9 @@
   </div>
 
   <div class="px-12 2xl:px-24 max-w-[100dvw] flex items-center">
-    <p class="text-[30px] font-semibold">การรีวิว</p>
+    <p class="text-[30px] font-semibold">{{ language.page.hotel.title_review }}</p>
     <button v-if="status == 'authenticated'" @click="reviewModalShow = true" class="ml-auto w-[15%] h-[48px] rounded-md bg-[#F9A825] border-2 border-black">
-      <p class="text-[20px] font-semibold text-white">รีวิวสถานที่</p>
+      <p class="text-[20px] font-semibold text-white">{{ language.page.hotel.input_review }}</p>
     </button>
   </div>
 
@@ -236,6 +236,9 @@ useSeoMeta({
 const sharingModalShow = ref(false);
 const reviewModalShow = ref(false);
 const roomImgModalShow = ref(false)
+
+////////////////////// แปลภาษา ///////////////////////
+const language = ref(inject('language'))
 
 
 </script>

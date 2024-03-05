@@ -110,6 +110,14 @@ const otpData = ref<null | any>(null);
 const {status, data, getSession, signIn} = useAuth()
 const user_data = ref<any | null>(null)
 
+//check logout
+watch(status, (newStatus) => {
+    if (newStatus === 'unauthenticated') {
+        user_data.value = null
+        navigateTo('/')
+    }
+})
+
 
 // ข้อมูลที่ใช้ในการแสดงผล ความสนใจ
 const interest = ref<any>({

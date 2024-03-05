@@ -21,7 +21,7 @@ type Itemdata = {
     description: string
 }
 
-const TravelGuideTest = ref<Itemdata[]>([
+const TravelGuideTest = ref<Array<Itemdata>>([
     {
         image: [
             "https://s.isanook.com/tr/0/ud/283/1417415/ahr0chm6ly9zlmlzyw5vb2suy29tl_9.jpg?ip/resize/w728/q80/jpg",
@@ -73,20 +73,20 @@ function changeShow(index: number){
         <div class=" max-h-[100%] min-h-[500px] pt-8 flex justify-between">
             <div class="w-[45%] h-[100%] rounded-xl">
                 <Carousel :autoplay="5000" :pauseAutoplayOnHover="true" :wrapAround="false" style="height: 100%;" class="rounded-xl">
-                    <Slide v-for="slide in TravelGuideTest[keyData]['image']" :key="slide" style="max-height: 100%;" class="rounded-xl">
+                    <Slide v-for="slide in TravelGuideTest[keyData]?.image  " :key="slide" style="max-height: 100%;" class="rounded-xl">
                         <img :src="slide" style="min-height: 500px;height: 100%;" class="rounded-xl object-cover">
                     </Slide>
                 </Carousel>
             </div>
             <div class="w-[52%] min-h-[100%] flex flex-col">
-                <p class="text-[1.7rem] font-semibold" v-if="TravelGuideTest[keyData]['title'] != undefined">{{ TravelGuideTest[keyData]['title'] }}</p>
+                <p class="text-[1.7rem] font-semibold">{{ TravelGuideTest[keyData]?.title }}</p>
 
                 <div class="w-[100%] h-[6px] relative flex my-6">
                     <div class="absolute w-[30%] h-[6px] bg-[#F9A825] z-10 "></div>
                     <div class="self-end w-[100%] h-[2px] bg-[#F9A825] z-0"></div>
                 </div>
 
-                <p class="text-[1.3rem] font-normal text-justify line-clamp">{{ TravelGuideTest[keyData]['description'] }}</p>
+                <p class="text-[1.3rem] font-normal text-justify line-clamp">{{ TravelGuideTest[keyData]?.description }}</p>
             
                 <button class="my-8 flex h-[28px] w-fit items-center space-x-4">
                     <p class="text-[28px] my-8 font-bold leading-6">อ่านต่อ</p>

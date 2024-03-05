@@ -33,6 +33,10 @@ function OpenProfile() {
     }
 }
 
+////////////////// แปลภาษา //////////////////////
+const language = ref<any>(await inject('language'))
+
+
 </script>
 <template>
     <ClientOnly>
@@ -54,9 +58,9 @@ function OpenProfile() {
                     </select>
                 </div>
 
-                <button v-if="LoginStatus != 'authenticated'" @click="LoginModal()" class="w-auto h-[44px] rounded-lg bg-white border-2 border-black flex items-center px-4">
+                <button v-if="LoginStatus != 'authenticated'" @click="LoginModal()" class="w-fit h-[44px] rounded-lg bg-white border-2 border-black flex items-center px-4">
                     <img src="/icon/user_icon.svg" class="w-[32px] h-[32px]" alt="user_icon">
-                    <p class="ml-2 text-[18px] font-semibold">เข้าสู่ระบบ</p>
+                    <p class="ml-2 text-[18px] font-semibold w-20">{{ language.navbar.login }}</p>
                 </button>
                 <button v-else @click="OpenProfile()" class=" h-[48px] w-[48px] flex items-center justify-center rounded-full bg-white">
                     <img src="/icon/user_icon.svg" class="w-[36px] h-[36px]" alt="user_icon">

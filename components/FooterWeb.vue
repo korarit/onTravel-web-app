@@ -17,14 +17,14 @@ const language = ref<any>(await inject('language'))
                 <div class="w-[100%] h-[60px] mb-6 flex">
                     <p class="text-[24px] font-extrabold self-end leading-6">{{ language.footer.link_title }}</p>
                 </div>
-                <div class="flex space-x-4">
-                    <div class="w-[50%]">
+                <div class="flex flex-col xl:flex-row 2xl:space-x-4">
+                    <div class="w-fit">
                         <p class="text-[18px] font-medium text-[#F5F5F5] text-justify leading-9">- {{ language.footer.link.home }}</p>
                         <p class="text-[18px] font-medium text-[#F5F5F5] text-justify leading-9">- {{ language.footer.link.hotel }}</p>
                         <p class="text-[18px] font-medium text-[#F5F5F5] text-justify leading-9">- {{ language.footer.link.plan }}</p>
                         <p class="text-[18px] font-medium text-[#F5F5F5] text-justify leading-9">- {{ language.footer.link.province }}</p>
                     </div>
-                    <div class="w-[50%]">
+                    <div class="w-fit">
                         <p class="text-[18px] font-medium text-[#F5F5F5] text-justify leading-9">- {{ language.footer.link.register }}</p>
                         <p class="text-[18px] font-medium text-[#F5F5F5] text-justify leading-9">- {{ language.footer.link.user }}</p>
                     </div>

@@ -1,4 +1,7 @@
 {
+    "navbar":{
+        "login": "เข้าสู่ระบบ"
+    },
     "menubar": {
         "main": "หน้าหลัก",
         "hotel": "ที่พักแนะนำ",
@@ -108,39 +111,41 @@
 
 
         "hotel":{
-            "share": "Share",
-            "title_review_point": "Review Point",
-            "title_review_count": "Review Count",
-            "title_view": "View Count",
+            "share": "แชร์",
+            "title_review_point": "คะแนนรีวิว",
+            "title_review_count": "จำนวนรีวิว",
+            "title_view": "จำนวนผู้เข้าชม",
 
-            "title_place": "Location of place",
-            "button_gps": "Navigate",
+            "title_place": "สถานที่ตั้ง",
+            "button_gps": "นำทาง",
 
-            "title_service_safe": "Safety",
-            "title_service_food": "Food",
-            "title_service_checkin": "Check-in 24Hrs",
-            "title_service_transport": "Transportation",
+            "title_service_safe": "ความปลอดภัย",
+            "title_service_food": "อาหาร",
+            "title_service_checkin": "เช็คอิน 24 ชั่วโมง",
+            "title_service_transport": "บริการรับส่ง",
 
-            "title_service": "Service",
-            "title_contact": "Contact",
+            "title_service": "สิ่งอำนวยความสะดวก",
+            "title_contact": "ช่องทางการติดต่อ",
 
-            "title_more_image": "Click to see more images",
+            "title_more_image": "คลิกเพื่อดู รูป เพิ่มเติม",
 
-            "title_review": "Review"
+            "title_review": "การรีวิว",
+            "input_review": "แสดงความเห็น"
         },
 
         "place":{
-            "share": "Share",
-            "title_review_point": "Review Point",
-            "title_review_count": "Review Count",
-            "title_view": "View Count",
+            "share": "แชร์",
+            "title_review_point": "คะแนนรีวิว",
+            "title_review_count": "จำนวนรีวิว",
+            "title_view": "จำนวนผู้เข้าชม",
 
-            "title_place": "Location of place",
-            "button_gps": "Navigate",
+            "title_place": "สถานที่ตั้ง",
+            "button_gps": "นำทาง",
 
-            "title_contact": "Contact",
+            "title_contact": "ช่องทางการติดต่อ",
 
-            "title_review": "Review"
+            "title_review": "การรีวิว",
+            "input_review": "รีวิวสถานที่"
         },
 
         "search":{
