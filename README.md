@@ -4,7 +4,7 @@
 
 It is a project in the subject Requirements and Frontend Development of the Phak Phon Noi Group, Department of Software Engineering. University of Phayao, academic year 2023 (Generation 12)
 
-## Deploy in Vercel protect by Cloudflare
+### Deploy in Vercel protect by Cloudflare
 
 ## Tech stack (Forntend Only)
 - Typescript
