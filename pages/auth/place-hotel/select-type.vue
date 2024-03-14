@@ -3,6 +3,15 @@ definePageMeta({
   layout: 'defaultmain',
   auth: 'auth'
 });
+
+const {status, getSession} = useAuth();
+//check logout
+watch(status, (newStatus) => {
+    if (newStatus === 'unauthenticated') {
+        navigateTo('/')
+    }
+})
+
 </script>
 
 <template>

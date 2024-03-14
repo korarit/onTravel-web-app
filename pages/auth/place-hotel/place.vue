@@ -3,19 +3,24 @@ import '@vueup/vue-quill/dist/vue-quill.snow.css'
 import ThaiData from "~/assets/json/thailand_data.json"
 
 
-if (!process.server) {
-    const { QuillEditor } = await import ('@vueup/vue-quill');
-    const { vueApp } = useNuxtApp ();
-    vueApp.component ('QuillEditor', QuillEditor);
-
-
-}
-
-
 definePageMeta({
     layout: 'defaultmain',
     auth: 'auth'
 });
+const {status, getSession} = useAuth();
+//check logout
+watch(status, (newStatus) => {
+    if (newStatus === 'unauthenticated') {
+        navigateTo('/')
+    }
+})
+
+if (!process.server) {
+    const { QuillEditor } = await import ('@vueup/vue-quill');
+    const { vueApp } = useNuxtApp ();
+    vueApp.component ('QuillEditor', QuillEditor);
+}
+
 ////////////////////// แปลภาษา ///////////////////////
 const language = ref(await inject('language'));
 const lang_code = await inject('language_code');

@@ -3,8 +3,12 @@ interface APIresult {
 }
 
 /*
-    ส่งข้อความ OTP ไปยังเบอร์โทรศัพท์ที่ผู้ใช้กรอกเข้ามา
-    @param type ประเภทของ OTP ที่ต้องการส่ง (sms, email)
+    ลืมรหัสผ่าน
+    @param username ชื่อผู้ใช้
+    @param otp รหัส OTP
+    @param otp_code รหัส OTP code
+    @param new_password รหัสผ่านใหม่
+    @return ค่า APIresult หากสำเร็จ และ null หากไม่สำเร็จ
 
 */
 export default async function (username:string, otp:string, otp_code:string, new_password:string){

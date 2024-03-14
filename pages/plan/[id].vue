@@ -7,6 +7,14 @@ definePageMeta({
   auth: 'auth'
 })
 
+const {status, getSession} = useAuth();
+//check logout
+watch(status, (newStatus) => {
+    if (newStatus === 'unauthenticated') {
+        navigateTo('/')
+    }
+})
+
 //สำหรับเงื่อนไขการแสดง modal
 const shareModalShow = ref<boolean>(false);
 const DateModalShow = ref<boolean>(false);

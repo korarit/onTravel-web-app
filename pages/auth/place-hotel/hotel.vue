@@ -7,6 +7,14 @@ definePageMeta({
     auth: 'auth'
 });
 
+const {status, getSession} = useAuth();
+//check logout
+watch(status, (newStatus) => {
+    if (newStatus === 'unauthenticated') {
+        navigateTo('/')
+    }
+})
+
 if (!process.server) {
     const { QuillEditor } = await import ('@vueup/vue-quill');
     const { vueApp } = useNuxtApp ();

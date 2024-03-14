@@ -5,12 +5,8 @@ interface APIresult {
 }
 
 /*
-    ส่งข้อความ OTP ไปยังเบอร์โทรศัพท์ที่ผู้ใช้กรอกเข้ามา
-    @param type ประเภทของ OTP ที่ต้องการส่ง (sms, email)
-    @param receiver เบอร์โทรศัพท์ที่ต้องการส่ง OTP
-    @param use_for วัตถุประสงค์ที่ต้องการใช้ OTP
-    @param turnstileToken โทเคนของ Turnstile
-    @return ค่า APIresult หากสำเร็จ และ null หากไม่สำเร็จ
+    ขอรหัส OTP ใหม่ สำหรับกรณีลืมรหัสผ่าน
+    @param username ชื่อผู้ใช้ที่ต้องการขอรหัส OTP
 
 */
 export default async function (username: string){
