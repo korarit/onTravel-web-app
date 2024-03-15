@@ -10,6 +10,23 @@ const props = defineProps<{
     link: string
 }>();
 
+// แปลภาษา
+const text_to_transalte = ref<string>("")
+const lang_code = ref<string | undefined>(await inject('language_code'))
+
+async function translate_text(text:string) {
+    if(lang_code.value == undefined) return text
+    const result = await GGTranslate(text, lang_code.value)
+    text_to_transalte.value = result
+}   
+onMounted(async () => {
+    await translate_text(props.dataItem.title)
+})
+watch(lang_code, async (value) => {
+    await translate_text(props.dataItem.title)
+})
+
+
 </script>
 <template>
     <ClientOnly>
@@ -21,7 +38,7 @@ const props = defineProps<{
             </div>
 
             <p class="text-[20px] text-justify">
-                {{ dataItem.title  }}
+                {{ text_to_transalte  }}
             </p>
             <div class="w-[100%] mt-auto">
                 <div class="w-[100%] h-[2px] bg-black my-4"></div>

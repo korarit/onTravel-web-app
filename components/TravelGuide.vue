@@ -67,6 +67,34 @@ function changeShow(index: number){
     keyData.value = index
 }
 
+const title_to_transalte = ref<string>("")
+const description_to_transalte = ref<string>("")
+
+const lang_code = ref<string | undefined>(await inject('language_code'))
+
+async function transalte_text(text:string) {
+    if(lang_code.value == undefined) return text
+    try {
+        const result = await GGTranslate(text, lang_code.value)
+        //console.log("0006",result)
+        return result
+    } catch (error) {
+        console.error(error);
+        // Handle the error appropriately in your application
+    }
+}
+onMounted(async () => {
+    title_to_transalte.value = await transalte_text(TravelGuideTest.value[keyData.value]?.title)
+    description_to_transalte.value = await transalte_text(TravelGuideTest.value[keyData.value]?.description)
+})
+watch(lang_code, async (value) => {
+    title_to_transalte.value = await transalte_text(TravelGuideTest.value[keyData.value]?.title)
+    description_to_transalte.value = await transalte_text(TravelGuideTest.value[keyData.value]?.description)
+})
+watch(keyData, async (value) => {
+    title_to_transalte.value = await transalte_text(TravelGuideTest.value[keyData.value]?.title)
+    description_to_transalte.value = await transalte_text(TravelGuideTest.value[keyData.value]?.description)
+})
 </script>
 <template>
     <ClientOnly>
@@ -79,14 +107,14 @@ function changeShow(index: number){
                 </Carousel>
             </div>
             <div class="w-[52%] min-h-[100%] flex flex-col">
-                <p class="text-[1.7rem] font-semibold">{{ TravelGuideTest[keyData]?.title }}</p>
+                <p class="text-[1.7rem] font-semibold">{{ title_to_transalte }}</p>
 
                 <div class="w-[100%] h-[6px] relative flex my-6">
                     <div class="absolute w-[30%] h-[6px] bg-[#F9A825] z-10 "></div>
                     <div class="self-end w-[100%] h-[2px] bg-[#F9A825] z-0"></div>
                 </div>
 
-                <p class="text-[1.3rem] font-normal text-justify line-clamp">{{ TravelGuideTest[keyData]?.description }}</p>
+                <p class="text-[1.3rem] font-normal text-justify line-clamp">{{ description_to_transalte }}</p>
             
                 <button class="my-8 flex h-[28px] w-fit items-center space-x-4">
                     <p class="text-[28px] my-8 font-bold leading-6">อ่านต่อ</p>

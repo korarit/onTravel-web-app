@@ -47,7 +47,7 @@ export default async function (data: any){
             console.log(send_tobacked.text())
             return null
         }
-    }catch(err){
+    }catch(err: any){
         console.log(err.text())
         return null
     }

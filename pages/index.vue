@@ -5,6 +5,8 @@ body {
 }
 </style>
 <script setup>
+import GGTranslate from '~/utils/GGTranslate';
+
 definePageMeta({
   layout: 'defaultmain',
   auth: false
@@ -34,10 +36,14 @@ const TravelDataTest = {
 }
 
 ////////////////////// แปลภาษา ///////////////////////
-const language = ref(inject('language'))
-// watch(language, (value) => {
-//     console.log(value.page);
-// })
+const language = ref(await inject('language'))
+const lang_code = ref(await inject('language_code'))
+console.log("0004",lang_code.value)
+watch(lang_code, async (value) => {
+    console.log("0005",value)
+    const testGG = await GGTranslate('สวัสดีครับ', lang_code.value)
+    console.log(testGG)
+})
 </script>
 <template>
     <div>
