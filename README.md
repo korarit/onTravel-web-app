@@ -31,8 +31,4 @@ It is a project in the subject Requirements and Frontend Development of the Phak
 | นายศุภกิตติ์ ราญพล  | พัฒนา HTML/CSS |
 | นายกรฤต แสงทอง  | พัฒนา HTML/CSS และ Script (ทั้งหมด)  |
 
-<<<<<<< HEAD
 ### Backend is pavite repo Develop By Korarit Saengthong
-=======
-### Backend is pavite repo Develop By Korarit Saengthong
->>>>>>> 6575f8d (14/3/24 - fix plan is login view working and comment code)
