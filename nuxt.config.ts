@@ -73,7 +73,8 @@ export default defineNuxtConfig({
     public:{
       WEB_URL: process.env.WEB_URL as string,
       BACKEND_URL: process.env.BACKEND_URL as string,
-    }
+
+    },
   },
   delayHydration: { 
     mode: 'init',
