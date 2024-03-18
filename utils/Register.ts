@@ -1,10 +1,3 @@
-interface APIresult {
-    success: boolean
-    Message: string
-    name: string
-    last_name: string
-    profile_img: number
-}
 
 /*
     ลงทะเบียนผู้ใช้ใหม่
