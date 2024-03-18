@@ -4,6 +4,9 @@
 
 It is a project in the subject Requirements and Frontend Development of the Phak Phon Noi Group, Department of Software Engineering. University of Phayao, academic year 2023 (Generation 12)
 
+#### Deploy in Vercel protect by Cloudflare
+#### Backend is pavite repo Develop By Korarit Saengthong
+
 ## Feature (ความสามารถ)
 
 | FrontEnd  | Backend | Feature Name | 
@@ -16,10 +19,6 @@ It is a project in the subject Requirements and Frontend Development of the Phak
 | ✅  | ⏳ | วางแผนการท่องเที่ยว (ดู , แก้ไข , สร้าง , แชร์) |
 | ✅  | ไม่จำเป็น | แชร์สถานที่ท่องเที่ยว / ที่พัก |
 | ✅  | ไม่จำเป็น | รองรับ SEO |
-
-### Deploy in Vercel protect by Cloudflare
-
-### Backend is pavite repo Develop By Korarit Saengthong
 
 ## Tech stack Forntend (เครื่องมือ)
 - Typescript
