@@ -662,7 +662,8 @@ onMounted(() => {
                 class="mx-auto mt-6 p-2 w-[80%] bg-[#01579B] text-white rounded-md shadow-inner flex items-center justify-center space-x-3"
             >
                 <font-awesome-icon :icon="['fab', 'facebook']" class=" text-[38px]" />
-                <span class="text-xl font-bold w-[30%] text-left">ยกเลิกเชื่อมกับ Facebook</span>
+                <span v-if="user_data.status_auth_fb" class="text-xl font-bold w-[54%] text-left">ยกเลิกเชื่อมกับ Facebook</span>
+                <span v-else class="text-xl font-bold w-[45%] text-left">เชื่อมต่อกับ Facebook</span>
             </button>
 
             <!-- เชื่อมต่อกับ Google -->
@@ -671,7 +672,9 @@ onMounted(() => {
                 class="mx-auto mt-6 p-2 w-[80%] bg-[#FFFFFF] text-black border-black border-2 border-solid rounded-md shadow-inner-2xl flex items-center justify-center space-x-3"
             >
                 <img class="h-[38px]" src="https://cdn-icons-png.flaticon.com/256/2702/2702602.png" alt="">
-                <span class="text-xl font-bold w-[30%] text-left">เชื่อมต่อกับ Google</span>
+
+                <span v-if="user_data.status_auth_google" class="text-xl font-bold w-[54%] text-left">ยกเลิกเชื่อมกับ Google</span>
+                <span v-else class="text-xl font-bold w-[45%] text-left">เชื่อมต่อกับ Google</span>
             </button>
 
             <!-- เชื่อมต่อกับ LINE -->
@@ -680,7 +683,9 @@ onMounted(() => {
                 class=" mx-auto mt-6 p-2 w-[80%] bg-[#00B900] text-white rounded-md shadow-inner flex items-center justify-center space-x-3"
             >
                 <font-awesome-icon :icon="['fab', 'line']" class="text-[38px]" />
-                <span class="text-xl font-bold w-[30%] text-left">เชื่อมต่อกับ LINE</span>
+
+                <span v-if="user_data.status_auth_line" class="text-xl font-bold w-[54%] text-left">ยกเลิกเชื่อมกับ LINE</span>
+                <span v-else class="text-xl font-bold w-[45%] text-left">เชื่อมต่อกับ LINE</span>
             </button>
 
             <!-- ลบบัญชีผู้ใช้ -->
@@ -689,7 +694,7 @@ onMounted(() => {
                 class="mx-auto mt-[60px] mb-16 p-2 w-[80%] bg-[#F23B3B] text-white rounded-md shadow-inner flex items-center justify-center space-x-3"
             >
                 <font-awesome-icon :icon="['fas', 'trash-can']" class="text-[38px]" />
-                <span class="text-xl font-bold w-[30%] text-left">ลบบัญชีผู้ใช้งาน</span>
+                <span class="text-xl font-bold w-[45%] text-left">ลบบัญชีผู้ใช้งาน</span>
             </button>
     </div>
 
